@@ -1,20 +1,20 @@
 import { useSkin } from '@hooks/useSkin'
-import { Link, Redirect } from 'react-router-dom'
-import { Facebook, Twitter, Mail, GitHub } from 'react-feather'
-import InputPasswordToggle from '@components/input-password-toggle'
-import { Row, Col, CardTitle, CardText, Form, FormGroup, Label, Input, CustomInput, Button } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import { ChevronLeft } from 'react-feather'
+import InputPassword from '@components/input-password-toggle'
+import { Row, Col, CardTitle, CardText, Form, FormGroup, Label, Button } from 'reactstrap'
 import '@styles/base/pages/page-auth.scss'
 
-const Login = () => {
+const ResetPassword = () => {
   const [skin, setSkin] = useSkin()
 
-  const illustration = skin === 'dark' ? 'login-v2-dark.svg' : 'login-v2.svg',
+  const illustration = skin === 'dark' ? 'reset-password-v2-dark.svg' : 'reset-password-v2.svg',
     source = require(`@src/assets/images/pages/${illustration}`).default
 
   return (
     <div className='auth-wrapper auth-v2'>
       <Row className='auth-inner m-0'>
-        <Link className='brand-logo' to='/'>
+        <Link className='brand-logo' to='/' onClick={e => e.preventDefault()}>
           <svg viewBox='0 0 139 95' version='1.1' height='28'>
             <defs>
               <linearGradient x1='100%' y1='10.5120544%' x2='50%' y2='89.4879456%' id='linearGradient-1'>
@@ -63,7 +63,7 @@ const Login = () => {
               </g>
             </g>
           </svg>
-          <h2 className='brand-text text-primary ml-1'>Vuexy</h2>
+          <h2 className='brand-text text-primary ml-1'>WOW</h2>
         </Link>
         <Col className='d-none d-lg-flex align-items-center p-5' lg='8' sm='12'>
           <div className='w-100 d-lg-flex align-items-center justify-content-center px-5'>
@@ -73,57 +73,32 @@ const Login = () => {
         <Col className='d-flex align-items-center auth-bg px-2 p-lg-5' lg='4' sm='12'>
           <Col className='px-xl-2 mx-auto' sm='8' md='6' lg='12'>
             <CardTitle tag='h2' className='font-weight-bold mb-1'>
-              Welcome to Vuexy! 👋
+              Reset Password 🔒
             </CardTitle>
-            <CardText className='mb-2'>Please sign-in to your account and start the adventure</CardText>
-            <Form className='auth-login-form mt-2' onSubmit={e => e.preventDefault()}>
+            <CardText className='mb-2'>Your new password must be different from previously used passwords</CardText>
+            <Form className='auth-reset-password-form mt-2' onSubmit={e => e.preventDefault()}>
               <FormGroup>
-                <Label className='form-label' for='login-email'>
-                  Email
+                <Label className='form-label' for='new-password'>
+                  New Password
                 </Label>
-                <Input type='email' id='login-email' placeholder='john@example.com' autoFocus />
+                <InputPassword className='input-group-merge' id='new-password' autoFocus />
               </FormGroup>
               <FormGroup>
-                <div className='d-flex justify-content-between'>
-                  <Label className='form-label' for='login-password'>
-                    Password
-                  </Label>
-                  <Link to='/'>
-                    <small>Forgot Password?</small>
-                  </Link>
-                </div>
-                <InputPasswordToggle className='input-group-merge' id='login-password' />
+                <Label className='form-label' for='confirm-password'>
+                  Confirm Password
+                </Label>
+                <InputPassword className='input-group-merge' id='confirm-password' />
               </FormGroup>
-              <FormGroup>
-                <CustomInput type='checkbox' className='custom-control-Primary' id='remember-me' label='Remember Me' />
-              </FormGroup>
-              <Button.Ripple tag={Link} to='/' color='primary' block>
-                Sign in
+              <Button.Ripple color='primary' block>
+                Set New Password
               </Button.Ripple>
             </Form>
             <p className='text-center mt-2'>
-              <span className='mr-25'>New on our platform?</span>
-              <Link to='/'>
-                <span>Create an account</span>
+              <Link to='/pages/login-v2'>
+                <ChevronLeft className='mr-25' size={14} />
+                <span className='align-middle'>Back to login</span>
               </Link>
             </p>
-            <div className='divider my-2'>
-              <div className='divider-text'>or</div>
-            </div>
-            <div className='auth-footer-btn d-flex justify-content-center'>
-              <Button.Ripple color='facebook'>
-                <Facebook size={14} />
-              </Button.Ripple>
-              <Button.Ripple color='twitter'>
-                <Twitter size={14} />
-              </Button.Ripple>
-              <Button.Ripple color='google'>
-                <Mail size={14} />
-              </Button.Ripple>
-              <Button.Ripple className='mr-0' color='github'>
-                <GitHub size={14} />
-              </Button.Ripple>
-            </div>
           </Col>
         </Col>
       </Row>
@@ -131,4 +106,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default ResetPassword
