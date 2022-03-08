@@ -1,11 +1,12 @@
 // ** React Imports
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 // ** Third Party Components
 import Proptypes from 'prop-types'
 import classnames from 'classnames'
-import { ChevronUp } from 'react-feather'
-import { Collapse, Card, CardHeader, CardBody, CardTitle } from 'reactstrap'
+import { ChevronDown, ChevronUp } from 'react-feather'
+import { Collapse, Card, CardHeader, CardBody, CardTitle, Badge } from 'reactstrap'
 
 const AppCollapse = props => {
   // ** Props
@@ -67,18 +68,31 @@ const AppCollapse = props => {
             /*eslint-disable */
             {...(toggle === 'hover'
               ? {
-                  onMouseEnter: () => handleCollapseToggle(index)
-                }
+                onMouseEnter: () => handleCollapseToggle(index)
+              }
               : {
-                  onClick: () => handleCollapseToggle(index)
-                })}
-            /*eslint-enable */
+                onClick: () => handleCollapseToggle(index)
+              })}
+          /*eslint-enable */
           >
             <CardTitle className='collapse-title'>{title}</CardTitle>
-            <ChevronUp size={14} />
+            <ChevronDown size={14} />
           </CardHeader>
           <Collapse isOpen={accordion ? openCollapse === index : openCollapse.includes(index)}>
-            <CardBody>{content}</CardBody>
+            <CardBody>
+              {content}
+              <br />
+              <br />
+              <div>
+                <Badge tag={Link}
+                  to={`/faq/1`} color='light-primary'>
+                  Edit
+                </Badge> &nbsp;
+                <Badge color='light-danger'>
+                  Delete
+                </Badge>
+              </div>
+            </CardBody>
           </Collapse>
         </Card>
       )

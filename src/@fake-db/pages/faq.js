@@ -1,10 +1,43 @@
 import mock from '../mock'
 const data = {
   faqData: {
-    // payment
-    payment: {
+    // General
+    general: {
+      icon: 'Package',
+      title: 'General',
+      subtitle: 'Which license do I need?',
+      qandA: [
+        {
+          question: 'Can I avail of an open delivery?',
+          ans:
+            'Pastry pudding cookie toffee bonbon jujubes jujubes powder topping. Jelly beans gummi bears sweet roll bonbon muffin liquorice. Wafer lollipop sesame snaps. Brownie macaroon cookie muffin cupcake candy caramels tiramisu. Oat cake chocolate cake sweet jelly-o brownie biscuit marzipan. Jujubes donut marzipan chocolate bar. Jujubes sugar plum jelly beans tiramisu icing cheesecake.'
+        },
+        {
+          question: 'I haven’t received the refund of my returned shipment. What do I do?',
+          ans:
+            'Sweet pie candy jelly. Sesame snaps biscuit sugar plum. Sweet roll topping fruitcake. Caramels liquorice biscuit ice cream fruitcake cotton candy tart. Donut caramels gingerbread jelly-o gingerbread pudding. Gummi bears pastry marshmallow candy canes pie. Pie apple pie carrot cake.'
+        },
+        {
+          question: 'How can I ship my order to an international location?',
+          ans:
+            'Tart gummies dragée lollipop fruitcake pastry oat cake. Cookie jelly jelly macaroon icing jelly beans soufflé cake sweet. Macaroon sesame snaps cheesecake tart cake sugar plum. Dessert jelly-o sweet muffin chocolate candy pie tootsie roll marzipan.'
+        },
+        {
+          question: 'I missed the delivery of my order today. What should I do?',
+          ans:
+            'Cheesecake muffin cupcake dragée lemon drops tiramisu cake gummies chocolate cake. Marshmallow tart croissant. Tart dessert tiramisu marzipan lollipop lemon drops. Cake bonbon bonbon gummi bears topping jelly beans brownie jujubes muffin. Donut croissant jelly-o cake marzipan. Liquorice marzipan cookie wafer tootsie roll. Tootsie roll sweet cupcake.'
+        },
+        {
+          question: 'The delivery of my order is delayed. What should I do?',
+          ans:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
+        }
+      ]
+    },
+    // Profile
+    profile: {
       icon: 'CreditCard',
-      title: 'Payment',
+      title: 'My Account/ Profile',
       subtitle: 'Which license do I need?',
       qandA: [
         {
@@ -44,10 +77,10 @@ const data = {
         }
       ]
     },
-    // delivery
-    delivery: {
+    // Business
+    business: {
       icon: 'ShoppingBag',
-      title: 'Delivery',
+      title: 'Business',
       subtitle: 'Which license do I need?',
       qandA: [
         {
@@ -78,10 +111,10 @@ const data = {
         }
       ]
     },
-    // cancellation and return
-    cancellationReturn: {
+    // Using WOW Talent
+    usingwow: {
       icon: 'RefreshCw',
-      title: 'Cancellation & Return',
+      title: 'Using WOW Talent',
       subtitle: 'Which license do I need?',
       qandA: [
         {
@@ -118,67 +151,6 @@ const data = {
           question: 'What are the timings for self-collecting shipments from the Delhivery Branch?',
           ans:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Euismod lacinia at quis risus sed vulputate odio ut enim. Dictum at tempor commodo ullamcorper a lacus vestibulum.'
-        }
-      ]
-    },
-    // my orders
-    myOrders: {
-      icon: 'Package',
-      title: 'My Orders',
-      subtitle: 'Which license do I need?',
-      qandA: [
-        {
-          question: 'Can I avail of an open delivery?',
-          ans:
-            'Pastry pudding cookie toffee bonbon jujubes jujubes powder topping. Jelly beans gummi bears sweet roll bonbon muffin liquorice. Wafer lollipop sesame snaps. Brownie macaroon cookie muffin cupcake candy caramels tiramisu. Oat cake chocolate cake sweet jelly-o brownie biscuit marzipan. Jujubes donut marzipan chocolate bar. Jujubes sugar plum jelly beans tiramisu icing cheesecake.'
-        },
-        {
-          question: 'I haven’t received the refund of my returned shipment. What do I do?',
-          ans:
-            'Sweet pie candy jelly. Sesame snaps biscuit sugar plum. Sweet roll topping fruitcake. Caramels liquorice biscuit ice cream fruitcake cotton candy tart. Donut caramels gingerbread jelly-o gingerbread pudding. Gummi bears pastry marshmallow candy canes pie. Pie apple pie carrot cake.'
-        },
-        {
-          question: 'How can I ship my order to an international location?',
-          ans:
-            'Tart gummies dragée lollipop fruitcake pastry oat cake. Cookie jelly jelly macaroon icing jelly beans soufflé cake sweet. Macaroon sesame snaps cheesecake tart cake sugar plum. Dessert jelly-o sweet muffin chocolate candy pie tootsie roll marzipan.'
-        },
-        {
-          question: 'I missed the delivery of my order today. What should I do?',
-          ans:
-            'Cheesecake muffin cupcake dragée lemon drops tiramisu cake gummies chocolate cake. Marshmallow tart croissant. Tart dessert tiramisu marzipan lollipop lemon drops. Cake bonbon bonbon gummi bears topping jelly beans brownie jujubes muffin. Donut croissant jelly-o cake marzipan. Liquorice marzipan cookie wafer tootsie roll. Tootsie roll sweet cupcake.'
-        },
-        {
-          question: 'The delivery of my order is delayed. What should I do?',
-          ans:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
-        }
-      ]
-    },
-    // product and services
-    productServices: {
-      icon: 'Settings',
-      title: 'Product & Services',
-      subtitle: 'Which license do I need?',
-      qandA: [
-        {
-          question: 'How can I register a complaint against the courier executive who came to deliver my order?',
-          ans:
-            'Pastry pudding cookie toffee bonbon jujubes jujubes powder topping. Jelly beans gummi bears sweet roll bonbon muffin liquorice. Wafer lollipop sesame snaps. Brownie macaroon cookie muffin cupcake candy caramels tiramisu. Oat cake chocolate cake sweet jelly-o brownie biscuit marzipan. Jujubes donut marzipan chocolate bar. Jujubes sugar plum jelly beans tiramisu icing cheesecake.'
-        },
-        {
-          question: 'The status for my shipment shows as ‘not picked up’. What do I do?',
-          ans:
-            'Sweet pie candy jelly. Sesame snaps biscuit sugar plum. Sweet roll topping fruitcake. Caramels liquorice biscuit ice cream fruitcake cotton candy tart. Donut caramels gingerbread jelly-o gingerbread pudding. Gummi bears pastry marshmallow candy canes pie. Pie apple pie carrot cake.'
-        },
-        {
-          question: 'How can I get a proof of delivery for my shipment?',
-          ans:
-            'Tart gummies dragée lollipop fruitcake pastry oat cake. Cookie jelly jelly macaroon icing jelly beans soufflé cake sweet. Macaroon sesame snaps cheesecake tart cake sugar plum. Dessert jelly-o sweet muffin chocolate candy pie tootsie roll marzipan.'
-        },
-        {
-          question: 'How can I avail your services?',
-          ans:
-            'Cheesecake muffin cupcake dragée lemon drops tiramisu cake gummies chocolate cake. Marshmallow tart croissant. Tart dessert tiramisu marzipan lollipop lemon drops. Cake bonbon bonbon gummi bears topping jelly beans brownie jujubes muffin. Donut croissant jelly-o cake marzipan. Liquorice marzipan cookie wafer tootsie roll. Tootsie roll sweet cupcake.'
         }
       ]
     }

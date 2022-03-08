@@ -1,4 +1,4 @@
-import { Mail, Server, User, Circle } from 'react-feather'
+import { Mail, Server, User, Circle, Framer } from 'react-feather'
 
 export default [
   {
@@ -31,5 +31,11 @@ export default [
         navLink: '/internaluser/list'
       }
     ]
+  },
+  {
+    id: 'faq',
+    title: 'FAQ',
+    icon: <Framer size={20} />,
+    navLink: '/faq'
   }
 ]

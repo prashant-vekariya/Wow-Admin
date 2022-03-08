@@ -48,6 +48,16 @@ const PagesRoutes = [
         }
     },
     {
+        path: '/faq',
+        exact: true,
+        component: lazy(() => import('../../views/faq'))
+    },
+    {
+        path: '/faq/:id',
+        exact: true,
+        component: lazy(() => import('../../views/faq/FaqEdit'))
+    },
+    {
         path: '/error',
         component: lazy(() => import('../../views/Error')),
         layout: 'BlankLayout'
