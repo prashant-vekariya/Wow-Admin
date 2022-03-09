@@ -4,15 +4,15 @@ import { Card, CardBody } from 'reactstrap'
 
 const StatsHorizontal = ({ icon, color, stats, statTitle, className, ...rest }) => {
   return (
-    <Card>
+    <Card className={`${color ? `${color}-bgcolor` : 'bg-light-primary'}`}>
       <CardBody className={className}>
-        <div className='d-flex justify-content-between align-items-center'>
+        <div className='d-flex justify-content-around align-items-center'>
+          <div className={`avatar avatar-stats p-50 m-0`}>
+            <div className='avatar-content'>{icon}</div>
+          </div>
           <div>
             <h2 className='font-weight-bolder mb-0'>{stats}</h2>
             <p className='card-text'>{statTitle}</p>
-          </div>
-          <div className={`avatar avatar-stats p-50 m-0 ${color ? `bg-light-${color}` : 'bg-light-primary'}`}>
-            <div className='avatar-content'>{icon}</div>
           </div>
         </div>
       </CardBody>

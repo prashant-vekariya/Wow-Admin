@@ -63,7 +63,7 @@ const Sidebar = props => {
         ) : (
           <Fragment>
             {/* Vertical Menu Header */}
-            <VerticalMenuHeader setGroupOpen={setGroupOpen} menuHover={menuHover} {...props} />
+            {/* <VerticalMenuHeader setGroupOpen={setGroupOpen} menuHover={menuHover} {...props} /> */}
             {/* Vertical Menu Header Shadow */}
             <div className='shadow-bottom' ref={shadowRef}></div>
             {/* Perfect Scrollbar */}
@@ -72,7 +72,7 @@ const Sidebar = props => {
               options={{ wheelPropagation: false }}
               onScrollY={container => scrollMenu(container)}
             >
-              <ul className='navigation navigation-main'>
+              <ul className='navigation navigation-main mt-1'>
                 <VerticalNavMenuItems
                   items={navigation}
                   groupActive={groupActive}

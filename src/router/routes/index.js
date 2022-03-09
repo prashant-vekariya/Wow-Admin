@@ -3,7 +3,7 @@ import Authentication from './Authentication'
 import PagesRoutes from './Pages'
 
 // ** Document title
-const TemplateTitle = '%s - WOW Admin'
+// const TemplateTitle = '%s - WOW Admin'
 
 // ** Default Route
 const DefaultRoute = '/dashboard'
@@ -15,4 +15,4 @@ const Routes = [
   ...PagesRoutes
 ]
 
-export { DefaultRoute, TemplateTitle, Routes }
+export { DefaultRoute, Routes }
