@@ -124,7 +124,7 @@ export const columns = [
     name: 'Actions',
     minWidth: '100px',
     cell: row => <span className='text-capitalize'>
-      <Link to={`/apps/invoice/preview/${row.id}`} id={`pw-tooltip-${row.id}`}>
+      <Link to={`/wowuser/view/${row.id}`} id={`pw-tooltip-${row.id}`}>
         <Eye size={17} className='mx-1' />
       </Link>
       <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>

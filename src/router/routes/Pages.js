@@ -16,6 +16,11 @@ const PagesRoutes = [
         component: lazy(() => import('../../views/Roles/edit'))
     },
     {
+        path: '/category',
+        exact: true,
+        component: lazy(() => import('../../views/Category'))
+    },
+    {
         path: '/wowuser/list',
         component: lazy(() => import('../../views/Users/WowUser/list'))
     },
@@ -46,6 +51,16 @@ const PagesRoutes = [
         meta: {
             navLink: '/apps/user/view'
         }
+    },
+    {
+        path: '/pageinfo',
+        exact: true,
+        component: lazy(() => import('../../views/Page-Info'))
+    },
+    {
+        path: '/pageinfoedit/:name',
+        exact: true,
+        component: lazy(() => import('../../views/Page-Info/InfoEdit'))
     },
     {
         path: '/faq',

@@ -4,11 +4,8 @@ import { Fragment } from 'react'
 import UserDropdown from './UserDropdown'
 
 // ** Third Party Components
-import { Bell, Sun, Moon, Menu } from 'react-feather'
-import { NavItem, NavLink, Badge } from 'reactstrap'
-import themeConfig from '@configs/themeConfig'
-import NotificationDropdown from './NotificationDropdown'
-
+import { Sun, Moon, Menu } from 'react-feather'
+import { NavItem, NavLink } from 'reactstrap'
 
 const NavbarUser = props => {
   // ** Props
@@ -32,27 +29,14 @@ const NavbarUser = props => {
           </NavLink>
         </NavItem>
       </ul>
-      {/* <div className='bookmark-wrapper d-flex align-items-center'>
+      <div className='bookmark-wrapper d-flex align-items-center'>
         <NavItem className='d-none d-lg-block'>
           <NavLink className='nav-link-style'>
             <ThemeToggler />
           </NavLink>
         </NavItem>
-      </div> */}
-      <img src={themeConfig.app.appLogoImage} alt='logo' className='ml-1 ml-lg-0' />
-      {/* <div className='navbar-header'>
-        <ul className='nav navbar-nav flex-row'>
-          <li className='nav-item mr-auto'>
-            <NavLink to='/' className='navbar-brand'>
-              <span className='brand-logo'>
-              </span>
-              <h2 className='brand-text mb-0'>{themeConfig.app.appName}</h2>
-            </NavLink>
-          </li>
-        </ul>
-      </div> */}
+      </div>
       <ul className='nav navbar-nav align-items-center ml-auto'>
-        <NotificationDropdown />
         <UserDropdown />
       </ul>
     </Fragment>

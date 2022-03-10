@@ -5,44 +5,44 @@ const data = {
   knowledgeBase: [
     {
       id: 1,
-      category: 'sales-automation',
-      img: require('@src/assets/images/illustration/sales.svg').default,
-      title: 'Sales Automation',
+      category: 'dance',
+      img: require('@src/assets/images/illustration/dance.jpg').default,
+      title: 'Dance',
       desc: 'There is perhaps no better demonstration of the folly of image of our tiny world.'
     },
     {
       id: 2,
-      category: 'marketing-automation',
-      img: require('@src/assets/images/illustration/marketing.svg').default,
-      title: 'Marketing Automation',
+      category: 'standup-comedy',
+      img: require('@src/assets/images/illustration/Stand-up-comedy.jpg').default,
+      title: 'Standup Comedy',
       desc: 'Look again at that dot. That’s here. That’s home. That’s us. On it everyone you love.'
     },
     {
       id: 3,
-      category: 'api-questions',
-      img: require('@src/assets/images/illustration/api.svg').default,
-      title: 'API Questions',
+      category: 'vocal',
+      img: require('@src/assets/images/illustration/Vocal.jpg').default,
+      title: 'Vocal',
       desc: 'every hero and coward, every creator and destroyer of civilization.'
     },
     {
       id: 4,
-      category: 'personalization',
-      img: require('@src/assets/images/illustration/personalization.svg').default,
-      title: 'Personalization',
+      category: 'acting',
+      img: require('@src/assets/images/illustration/Acting.jpg').default,
+      title: 'Acting',
       desc: 'It has been said that astronomy is a humbling and character experience.'
     },
     {
       id: 5,
-      category: 'email-marketing',
-      img: require('@src/assets/images/illustration/email.svg').default,
-      title: 'Email Marketing',
+      category: 'djing',
+      img: require('@src/assets/images/illustration/Djing.jpg').default,
+      title: 'Djing',
       desc: 'There is perhaps no better demonstration of the folly of human conceits.'
     },
     {
       id: 6,
-      category: 'demand-generation',
-      img: require('@src/assets/images/illustration/demand.svg').default,
-      title: 'Demand Generation',
+      category: 'instrumental',
+      img: require('@src/assets/images/illustration/Instrumental.jpg').default,
+      title: 'Instrumental',
       desc: 'Competent means we will never take anything for granted.'
     }
   ],
@@ -276,9 +276,8 @@ const data = {
       }
     ],
     // ! Here we have used require for image source but in API it shall be URL of live image, this is just for demo purpose
-    content: `<p>It has been said that astronomy is a humbling and character-building experience. There is perhaps no better demonstration of the folly of human conceits than this distant image of our tiny world. To me, it underscores our responsibility to deal more kindly with one another, and to preserve and cherish the pale blue dot, the only home we’ve ever known. The Earth is a very small stage in a vast cosmic arena. Think of the rivers of blood spilled by all those generals and emperors so that, in glory and triumph, they could become the momentary masters of a fraction of a dot. Think of the endless cruelties visited by the inhabitants of one corner of this pixel on the scarcely distinguishable inhabitants of some other corner, how frequent their misunderstandings, how eager they are to kill one another, how fervent their hatreds.</p><p class="ql-align-center"><img class="img-fluid w-100" src="${
-      require('@src/assets/images/pages/kb-image.jpg').default
-    }" /></p><h5>Houston</h5><p>that may have seemed like a very long final phase. The auto targeting was taking us right into a … crater, with a large number of big boulders and rocks … and it required …flying manually over the rock field to find a reasonably good area.</p><ul class="list-group list-group-circle ml-2 mt-2"><li class="list-group-item"><a class="text-body" href="/" rel="noopener noreferrer" >I am a stranger. I come in peace. Take me to your leader and there will be a massive reward for you in eternity.</a></li><li class="list-group-item"><a class="text-body" href="/" rel="noopener noreferrer" >It’s just mind-blowingly awesome. I apologize, and I wish I was more articulate, but it’s hard to be articulate when your mind’s blown—but in a very good way.</a></li><li class="list-group-item"><a class="text-body" href="/" rel="noopener noreferrer" >A good rule for rocket experimenters to follow is this</a></li></ul>`
+    content: `<p>It has been said that astronomy is a humbling and character-building experience. There is perhaps no better demonstration of the folly of human conceits than this distant image of our tiny world. To me, it underscores our responsibility to deal more kindly with one another, and to preserve and cherish the pale blue dot, the only home we’ve ever known. The Earth is a very small stage in a vast cosmic arena. Think of the rivers of blood spilled by all those generals and emperors so that, in glory and triumph, they could become the momentary masters of a fraction of a dot. Think of the endless cruelties visited by the inhabitants of one corner of this pixel on the scarcely distinguishable inhabitants of some other corner, how frequent their misunderstandings, how eager they are to kill one another, how fervent their hatreds.</p><p class="ql-align-center"><img class="img-fluid w-100" src="${require('@src/assets/images/pages/kb-image.jpg').default
+      }" /></p><h5>Houston</h5><p>that may have seemed like a very long final phase. The auto targeting was taking us right into a … crater, with a large number of big boulders and rocks … and it required …flying manually over the rock field to find a reasonably good area.</p><ul class="list-group list-group-circle ml-2 mt-2"><li class="list-group-item"><a class="text-body" href="/" rel="noopener noreferrer" >I am a stranger. I come in peace. Take me to your leader and there will be a massive reward for you in eternity.</a></li><li class="list-group-item"><a class="text-body" href="/" rel="noopener noreferrer" >It’s just mind-blowingly awesome. I apologize, and I wish I was more articulate, but it’s hard to be articulate when your mind’s blown—but in a very good way.</a></li><li class="list-group-item"><a class="text-body" href="/" rel="noopener noreferrer" >A good rule for rocket experimenters to follow is this</a></li></ul>`
   }
 }
 

@@ -43,106 +43,82 @@ const UserInfoCard = ({ selectedUser }) => {
       <CardBody>
         <Row>
           <Col xl='6' lg='12' className='d-flex flex-column justify-content-between border-container-lg'>
-            <div className='user-avatar-section'>
-              <div className='d-flex justify-content-start'>
-                {renderUserImg()}
-                <div className='d-flex flex-column ml-1'>
-                  <div className='user-info mb-1'>
-                    <h4 className='mb-0'>{selectedUser !== null ? selectedUser.fullName : 'Eleanor Aguilar'}</h4>
-                    <CardText tag='span'>
-                      {selectedUser !== null ? selectedUser.email : 'eleanor.aguilar@gmail.com'}
-                    </CardText>
-                  </div>
-                  <div className='d-flex flex-wrap align-items-center'>
-                    <Button.Ripple tag={Link} to={`/apps/user/edit/${selectedUser.id}`} color='primary'>
-                      Edit
-                    </Button.Ripple>
-                    <Button.Ripple className='ml-1' color='danger' outline>
-                      Delete
-                    </Button.Ripple>
-                  </div>
-                </div>
-              </div>
+            <h5 className='mb-75'>About</h5>
+            <CardText>Tart I love sugar plum I love oat cake. Sweet ⭐️ roll caramels I love jujubes. Topping cake wafer.</CardText>
+            <div className='mt-2'>
+              <h5 className='mb-75'>Joined:</h5>
+              <CardText>November 15, 2015</CardText>
             </div>
-            <div className='d-flex align-items-center user-total-numbers'>
-              <div className='d-flex align-items-center mr-2'>
-                <div className='color-box bg-light-primary'>
-                  <DollarSign className='text-primary' />
-                </div>
-                <div className='ml-1'>
-                  <h5 className='mb-0'>23.3k</h5>
-                  <small>Monthly Sales</small>
-                </div>
-              </div>
-              <div className='d-flex align-items-center'>
-                <div className='color-box bg-light-success'>
-                  <TrendingUp className='text-success' />
-                </div>
-                <div className='ml-1'>
-                  <h5 className='mb-0'>$99.87K</h5>
-                  <small>Annual Profit</small>
-                </div>
-              </div>
+            <div className='mt-2'>
+              <h5 className='mb-75'>Lives:</h5>
+              <CardText>New York, USA</CardText>
+            </div>
+            <div className='mt-2'>
+              <h5 className='mb-75'>Email:</h5>
+              <CardText>{selectedUser.email}</CardText>
+            </div>
+            <div className='mt-2'>
+              <h5 className='mb-75'>Website:</h5>
+              <CardText>www.abc.com</CardText>
             </div>
           </Col>
           <Col xl='6' lg='12' className='mt-2 mt-xl-0'>
             <div className='user-info-wrapper'>
-              <div className='d-flex flex-wrap align-items-center'>
+              <div className='d-flex flex-wrap align-items-center mt-1'>
                 <div className='user-info-title'>
-                  <User className='mr-1' size={14} />
-                  <CardText tag='span' className='user-info-title font-weight-bold mb-0'>
-                    Username
+                  <h5 className='mb-75'> <User className='mr-1' size={14} />
+                    Username</h5>
+                  <CardText tag='span' className='user-info-title ml-3'>
+                    {selectedUser !== null ? selectedUser.username : 'eleanor.aguilar'}
                   </CardText>
                 </div>
-                <CardText className='mb-0'>
+                {/* <CardText className='mb-0'>
                   {selectedUser !== null ? selectedUser.username : 'eleanor.aguilar'}
-                </CardText>
+                </CardText> */}
               </div>
-              <div className='d-flex flex-wrap align-items-center my-50'>
+              <div className='d-flex flex-wrap align-items-center my-3'>
                 <div className='user-info-title'>
-                  <Check className='mr-1' size={14} />
-                  <CardText tag='span' className='user-info-title font-weight-bold mb-0'>
-                    Status
+                  <h5 className='mb-75'> <Check className='mr-1' size={14} /> Status </h5>
+                  <CardText tag='span' className='user-info-title  mb-0 ml-3'>
+                    {selectedUser !== null ? selectedUser.status : 'Active'}
                   </CardText>
                 </div>
-                <CardText className='text-capitalize mb-0'>
+                {/* <CardText className='text-capitalize mb-0'>
                   {selectedUser !== null ? selectedUser.status : 'Active'}
-                </CardText>
+                </CardText> */}
               </div>
-              <div className='d-flex flex-wrap align-items-center my-50'>
+              {/* <div className='d-flex flex-wrap align-items-center my-50'>
                 <div className='user-info-title'>
-                  <Star className='mr-1' size={14} />
-                  <CardText tag='span' className='user-info-title font-weight-bold mb-0'>
-                    Role
+                  <h5 className='mb-75'> <Star className='mr-1' size={14} /> Role </h5>
+                  <CardText tag='span' className='user-info-title  mb-0 ml-3'>
+                    {selectedUser !== null ? selectedUser.role : 'Admin'}
                   </CardText>
                 </div>
                 <CardText className='text-capitalize mb-0'>
                   {selectedUser !== null ? selectedUser.role : 'Admin'}
                 </CardText>
-              </div>
-              <div className='d-flex flex-wrap align-items-center my-50'>
+              </div> */}
+              <div className='d-flex flex-wrap align-items-center my-3'>
                 <div className='user-info-title'>
-                  <Flag className='mr-1' size={14} />
-                  <CardText tag='span' className='user-info-title font-weight-bold mb-0'>
-                    Country
+                  <h5 className='mb-75'> <Flag className='mr-1' size={14} />Country </h5>
+                  <CardText tag='span' className='user-info-title  mb-0 ml-3'>
+                    {selectedUser !== null ? selectedUser.country : 'England'}
                   </CardText>
                 </div>
-                <CardText className='mb-0'>{selectedUser !== null ? selectedUser.country : 'England'}</CardText>
               </div>
               <div className='d-flex flex-wrap align-items-center'>
                 <div className='user-info-title'>
-                  <Phone className='mr-1' size={14} />
-                  <CardText tag='span' className='user-info-title font-weight-bold mb-0'>
-                    Contact
+                  <h5 className='mb-75'> <Phone className='mr-1' size={14} />Contact </h5>
+                  <CardText tag='span' className='user-info-title  mb-0 ml-3'>
+                    {selectedUser !== null ? selectedUser.contact : '(123) 456-7890'}
                   </CardText>
                 </div>
-                <CardText className='mb-0'>{selectedUser !== null ? selectedUser.contact : '(123) 456-7890'}</CardText>
               </div>
             </div>
           </Col>
         </Row>
       </CardBody>
-    </Card>
+    </Card >
   )
 }
 

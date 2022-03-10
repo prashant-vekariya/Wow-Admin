@@ -7,7 +7,10 @@ import { getUser } from '../store/action'
 import { useSelector, useDispatch } from 'react-redux'
 
 // ** Reactstrap
-import { Row, Col, Alert } from 'reactstrap'
+import Avatar from '@components/avatar'
+import coverImg from '@src/assets/images/banner/banner-12.jpg'
+import { Row, Col, Card, CardBody, CardImg, Badge, Alert } from 'reactstrap'
+import profileImg from '@src/assets/images/portrait/small/avatar-s-9.jpg'
 
 // ** User View Components
 import PlanCard from './PlanCard'
@@ -32,27 +35,70 @@ const UserView = props => {
 
   return store.selectedUser !== null && store.selectedUser !== undefined ? (
     <div className='app-user-view'>
-      <Row>
-        <Col xl='9' lg='8' md='7'>
+      <Row className='match-height'>
+        <Col lg='4' md='4'>
+          <Card className='card-profile'>
+            <CardImg className='img-fluid' src={coverImg} top />
+            <CardBody>
+              <div className='profile-image-wrapper'>
+                <div className='profile-image'>
+                  <Avatar img={store.selectedUser.avatar} />
+                </div>
+              </div>
+              <h3>Curtis Stone</h3>
+              <h6 className='text-muted'>Malaysia</h6>
+              <Badge className='profile-badge' color='light-primary'>
+                Pro Level
+              </Badge>
+              <hr className='mb-2' />
+              <div className='d-flex justify-content-between align-items-center'>
+                <div>
+                  <h6 className='text-muted font-weight-bolder'>Followers</h6>
+                  <h3 className='mb-0'>10.3k</h3>
+                </div>
+                <div>
+                  <h6 className='text-muted font-weight-bolder'>Following</h6>
+                  <h3 className='mb-0'>156</h3>
+                </div>
+                <div>
+                  <h6 className='text-muted font-weight-bolder'>Videos</h6>
+                  <h3 className='mb-0'>23</h3>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+        </Col>
+        <Col md='8'>
           <UserInfoCard selectedUser={store.selectedUser} />
         </Col>
-        <Col xl='3' lg='4' md='5'>
-          <PlanCard selectedUser={store.selectedUser} />
-        </Col>
       </Row>
       <Row>
-        <Col md='6'>
+        <Col md='12'>
           <UserTimeline />
         </Col>
-        <Col md='6'>
-          <PermissionsTable />
-        </Col>
       </Row>
-      <Row>
-        <Col sm='12'>
-          {/* <InvoiceList /> */}
-        </Col>
-      </Row>
+      {/* <div className='app-user-view'>
+        <Row>
+          <Col xl='9' lg='8' md='7'>
+            <UserInfoCard selectedUser={store.selectedUser} />
+          </Col>
+          <Col xl='3' lg='4' md='5'>
+            <PlanCard selectedUser={store.selectedUser} />
+          </Col>
+        </Row>
+        <Row>
+          <Col md='6'>
+            <UserTimeline />
+          </Col>
+          <Col md='6'>
+            <PermissionsTable />
+          </Col>
+        </Row>
+        <Row>
+          <Col sm='12'>
+            <InvoiceList />
+          </Col>
+        </Row> */}
     </div>
   ) : (
     <Alert color='danger'>

@@ -6,10 +6,6 @@ import { NavLink, useLocation, matchPath, useParams } from 'react-router-dom'
 import { Badge } from 'reactstrap'
 import classnames from 'classnames'
 
-// ** Store & Actions
-import { useDispatch } from 'react-redux'
-import { handleLogout } from '@store/actions/auth'
-
 // ** Vertical Menu Array Of Items
 import navigation from '@src/navigation/vertical'
 
@@ -35,9 +31,6 @@ const VerticalNavMenuLink = ({
   // ** URL Vars
   const location = useLocation()
   const currentURL = location.pathname
-
-  // ** Store Vars
-  const dispatch = useDispatch()
 
   // ** To match path
   const match = matchPath(currentURL, {
@@ -81,11 +74,6 @@ const VerticalNavMenuLink = ({
         disabled: item.disabled,
         active: item.navLink === activeItem
       })}
-      onClick={() => {
-        if (item.title === 'Logout') {
-          dispatch(handleLogout())
-        }
-      }}
     >
       <LinkTag
         className='d-flex align-items-center'
@@ -93,20 +81,20 @@ const VerticalNavMenuLink = ({
         /*eslint-disable */
         {...(item.externalLink === true
           ? {
-            href: item.navLink || '/'
-          }
-          : {
-            to: item.navLink || '/',
-            isActive: (match, location) => {
-              if (!match) {
-                return false
-              }
-
-              if (match.url && match.url !== '' && match.url === item.navLink) {
-                currentActiveItem = item.navLink
-              }
+              href: item.navLink || '/'
             }
-          })}
+          : {
+              to: item.navLink || '/',
+              isActive: (match, location) => {
+                if (!match) {
+                  return false
+                }
+
+                if (match.url && match.url !== '' && match.url === item.navLink) {
+                  currentActiveItem = item.navLink
+                }
+              }
+            })}
         /*eslint-enable */
         onClick={e => {
           if (!item.navLink.length) {
