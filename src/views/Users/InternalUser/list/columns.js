@@ -9,8 +9,8 @@ import { getUser, deleteUser } from '../store/action'
 import { store } from '@store/storeConfig/store'
 
 // ** Third Party Components
-import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
-import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2, Archive } from 'react-feather'
+import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledTooltip } from 'reactstrap'
+import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2, Archive, Eye } from 'react-feather'
 
 // ** Renders Client Columns
 const renderClient = row => {
@@ -67,34 +67,34 @@ const statusObj = {
 }
 
 export const columns = [
-  // {
-  //   name: 'Name',
-  //   minWidth: '297px',
-  //   selector: 'fullName',
-  //   sortable: true,
-  //   cell: row => (
-  //     <div className='d-flex justify-content-left align-items-center'>
-  //       {renderClient(row)}
-  //       <div className='d-flex flex-column'>
-  //         <Link
-  //           to={`/apps/user/view/${row.id}`}
-  //           className='user-name text-truncate mb-0'
-  //           onClick={() => store.dispatch(getUser(row.id))}
-  //         >
-  //           <span className='font-weight-bold'>{row.fullName}</span>
-  //         </Link>
-  //         <small className='text-truncate text-muted mb-0'>@{row.username}</small>
-  //       </div>
-  //     </div>
-  //   )
-  // },
-  // {
-  //   name: 'Email',
-  //   minWidth: '320px',
-  //   selector: 'email',
-  //   sortable: true,
-  //   cell: row => row.email
-  // },
+  {
+    name: 'Name',
+    minWidth: '297px',
+    selector: 'fullName',
+    sortable: true,
+    cell: row => (
+      <div className='d-flex justify-content-left align-items-center'>
+        {renderClient(row)}
+        <div className='d-flex flex-column'>
+          <Link
+            // to={`/apps/user/view/${row.id}`}
+            className='user-name text-truncate mb-0'
+          // onClick={() => store.dispatch(getUser(row.id))}
+          >
+            <span className='font-weight-bold'>{row.fullName}</span>
+          </Link>
+          {/* <small className='text-truncate text-muted mb-0'>@{row.username}</small> */}
+        </div>
+      </div>
+    )
+  },
+  {
+    name: 'Email',
+    minWidth: '320px',
+    selector: 'email',
+    sortable: true,
+    cell: row => row.email
+  },
   {
     name: 'Role',
     minWidth: '172px',
@@ -103,7 +103,7 @@ export const columns = [
     cell: row => renderRole(row)
   },
   // {
-  //   name: 'Plan',
+  //   name: 'Is Expert',
   //   minWidth: '138px',
   //   selector: 'currentPlan',
   //   sortable: true,
@@ -123,6 +123,14 @@ export const columns = [
   {
     name: 'Actions',
     minWidth: '100px',
+    // cell: row => 
+    // <span className='text-capitalize'>
+    //   <Link to={`/wowuser/view/${row.id}`} id={`pw-tooltip-${row.id}`}>
+    //     <Eye size={17} className='mx-1' />
+    //   </Link>
+    //   <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>
+    //     Details
+    //   </UncontrolledTooltip></span>
     cell: row => (
       <UncontrolledDropdown>
         <DropdownToggle tag='div' className='btn btn-sm'>
@@ -131,22 +139,19 @@ export const columns = [
         <DropdownMenu right>
           <DropdownItem
             tag={Link}
-            to={`/roles/permission/${row.id}`}
+            to={`/internaluser/edit/${row.id}`}
             className='w-100'
             onClick={() => store.dispatch(getUser(row.id))}
           >
             <Archive size={14} className='mr-50' />
-            <span className='align-middle'>Permissions</span>
+            <span className='align-middle'>Edit</span>
           </DropdownItem>
           <DropdownItem className='w-100' onClick={() => store.dispatch(deleteUser(row.id))}>
             <Trash2 size={14} className='mr-50' />
             <span className='align-middle'>Delete</span>
           </DropdownItem>
           <DropdownItem
-            tag={Link}
-            to={`/apps/user/view/${row.id}`}
             className='w-100'
-            onClick={() => store.dispatch(getUser(row.id))}
           >
             <FileText size={14} className='mr-50' />
             <span className='align-middle'>Deactive Now</span>

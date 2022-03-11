@@ -79,11 +79,49 @@ const UserAccountTab = ({ selectedUser }) => {
     return (
       <Row>
         <Col sm='12'>
-          <h4 className='text-capitalize'>Set Permissions for <strong>{userData.role}</strong> </h4>
+          <Media className='mb-2'>
+            {renderUserAvatar()}
+            <Media className='mt-50' body>
+              <h4>{selectedUser.fullName} </h4>
+              <div className='d-flex flex-wrap mt-1 px-0'>
+                <Button.Ripple id='change-img' tag={Label} className='mr-75 mb-0' color='primary'>
+                  <span className='d-none d-sm-block'>Change</span>
+                  <span className='d-block d-sm-none'>
+                    <Edit size={14} />
+                  </span>
+                  <input type='file' hidden id='change-img' onChange={onChange} accept='image/*' />
+                </Button.Ripple>
+                <Button.Ripple color='secondary' outline>
+                  <span className='d-none d-sm-block'>Remove</span>
+                  <span className='d-block d-sm-none'>
+                    <Trash2 size={14} />
+                  </span>
+                </Button.Ripple>
+              </div>
+            </Media>
+          </Media>
         </Col>
-        <Col sm='12' className='mt-2'>
+        <Col sm='12'>
           <Form onSubmit={e => e.preventDefault()}>
             <Row>
+              <Col md='4' sm='12'>
+                <FormGroup>
+                  <Label for='username'>Username</Label>
+                  <Input type='text' id='username' placeholder='Username' defaultValue={userData.username} />
+                </FormGroup>
+              </Col>
+              <Col md='4' sm='12'>
+                <FormGroup>
+                  <Label for='name'>Name</Label>
+                  <Input type='text' id='name' placeholder='Name' defaultValue={userData.fullName} />
+                </FormGroup>
+              </Col>
+              <Col md='4' sm='12'>
+                <FormGroup>
+                  <Label for='email'>Email</Label>
+                  <Input type='text' id='email' placeholder='Email' defaultValue={userData.email} />
+                </FormGroup>
+              </Col>
               <Col md='4' sm='12'>
                 <FormGroup>
                   <Label for='status'>Status</Label>
@@ -92,6 +130,29 @@ const UserAccountTab = ({ selectedUser }) => {
                     <option value='active'>Active</option>
                     <option value='inactive'>Inactive</option>
                   </Input>
+                </FormGroup>
+              </Col>
+              <Col md='4' sm='12'>
+                <FormGroup>
+                  <Label for='role'>Role</Label>
+                  <Input type='select' name='role' id='role' defaultValue={userData.role}>
+                    <option value='admin'>Admin</option>
+                    <option value='author'>Author</option>
+                    <option value='editor'>Editor</option>
+                    <option value='maintainer'>Maintainer</option>
+                    <option value='subscriber'>Subscriber</option>
+                  </Input>
+                </FormGroup>
+              </Col>
+              <Col md='4' sm='12'>
+                <FormGroup>
+                  <Label for='company'>Password</Label>
+                  <Input
+                    type='text'
+                    id='company'
+                    defaultValue={userData.company}
+                    placeholder='WinDon Technologies Pvt Ltd'
+                  />
                 </FormGroup>
               </Col>
               <Col sm='12'>
@@ -137,7 +198,7 @@ const UserAccountTab = ({ selectedUser }) => {
                   Save Changes
                 </Button.Ripple>
                 <Button.Ripple tag={Link}
-                  to={`/roles`} color='secondary' outline>
+                  to={`/internaluser/list`} color='secondary' outline>
                   Cancel
                 </Button.Ripple>
               </Col>

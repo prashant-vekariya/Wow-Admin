@@ -21,30 +21,25 @@ const PagesRoutes = [
         component: lazy(() => import('../../views/Category'))
     },
     {
+        path: '/category/:name',
+        exact: true,
+        component: lazy(() => import('../../views/Category/CategoryEdit'))
+    },
+    {
         path: '/wowuser/list',
         component: lazy(() => import('../../views/Users/WowUser/list'))
     },
     {
         path: '/internaluser/list',
-        component: lazy(() => import('../../views/Users/WowUser/list'))
+        component: lazy(() => import('../../views/Users/InternalUser/list'))
     },
-    // {
-    //   path: '/wowuser/edit',
-    //   exact: true,
-    //   component: () => <Redirect to='/apps/user/edit/1' />
-    // },
     {
-        path: '/wowuser/edit/:id',
-        component: lazy(() => import('../../views/Users/WowUser/edit')),
+        path: '/internaluser/edit/:id',
+        component: lazy(() => import('../../views/Users/InternalUser/edit')),
         meta: {
             navLink: '/apps/user/edit'
         }
     },
-    // {
-    //   path: '/wowuser/view',
-    //   exact: true,
-    //   component: () => <Redirect to='/apps/user/view/1' />
-    // },
     {
         path: '/wowuser/view/:id',
         component: lazy(() => import('../../views/Users/WowUser/view')),
@@ -71,6 +66,16 @@ const PagesRoutes = [
         path: '/faq/:id',
         exact: true,
         component: lazy(() => import('../../views/faq/FaqEdit'))
+    },
+    {
+        path: '/clips',
+        exact: true,
+        component: lazy(() => import('../../views/Clips'))
+    },
+    {
+        path: '/reportedcontent',
+        exact: true,
+        component: lazy(() => import('../../views/ReportedContent'))
     },
     {
         path: '/error',

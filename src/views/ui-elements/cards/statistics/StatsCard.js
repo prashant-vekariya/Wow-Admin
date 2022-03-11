@@ -1,33 +1,44 @@
 import classnames from 'classnames'
 import Avatar from '@components/avatar'
 import { TrendingUp, User, Box, DollarSign } from 'react-feather'
-import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col, Media } from 'reactstrap'
+import { BiDownload } from 'react-icons/bi'
+import { MdOutlineStarRate } from 'react-icons/md'
+import { FaRegTrashAlt } from 'react-icons/fa'
+import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col, Media, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 
 const StatsCard = ({ cols }) => {
   const data = [
     {
-      title: '230k',
-      subtitle: 'Total Clips',
+      title: '270k',
+      subtitle: 'App installs',
+      info: '500K Installs till date',
       color: 'light-primary',
-      icon: <TrendingUp size={24} />
+      icon: <BiDownload size={24} />
     },
     {
       title: '8.549k',
-      subtitle: 'Total Users',
+      subtitle: 'DAU',
       color: 'light-info',
       icon: <User size={24} />
     },
     {
       title: '1.423k',
-      subtitle: 'Total Experts',
+      subtitle: 'MAU',
       color: 'light-danger',
       icon: <Box size={24} />
     },
     {
-      title: '$9745',
-      subtitle: 'Revenue',
+      title: '945',
+      subtitle: 'Total Uninstall',
+      info: '64K UnInstalls till date',
       color: 'light-success',
-      icon: <DollarSign size={24} />
+      icon: <FaRegTrashAlt size={24} />
+    },
+    {
+      title: '10%',
+      subtitle: 'Churn Rate',
+      color: 'light-warning',
+      icon: <MdOutlineStarRate size={35} />
     }
   ]
 
@@ -37,7 +48,7 @@ const StatsCard = ({ cols }) => {
       return (
         <Col
           key={index}
-          {...cols}
+          // {...cols}
           className={classnames({
             [`mb-2 mb-${margin[0]}-0`]: index !== data.length - 1
           })}
@@ -47,6 +58,7 @@ const StatsCard = ({ cols }) => {
             <Media className='my-auto' body>
               <h4 className='font-weight-bolder mb-0'>{item.title}</h4>
               <CardText className='font-small-3 mb-0'>{item.subtitle}</CardText>
+              <CardText className='font-small-1 mb-0'>{item.info}</CardText>
             </Media>
           </Media>
         </Col>
@@ -57,8 +69,20 @@ const StatsCard = ({ cols }) => {
   return (
     <Card className='card-statistics'>
       <CardHeader>
-        <CardTitle tag='h4'>Statistics</CardTitle>
-        <CardText className='card-text font-small-2 mr-25 mb-0'>Updated 1 month ago</CardText>
+        {/* <CardTitle tag='h4'>Statistics</CardTitle> */}
+        <h3>Statistics</h3>
+
+        <CardText className='card-text font-small-2 mr-25 mb-0'>
+          <UncontrolledButtonDropdown>
+            <DropdownToggle className='grey-bgcolor br-20 text-dark' color='flat-secondary' caret>
+              Today
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem href='/' tag='a'>Option 1</DropdownItem>
+              <DropdownItem href='/' tag='a'>Option 2</DropdownItem>
+              <DropdownItem href='/' tag='a'>Option 3</DropdownItem>
+            </DropdownMenu>
+          </UncontrolledButtonDropdown></CardText>
       </CardHeader>
       <CardBody className='statistics-body'>
         <Row>{renderData()}</Row>
