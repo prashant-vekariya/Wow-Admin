@@ -1,1 +1,0 @@
-{"version":3,"sources":["views/ReportedContent/index.js"],"names":["ReportedContent"],"mappings":"+GAAA,uBAQeA,UANS,WACpB,OACI","file":"static/js/38.8186eeb7.chunk.js","sourcesContent":["import React from 'react'\r\n\r\nconst ReportedContent = () => {\r\n    return (\r\n        <div>Reported Content</div>\r\n    )\r\n}\r\n\r\nexport default ReportedContent"],"sourceRoot":""}

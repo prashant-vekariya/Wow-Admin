@@ -1,2 +1,0 @@
-(this["webpackJsonpwow-admin"]=this["webpackJsonpwow-admin"]||[]).push([[38],{968:function(n,t,e){"use strict";e.r(t);e(0);var i=e(5);t.default=function(){return Object(i.jsx)("div",{children:"Reported Content"})}}}]);
-//# sourceMappingURL=38.8186eeb7.chunk.js.map
