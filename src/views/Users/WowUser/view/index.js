@@ -13,7 +13,7 @@ import { Row, Col, Card, CardBody, CardImg, Badge, Alert } from 'reactstrap'
 import profileImg from '@src/assets/images/portrait/small/avatar-s-9.jpg'
 
 // ** User View Components
-import PlanCard from './PlanCard'
+// import PlanCard from './Following'
 import UserInfoCard from './UserInfoCard'
 import UserTimeline from './UserTimeline'
 // import InvoiceList from '../../../invoice/list'
@@ -38,11 +38,11 @@ const UserView = props => {
       <Row className='match-height'>
         <Col lg='4' md='4'>
           <Card className='card-profile'>
-            <CardImg className='img-fluid' src={coverImg} top />
+            <CardImg className='img-fluid' src={coverImg} alt='' top />
             <CardBody>
               <div className='profile-image-wrapper'>
                 <div className='profile-image'>
-                  <Avatar img={store.selectedUser.avatar} />
+                  <Avatar img={store.selectedUser.avatar} alt='' />
                 </div>
               </div>
               <h3>Curtis Stone</h3>
@@ -56,10 +56,10 @@ const UserView = props => {
                   <h6 className='text-muted font-weight-bolder'>Followers</h6>
                   <h3 className='mb-0'>10.3k</h3>
                 </div>
-                <div>
+                <Link to={`/wowuser/view/${id}/following`}>
                   <h6 className='text-muted font-weight-bolder'>Following</h6>
                   <h3 className='mb-0'>156</h3>
-                </div>
+                </Link>
                 <div>
                   <h6 className='text-muted font-weight-bolder'>Videos</h6>
                   <h3 className='mb-0'>23</h3>

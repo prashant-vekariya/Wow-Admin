@@ -42,7 +42,16 @@ const PagesRoutes = [
     },
     {
         path: '/wowuser/view/:id',
+        exact: true,
         component: lazy(() => import('../../views/Users/WowUser/view')),
+        meta: {
+            navLink: '/apps/user/view'
+        }
+    },
+    {
+        path: '/wowuser/view/:id/following',
+        exact: true,
+        component: lazy(() => import('../../views/Users/WowUser/view/Following')),
         meta: {
             navLink: '/apps/user/view'
         }
@@ -76,6 +85,16 @@ const PagesRoutes = [
         path: '/reportedcontent',
         exact: true,
         component: lazy(() => import('../../views/ReportedContent'))
+    },
+    {
+        path: '/pushnotification',
+        exact: true,
+        component: lazy(() => import('../../views/PushNotification'))
+    },
+    {
+        path: '/setting',
+        exact: true,
+        component: lazy(() => import('../../views/Setting'))
     },
     {
         path: '/error',

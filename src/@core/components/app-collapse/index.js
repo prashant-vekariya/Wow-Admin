@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 // ** Third Party Components
 import Proptypes from 'prop-types'
 import classnames from 'classnames'
+import { ReactSortable } from 'react-sortablejs'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { Collapse, Card, CardHeader, CardBody, CardTitle, Badge } from 'reactstrap'
 
@@ -47,9 +48,12 @@ const AppCollapse = props => {
     }
   }
 
+  const [listArr, setListArr] = useState(data)
+
+
   // ** Function to render collapse
   const renderData = () => {
-    return data.map((item, index) => {
+    return listArr.map((item, index) => {
       const title = titleKey ? item[titleKey] : item.title,
         content = contentKey ? item[contentKey] : item.content
 
@@ -109,7 +113,9 @@ const AppCollapse = props => {
         'collapse-margin': type === 'margin'
       })}
     >
-      {renderData()}
+      <ReactSortable className='list-group' list={listArr} setList={setListArr}>
+        {renderData()}
+      </ReactSortable>
     </div>
   )
 }

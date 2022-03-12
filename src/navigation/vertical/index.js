@@ -1,4 +1,4 @@
-import { Mail, Server, User, Circle, Framer, Layers, AlertOctagon, Video } from 'react-feather'
+import { Mail, Server, User, Circle, Framer, Layers, AlertOctagon, Video, Bell, Settings } from 'react-feather'
 import { MdReportProblem } from 'react-icons/md'
 
 export default [
@@ -62,5 +62,17 @@ export default [
     title: 'Reported Content',
     icon: <MdReportProblem size={20} />,
     navLink: '/reportedcontent'
+  },
+  {
+    id: 'pushnotification',
+    title: 'Push Notification',
+    icon: <Bell size={20} />,
+    navLink: '/pushnotification'
+  },
+  {
+    id: 'setting',
+    title: 'Setting',
+    icon: <Settings size={20} />,
+    navLink: '/setting'
   }
 ]

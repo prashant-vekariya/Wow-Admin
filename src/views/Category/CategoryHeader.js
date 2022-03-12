@@ -1,5 +1,6 @@
 import { Search } from 'react-feather'
-import { Card, CardBody, CardText, Form, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import { Card, CardBody, CardText, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Button } from 'reactstrap'
 
 const FaqFilter = ({ searchTerm, setSearchTerm, handleFilter }) => {
   const onChange = e => {
@@ -18,9 +19,9 @@ const FaqFilter = ({ searchTerm, setSearchTerm, handleFilter }) => {
           backgroundImage: `url(${require('@src/assets/images/banner/banner.png').default})`
         }}
       >
-        <CardBody className='text-center'>
+        <CardBody className='text-center m-0'>
           <h2 className='text-primary'>WOW Categories</h2>
-          <CardText className='mb-2'>
+          <CardText className=''>
             Popular searches: <span className='font-weight-bolder'>Dance, Standup Comedy</span>
           </CardText>
           <Form className='kb-search-input' onSubmit={e => e.preventDefault()}>
@@ -33,6 +34,9 @@ const FaqFilter = ({ searchTerm, setSearchTerm, handleFilter }) => {
               <Input value={searchTerm} onChange={e => onChange(e)} placeholder='Find a Category...' />
             </InputGroup>
           </Form>
+          <Button.Ripple className='mt-2' color='primary' outline tag={Link} to='/category/new' >
+            <span className='d-sm-block'>Add New Category</span>
+          </Button.Ripple>
         </CardBody>
       </Card>
     </div>

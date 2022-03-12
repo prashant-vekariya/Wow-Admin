@@ -5,12 +5,12 @@ import { MdEdit } from 'react-icons/md'
 import AppCollapse from '@components/app-collapse'
 import illustration from '@src/assets/images/illustration/faq-illustrations.svg'
 import { Nav, NavItem, NavLink, Row, Col, TabContent, TabPane, Label, Input, FormGroup, Button, Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap'
-import EditFaqCategory from './EditFaqCategory'
+import EditFaqCategory from '../PushNotification/CreateNotification'
 
 const Faqs = ({ data }) => {
   const dataToRender = []
 
-  // const [listArr, setListArr] = useState(dataToRender)
+  const [listArr, setListArr] = useState(dataToRender)
 
   const [activeTab, setActiveTab] = useState('General')
   const [formModal, setFormModal] = useState(false)
@@ -23,39 +23,8 @@ const Faqs = ({ data }) => {
     dataToRender.push(val)
   })
 
-  // const modal = () => {
-  //   return (
-  //     <Modal isOpen={formModal} toggle={() => setFormModal(!formModal)} className='modal-dialog-centered'>
-  //       <ModalHeader toggle={() => setFormModal(!formModal)}>Update FAQ Category</ModalHeader>
-  //       <ModalBody>
-  //         <FormGroup>
-  //           <Label>Title</Label>
-  //           <Input placeholder={title} />
-  //         </FormGroup>
-  //         <FormGroup className='mb-2'>
-  //           <Label for='blog-edit-status'>Status</Label>
-  //           <Input
-  //             type='select'
-  //             id='blog-edit-status'
-  //           // value={status}
-  //           // onChange={e => setStatus(e.target.value)}
-  //           >
-  //             <option value='Published'>Active</option>
-  //             <option value='Inactive'>Inactive</option>
-  //           </Input>
-  //         </FormGroup>
-  //       </ModalBody>
-  //       <ModalFooter>
-  //         <Button color='primary' onClick={() => setFormModal(!formModal)}>
-  //           Save
-  //         </Button>{' '}
-  //       </ModalFooter>
-  //     </Modal>
-  //   )
-  // }
-
   const renderTabs = () => {
-    return dataToRender.map(item => {
+    return listArr.map(item => {
       const IconTag = Icon[item.icon]
       return (
         <NavItem key={item.title} tag='li'>
@@ -92,7 +61,6 @@ const Faqs = ({ data }) => {
               <span>{item.subtitle}</span>
             </div>
           </div>
-          {/* <ReactSortable tag='ul' className='list-group' list={listArr} setList={setListArr} > */}
           <AppCollapse
             className='mt-2'
             type='margin'
@@ -102,7 +70,6 @@ const Faqs = ({ data }) => {
             accordion
             {...(item.title === 'Payment' ? { active: 1 } : {})}
           />
-          {/* </ReactSortable> */}
         </TabPane>
       )
     })
@@ -114,7 +81,9 @@ const Faqs = ({ data }) => {
         <Col lg='3' md='4' sm='12'>
           <div className='faq-navigation d-flex justify-content-between flex-column mb-2 mb-md-0'>
             <Nav tag='ul' className='nav-left' pills vertical>
-              {renderTabs()}
+              <ReactSortable className='list-group' list={listArr} setList={setListArr} >
+                {renderTabs()}
+              </ReactSortable>
               <br />
               <Button.Ripple color='primary' outline onClick={() => {
                 setAddnew('Add New')

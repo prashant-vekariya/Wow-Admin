@@ -4,7 +4,6 @@ import { useParams, Link } from 'react-router-dom'
 
 // ** User Edit Components
 // import SocialTab from './Social'
-import AccountTab from './Account'
 import Avatar from '@components/avatar'
 // import InfoTab from './Information'
 
@@ -27,6 +26,7 @@ const CategoryEdit = () => {
             files = e.target.files
         reader.onload = function () {
             // setImg(reader.result)
+            console.log(reader.result)
         }
         reader.readAsDataURL(files[0])
     }
@@ -49,7 +49,7 @@ const CategoryEdit = () => {
                                     />
                                 </Row>
                                 <Row className='mt-1'>
-                                    <Button.Ripple id='change-img' className='mr-75 mb-0' color='primary'>
+                                    <Button.Ripple id='change-img' tag={Label} className='mr-75 mb-0' color='primary'>
                                         <span className='d-none d-sm-block'>Change</span>
                                         <span className='d-block d-sm-none'>
                                             <Edit size={14} />
@@ -69,6 +69,12 @@ const CategoryEdit = () => {
                                     <Row>
                                         <Col sm='12'>
                                             <FormGroup>
+                                                <Label for='sr no'>Sr No.</Label>
+                                                <Input type='number' id='sr no' placeholder='0' />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col sm='12'>
+                                            <FormGroup>
                                                 <Label for='username'>Category Name</Label>
                                                 <Input type='text' id='username' placeholder={params.name} />
                                             </FormGroup>
@@ -84,9 +90,9 @@ const CategoryEdit = () => {
                                                 <Label for='description'>Icon</Label>
                                                 <br />
                                                 <Avatar color='light-info' icon={<Star size={14} />} />
-                                                <Badge className="cursor-pointer" id='change-img' color='light-primary ml-3'>
+                                                <Badge className="cursor-pointer" id='change-icon' tag={Label} color='light-primary ml-3'>
                                                     <Edit size={25} />
-                                                    <input type='file' hidden id='change-img' onChange={onChange} accept='image/*' />
+                                                    <input type='file' hidden id='change-icon' onChange={onChange} accept='image/*' />
                                                 </Badge>
                                                 {/* <Input type='text' id='description' placeholder='description' /> */}
                                             </FormGroup>

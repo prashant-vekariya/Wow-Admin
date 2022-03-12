@@ -3,35 +3,25 @@ import { MdEdit } from 'react-icons/md'
 import { Label, Input, FormGroup, Button, Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledPopover, PopoverHeader, PopoverBody, Row } from 'reactstrap'
 
 
-const EditFaqCategory = ({ title }) => {
-    const [formModal, setFormModal] = useState(false)
+const CreateNotification = ({ title, formModal, setFormModal }) => {
     return (
         <>
             <div>
-                <MdEdit size={20} onClick={() => setFormModal(!formModal)} />
                 <Modal isOpen={formModal} toggle={() => setFormModal(!formModal)} className='modal-dialog-centered'>
-                    <ModalHeader toggle={() => setFormModal(!formModal)}>Update FAQ Category</ModalHeader>
+                    <ModalHeader toggle={() => setFormModal(!formModal)}> {title ? 'Update' : 'Create'} Push Notification</ModalHeader>
                     <ModalBody>
                         <FormGroup>
                             <Label>Title</Label>
                             <Input placeholder={title} />
                         </FormGroup>
                         <FormGroup className='mb-2'>
-                            <Label for='blog-edit-status'>Status</Label>
-                            <Input
-                                type='select'
-                                id='blog-edit-status'
-                            // value={status}
-                            // onChange={e => setStatus(e.target.value)}
-                            >
-                                <option value='Published'>Active</option>
-                                <option value='Inactive'>Inactive</option>
-                            </Input>
+                            <Label for='message'>Message</Label>
+                            <Input type='textarea' name='text' id='message' rows='3' placeholder='Write a Notification Message' />
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>
                         <Button color='primary' onClick={() => setFormModal(!formModal)}>
-                            Save
+                            {title ? 'Update' : 'Create'}
                         </Button>{' '}
                     </ModalFooter>
                 </Modal>
@@ -40,4 +30,4 @@ const EditFaqCategory = ({ title }) => {
     )
 }
 
-export default EditFaqCategory
+export default CreateNotification
