@@ -1,6 +1,8 @@
 // ** Checks if an object is empty (returns boolean)
 export const isObjEmpty = obj => Object.keys(obj).length === 0
 
+export const BASEURL = 'http://13.232.155.183:3000/api/admin'
+
 // ** Returns K format from a number
 export const kFormatter = num => (num > 999 ? `${(num / 1000).toFixed(1)}k` : num)
 
@@ -60,9 +62,11 @@ export const getUserData = () => JSON.parse(localStorage.getItem('userData'))
  * @param {String} userRole Role of user
  */
 export const getHomeRouteForLoggedInUser = userRole => {
+  // console.log(userRole)
   if (userRole === 'admin') return '/'
-  if (userRole === 'client') return '/access-control'
-  return '/login'
+  if (userRole === 'staff') return '/'
+  // if (userRole === 'client') return '/access-control'
+  // return '/login'
 }
 
 // ** React Select Theme Colors

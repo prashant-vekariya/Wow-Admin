@@ -1,6 +1,8 @@
+import { BASEURL } from '@utils'
+
 // ** Auth Endpoints
 export default {
-  loginEndpoint: '/jwt/login',
+  loginEndpoint: `${BASEURL}/login`,
   registerEndpoint: '/jwt/register',
   refreshEndpoint: '/jwt/refresh-token',
   logoutEndpoint: '/jwt/logout',
@@ -10,6 +12,6 @@ export default {
   tokenType: 'Bearer',
 
   // ** Value of this property will be used as key to store JWT token in storage
-  storageTokenKeyName: 'accessToken',
+  storageTokenKeyName: 'token',
   storageRefreshTokenKeyName: 'refreshToken'
 }

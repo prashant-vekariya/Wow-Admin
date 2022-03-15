@@ -21,7 +21,7 @@ const PagesRoutes = [
         component: lazy(() => import('../../views/Category'))
     },
     {
-        path: '/category/:name',
+        path: '/category/:id',
         exact: true,
         component: lazy(() => import('../../views/Category/CategoryEdit'))
     },

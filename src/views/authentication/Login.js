@@ -48,8 +48,10 @@ const Login = props => {
   const ability = useContext(AbilityContext)
   const dispatch = useDispatch()
   const history = useHistory()
-  const [email, setEmail] = useState('admin@demo.com')
-  const [password, setPassword] = useState('admin')
+  const [email, setEmail] = useState('pratikranpariya007@gmail.com')
+  const [password, setPassword] = useState('123456')
+  // const [email, setEmail] = useState('admin@demo.com')
+  // const [password, setPassword] = useState('admin')
 
   const { register, errors, handleSubmit } = useForm()
   const illustration = skin === 'dark' ? 'login-v2-dark.svg' : 'login-v2.svg',
@@ -60,14 +62,18 @@ const Login = props => {
       useJwt
         .login({ email, password })
         .then(res => {
-          const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
+          const data = {
+            ...res.data.data
+          }
+          // console.log(data)
+          // const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
           dispatch(handleLogin(data))
-          ability.update(res.data.userData.ability)
-          history.push(getHomeRouteForLoggedInUser(data.role))
-          toast.success(
-            <ToastContent name={data.fullName || data.username || 'John Doe'} role={data.role || 'admin'} />,
-            { transition: Slide, hideProgressBar: true, autoClose: 2000 }
-          )
+          // ability.update(res.data.data.data.roletype)
+          history.push(getHomeRouteForLoggedInUser(data.data.roletype))
+          // toast.success(
+          //   <ToastContent name={data.fullName || data.username || 'John Doe'} role={data.role || 'admin'} />,
+          //   { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+          // )
         })
         .catch(err => console.log(err))
     }
@@ -142,7 +148,7 @@ const Login = props => {
               <div className='alert-body font-small-2'>
                 <p>
                   <small className='mr-50'>
-                    <span className='font-weight-bold'>Admin:</span> admin@demo.com | admin
+                    <span className='font-weight-bold'>Admin:</span> pratikranpariya007 @gmail.com | 123456
                   </small>
                 </p>
                 {/* <p>
@@ -191,20 +197,20 @@ const Login = props => {
                   value={password}
                   id='login-password'
                   name='login-password'
-                  className='input-group-merge'
+                  // className='input-group-merge'
                   onChange={e => setPassword(e.target.value)}
                   className={classnames({ 'is-invalid': errors['login-password'] })}
                   innerRef={register({ required: true, validate: value => value !== '' })}
                 />
               </FormGroup>
-              <FormGroup>
+              {/* <FormGroup>
                 <CustomInput type='checkbox' className='custom-control-Primary' id='remember-me' label='Remember Me' />
-              </FormGroup>
+              </FormGroup> */}
               <Button.Ripple type='submit' color='primary' block>
                 Sign in
               </Button.Ripple>
             </Form>
-            <p className='text-center mt-2'>
+            {/* <p className='text-center mt-2'>
               <span className='mr-25'>New on our platform?</span>
               <Link to='/register'>
                 <span>Create an account</span>
@@ -226,7 +232,7 @@ const Login = props => {
               <Button.Ripple className='mr-0' color='github'>
                 <GitHub size={14} />
               </Button.Ripple>
-            </div>
+            </div> */}
           </Col>
         </Col>
       </Row>

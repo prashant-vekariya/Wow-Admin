@@ -1,14 +1,24 @@
 import axios from 'axios'
+import { toast, Slide } from 'react-toastify'
+import { BASEURL } from '@utils'
+
+const Token = `wow-talent_6586563476534 ${JSON.parse(localStorage.getItem('token'))}`
 
 // ** Get all Data
 export const getAllData = () => {
   return async dispatch => {
-    await axios.get('/api/users/list/all-data').then(response => {
-      dispatch({
-        type: 'GET_ALL_DATA',
-        data: response.data
-      })
-    })
+    console.log('response')
+    await axios.get(`${BASEURL}/role/get_role`, {
+      headers: {
+        authorization: Token
+      }
+    }).then(response => {
+      console.log(response)
+      // dispatch({
+      //   type: 'GET_ALL_DATA',
+      //   data: response.data
+      // })
+    }).catch(err => console.log(err))
   }
 }
 

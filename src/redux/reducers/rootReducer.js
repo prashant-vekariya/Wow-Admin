@@ -5,13 +5,17 @@ import { combineReducers } from 'redux'
 import auth from './auth'
 import navbar from './navbar'
 import layout from './layout'
-import users from '@src/views/Roles/store/reducer'
+import roles from '@src/views/Roles/store/reducer'
+import users from '@src/views/Users/WowUser/store/reducer'
+import category from '@src/views/Category/store/reducer'
 
 
 const rootReducer = combineReducers({
   auth,
   navbar,
   layout,
+  roles,
+  category,
   users
 })
 
