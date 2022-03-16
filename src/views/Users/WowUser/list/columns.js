@@ -18,52 +18,11 @@ const renderClient = row => {
     states = ['light-success', 'light-danger', 'light-warning', 'light-info', 'light-primary', 'light-secondary'],
     color = states[stateNum]
 
-  if (row.avatar.length) {
-    return <Avatar className='mr-1' img={row.avatar} width='32' height='32' />
+  if (row.profile_pic_url) {
+    return <Avatar className='mr-1' img={row.profile_pic_url} width='32' height='32' />
   } else {
-    return <Avatar color={color || 'primary'} className='mr-1' content={row.fullName || 'John Doe'} initials />
+    return <Avatar color={color || 'primary'} className='mr-1' content={row.display_name || 'John Doe'} initials />
   }
-}
-
-// ** Renders Role Columns
-const renderRole = row => {
-  const roleObj = {
-    subscriber: {
-      class: 'text-primary',
-      icon: User
-    },
-    maintainer: {
-      class: 'text-success',
-      icon: Database
-    },
-    editor: {
-      class: 'text-info',
-      icon: Edit2
-    },
-    author: {
-      class: 'text-warning',
-      icon: Settings
-    },
-    admin: {
-      class: 'text-danger',
-      icon: Slack
-    }
-  }
-
-  const Icon = roleObj[row.role] ? roleObj[row.role].icon : Edit2
-
-  return (
-    <span className='text-truncate text-capitalize align-middle'>
-      <Icon size={18} className={`${roleObj[row.role] ? roleObj[row.role].class : ''} mr-50`} />
-      {row.role}
-    </span>
-  )
-}
-
-const statusObj = {
-  pending: 'light-warning',
-  active: 'light-success',
-  inactive: 'light-secondary'
 }
 
 export const columns = [
@@ -76,14 +35,14 @@ export const columns = [
       <div className='d-flex justify-content-left align-items-center'>
         {renderClient(row)}
         <div className='d-flex flex-column'>
-          <Link
-            to={`/apps/user/view/${row.id}`}
+          <div
+            // to={`/apps/user/view/${row.id}`}
             className='user-name text-truncate mb-0'
-            onClick={() => store.dispatch(getUser(row.id))}
+          // onClick={() => store.dispatch(getUser(row.id))}
           >
-            <span className='font-weight-bold'>{row.fullName}</span>
-          </Link>
-          <small className='text-truncate text-muted mb-0'>@{row.username}</small>
+            <span className='font-weight-bold'>{row.display_name}</span>
+          </div>
+          <small className='text-truncate text-muted mb-0'>@{row.user_name}</small>
         </div>
       </div>
     )
@@ -93,21 +52,14 @@ export const columns = [
     minWidth: '320px',
     selector: 'email',
     sortable: true,
-    cell: row => row.email
+    cell: row => row.email_id
   },
-  // {
-  //   name: 'Role',
-  //   minWidth: '172px',
-  //   selector: 'role',
-  //   sortable: true,
-  //   cell: row => renderRole(row)
-  // },
   {
     name: 'Is Expert',
     minWidth: '138px',
     selector: 'currentPlan',
     sortable: true,
-    cell: row => <span className='text-capitalize'>{row.currentPlan}</span>
+    cell: row => <span className='text-capitalize'>{row.is_expert ? 'yes' : 'no'}</span>
   },
   {
     name: 'Status',
@@ -115,8 +67,8 @@ export const columns = [
     selector: 'status',
     sortable: true,
     cell: row => (
-      <Badge className='text-capitalize' color={statusObj[row.status]} pill>
-        {row.status}
+      <Badge className='text-capitalize' color={row.is_active ? 'light-success' : 'light-secondary'} pill>
+        {row.is_active ? 'Active' : 'inActive'}
       </Badge>
     )
   },
@@ -130,36 +82,5 @@ export const columns = [
       <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>
         Details
       </UncontrolledTooltip></span>
-    // cell: row => (
-    //   <UncontrolledDropdown>
-    //     <DropdownToggle tag='div' className='btn btn-sm'>
-    //       <MoreVertical size={14} className='cursor-pointer' />
-    //     </DropdownToggle>
-    //     <DropdownMenu right>
-    //       <DropdownItem
-    //         tag={Link}
-    //         to={`/apps/user/view/${row.id}`}
-    //         className='w-100'
-    //         onClick={() => store.dispatch(getUser(row.id))}
-    //       >
-    //         <FileText size={14} className='mr-50' />
-    //         <span className='align-middle'>Details</span>
-    //       </DropdownItem>
-    //       <DropdownItem
-    //         tag={Link}
-    //         to={`/apps/user/edit/${row.id}`}
-    //         className='w-100'
-    //         onClick={() => store.dispatch(getUser(row.id))}
-    //       >
-    //         <Archive size={14} className='mr-50' />
-    //         <span className='align-middle'>Edit</span>
-    //       </DropdownItem>
-    //       <DropdownItem className='w-100' onClick={() => store.dispatch(deleteUser(row.id))}>
-    //         <Trash2 size={14} className='mr-50' />
-    //         <span className='align-middle'>Delete</span>
-    //       </DropdownItem>
-    //     </DropdownMenu>
-    //   </UncontrolledDropdown>
-    // )
   }
 ]

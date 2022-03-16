@@ -1,25 +1,38 @@
 import axios from 'axios'
+import { BASEURL } from '@utils'
 
-// ** Get all Data
-export const getAllData = () => {
+const Token = `wow-talent_6586563476534 ${JSON.parse(localStorage.getItem('token'))}`
+
+//** Get all Data
+export const getAllWowUserData = () => {
   return async dispatch => {
-    await axios.get('/api/users/list/all-data').then(response => {
+    await axios.get(`${BASEURL}/user/userlist?limit=100000000000`, {
+      headers: {
+        authorization: Token
+      }
+    }).then(response => {
+      // console.log(response)
       dispatch({
         type: 'GET_ALL_DATA',
-        data: response.data
+        data: response.data.data.data
       })
     })
   }
 }
 
 // ** Get data on page or row change
-export const getData = params => {
+export const getWowUserList = params => {
   return async dispatch => {
-    await axios.get('/api/users/list/data', params).then(response => {
+    // console.log(params)
+    await axios.get(`${BASEURL}/user/userlist?page=${params.page}&limit=${params.limit}`, {
+      headers: {
+        authorization: Token
+      }
+    }).then(response => {
       dispatch({
         type: 'GET_DATA',
-        data: response.data.users,
-        totalPages: response.data.total,
+        data: response.data.data.data,
+        total: response.data.data.total_documents,
         params
       })
     })

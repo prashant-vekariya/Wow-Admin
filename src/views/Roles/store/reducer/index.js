@@ -1,29 +1,18 @@
 // ** Initial State
 const initialState = {
-  allData: [],
-  data: [],
-  total: 1,
-  params: {},
-  selectedUser: null
+  allRoleData: [],
+  redirect: '',
+  selectedRole: null
 }
 
 const roles = (state = initialState, action) => {
   switch (action.type) {
     case 'GET_ALL_DATA':
-      return { ...state, allData: action.data }
-    case 'GET_DATA':
-      return {
-        ...state,
-        data: action.data,
-        total: action.totalPages,
-        params: action.params
-      }
-    case 'GET_USER':
-      return { ...state, selectedUser: action.selectedUser }
-    case 'ADD_USER':
-      return { ...state }
-    case 'DELETE_USER':
-      return { ...state }
+      return { ...state, allRoleData: action.data, selectedRole: null, redirect: '' }
+    case 'GET_ROLE_DETAILS':
+      return { ...state, selectedRole: action.selectedRole }
+    case 'EDIT_ROLE':
+      return { ...state, redirect: action.redirect }
     default:
       return { ...state }
   }

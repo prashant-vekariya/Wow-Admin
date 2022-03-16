@@ -78,7 +78,7 @@ const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter,
 const UsersList = () => {
   // ** Store Vars
   const dispatch = useDispatch()
-  const store = useSelector(state => state.users)
+  const store = useSelector(state => state.internalusers)
 
   // ** States
   const [searchTerm, setSearchTerm] = useState('')

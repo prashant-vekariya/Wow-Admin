@@ -8,7 +8,7 @@ import Sidebar from './Sidebar'
 import { columns } from './columns'
 
 // ** Store & Actions
-import { getAllData, getData } from '../store/action'
+import { getAllWowUserData, getWowUserList } from '../store/action'
 import { useDispatch, useSelector } from 'react-redux'
 
 // ** Third Party Components
@@ -78,70 +78,34 @@ const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter,
 const UsersList = () => {
   // ** Store Vars
   const dispatch = useDispatch()
-  const store = useSelector(state => state.users)
+  const store = useSelector(state => state.wowusers)
 
   // ** States
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [currentRole, setCurrentRole] = useState({ value: '', label: 'Select Role' })
-  const [currentPlan, setCurrentPlan] = useState({ value: '', label: 'Select Plan' })
-  const [currentStatus, setCurrentStatus] = useState({ value: '', label: 'Select Status', number: 0 })
 
   // ** Function to toggle sidebar
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
 
   // ** Get data on mount
   useEffect(() => {
-    dispatch(getAllData())
     dispatch(
-      getData({
+      getWowUserList({
         page: currentPage,
-        perPage: rowsPerPage,
-        role: currentRole.value,
-        currentPlan: currentPlan.value,
-        status: currentStatus.value,
-        q: searchTerm
+        limit: rowsPerPage
       })
     )
-  }, [dispatch, store.data.length])
-
-  // ** User filter options
-  const roleOptions = [
-    { value: '', label: 'Select Role' },
-    { value: 'admin', label: 'Admin' },
-    { value: 'author', label: 'Author' },
-    { value: 'editor', label: 'Editor' },
-    { value: 'maintainer', label: 'Maintainer' },
-    { value: 'subscriber', label: 'Subscriber' }
-  ]
-
-  const planOptions = [
-    { value: '', label: 'Select Plan' },
-    { value: 'basic', label: 'Basic' },
-    { value: 'company', label: 'Company' },
-    { value: 'enterprise', label: 'Enterprise' },
-    { value: 'team', label: 'Team' }
-  ]
-
-  const statusOptions = [
-    { value: '', label: 'Select Status', number: 0 },
-    { value: 'pending', label: 'Pending', number: 1 },
-    { value: 'active', label: 'Active', number: 2 },
-    { value: 'inactive', label: 'Inactive', number: 3 }
-  ]
+    dispatch(getAllWowUserData())
+  }, [dispatch])
 
   // ** Function in get data on page change
   const handlePagination = page => {
     dispatch(
-      getData({
+      getWowUserList({
         page: page.selected + 1,
-        perPage: rowsPerPage,
-        role: currentRole.value,
-        currentPlan: currentPlan.value,
-        status: currentStatus.value,
-        q: searchTerm
+        limit: rowsPerPage
       })
     )
     setCurrentPage(page.selected + 1)
@@ -151,13 +115,9 @@ const UsersList = () => {
   const handlePerPage = e => {
     const value = parseInt(e.currentTarget.value)
     dispatch(
-      getData({
+      getWowUserList({
         page: currentPage,
-        perPage: value,
-        role: currentRole.value,
-        currentPlan: currentPlan.value,
-        status: currentStatus.value,
-        q: searchTerm
+        limit: value
       })
     )
     setRowsPerPage(value)
@@ -166,16 +126,6 @@ const UsersList = () => {
   // ** Function in get data on search query change
   const handleFilter = val => {
     setSearchTerm(val)
-    dispatch(
-      getData({
-        page: currentPage,
-        perPage: rowsPerPage,
-        role: currentRole.value,
-        currentPlan: currentPlan.value,
-        status: currentStatus.value,
-        q: val
-      })
-    )
   }
 
   // ** Custom Pagination
@@ -203,107 +153,24 @@ const UsersList = () => {
 
   // ** Table data to render
   const dataToRender = () => {
-    const filters = {
-      role: currentRole.value,
-      currentPlan: currentPlan.value,
-      status: currentStatus.value,
-      q: searchTerm
-    }
 
-    const isFiltered = Object.keys(filters).some(function (k) {
-      return filters[k].length > 0
-    })
-
-    if (store.data.length > 0) {
+    if (searchTerm !== '' && store.allData !== null) {
+      const queryLowered = searchTerm.toLowerCase()
+      const filteredData = store.allData.filter(user => (
+        (user.display_name && user.display_name.toLowerCase().includes(queryLowered)) ||
+        (user.email_id && user.email_id.toLowerCase().includes(queryLowered)) ||
+        (user.user_name && user.user_name.toLowerCase().includes(queryLowered))))
+      return filteredData
+      // return filteredData.slice(0, rowsPerPage)
+    } else if (store.data.length > 0) {
       return store.data
-    } else if (store.data.length === 0 && isFiltered) {
+    } else if (store.data.length === 0) {
       return []
-    } else {
-      return store.allData.slice(0, rowsPerPage)
     }
   }
 
   return (
     <Fragment>
-      {/* <Card>
-        <CardHeader>
-          <CardTitle tag='h4'>Search Filter</CardTitle>
-        </CardHeader>
-        <CardBody>
-          <Row>
-            <Col md='4'>
-              <Select
-                isClearable={false}
-                theme={selectThemeColors}
-                className='react-select'
-                classNamePrefix='select'
-                options={roleOptions}
-                value={currentRole}
-                onChange={data => {
-                  setCurrentRole(data)
-                  dispatch(
-                    getData({
-                      page: currentPage,
-                      perPage: rowsPerPage,
-                      role: data.value,
-                      currentPlan: currentPlan.value,
-                      status: currentStatus.value,
-                      q: searchTerm
-                    })
-                  )
-                }}
-              />
-            </Col>
-            <Col className='my-md-0 my-1' md='4'>
-              <Select
-                theme={selectThemeColors}
-                isClearable={false}
-                className='react-select'
-                classNamePrefix='select'
-                options={planOptions}
-                value={currentPlan}
-                onChange={data => {
-                  setCurrentPlan(data)
-                  dispatch(
-                    getData({
-                      page: currentPage,
-                      perPage: rowsPerPage,
-                      role: currentRole.value,
-                      currentPlan: data.value,
-                      status: currentStatus.value,
-                      q: searchTerm
-                    })
-                  )
-                }}
-              />
-            </Col>
-            <Col md='4'>
-              <Select
-                theme={selectThemeColors}
-                isClearable={false}
-                className='react-select'
-                classNamePrefix='select'
-                options={statusOptions}
-                value={currentStatus}
-                onChange={data => {
-                  setCurrentStatus(data)
-                  dispatch(
-                    getData({
-                      page: currentPage,
-                      perPage: rowsPerPage,
-                      role: currentRole.value,
-                      currentPlan: currentPlan.value,
-                      status: data.value,
-                      q: searchTerm
-                    })
-                  )
-                }}
-              />
-            </Col>
-          </Row>
-        </CardBody>
-      </Card> */}
-
       <Card>
         <DataTable
           noHeader

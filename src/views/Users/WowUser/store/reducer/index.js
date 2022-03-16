@@ -7,7 +7,7 @@ const initialState = {
   selectedUser: null
 }
 
-const users = (state = initialState, action) => {
+const wowusers = (state = initialState, action) => {
   switch (action.type) {
     case 'GET_ALL_DATA':
       return { ...state, allData: action.data }
@@ -15,7 +15,7 @@ const users = (state = initialState, action) => {
       return {
         ...state,
         data: action.data,
-        total: action.totalPages,
+        total: action.total,
         params: action.params
       }
     case 'GET_USER':
@@ -28,4 +28,4 @@ const users = (state = initialState, action) => {
       return { ...state }
   }
 }
-export default users
+export default wowusers

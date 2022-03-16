@@ -86,7 +86,7 @@ const CategoryEdit = () => {
             })
         } else {
             const datas = { category_id: params.id, ...data, icon }
-            console.log('00000', fd)
+            // console.log('00000', fd)
             dispatch(editCategory(datas)).then(() => {
                 dispatch(getAllCategory())
                 setTimeout(() => {
