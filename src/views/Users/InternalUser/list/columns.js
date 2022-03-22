@@ -3,14 +3,15 @@ import { Link } from 'react-router-dom'
 
 // ** Custom Components
 import Avatar from '@components/avatar'
+import AvatarBlank from '@src/assets/images/avatars/avatar-blank.png'
 
 // ** Store & Actions
-import { getUser, deleteUser } from '../store/action'
+import { getUser, deleteStaff, deactivateStaff } from '../store/action'
 import { store } from '@store/storeConfig/store'
 
 // ** Third Party Components
 import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledTooltip } from 'reactstrap'
-import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2, Archive, Eye } from 'react-feather'
+import { Edit, Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2, Archive, Eye } from 'react-feather'
 
 // ** Renders Client Columns
 const renderClient = row => {
@@ -23,41 +24,6 @@ const renderClient = row => {
   } else {
     return <Avatar color={color || 'primary'} className='mr-1' content={row.fullName || 'John Doe'} initials />
   }
-}
-
-// ** Renders Role Columns
-const renderRole = row => {
-  const roleObj = {
-    subscriber: {
-      class: 'text-primary',
-      icon: User
-    },
-    maintainer: {
-      class: 'text-success',
-      icon: Database
-    },
-    editor: {
-      class: 'text-info',
-      icon: Edit2
-    },
-    author: {
-      class: 'text-warning',
-      icon: Settings
-    },
-    admin: {
-      class: 'text-danger',
-      icon: Slack
-    }
-  }
-
-  const Icon = roleObj[row.role] ? roleObj[row.role].icon : Edit2
-
-  return (
-    <span className='text-truncate text-capitalize align-middle'>
-      <Icon size={18} className={`${roleObj[row.role] ? roleObj[row.role].class : ''} mr-50`} />
-      {row.role}
-    </span>
-  )
 }
 
 const statusObj = {
@@ -74,15 +40,11 @@ export const columns = [
     sortable: true,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
-        {renderClient(row)}
+        {/* <Avatar className='mr-1' img={row.avatar ? row.avatar : AvatarBlank} width='32' height='32' /> */}
         <div className='d-flex flex-column'>
-          <Link
-            // to={`/apps/user/view/${row.id}`}
-            className='user-name text-truncate mb-0'
-          // onClick={() => store.dispatch(getUser(row.id))}
-          >
-            <span className='font-weight-bold'>{row.fullName}</span>
-          </Link>
+          <div className='user-name text-truncate mb-0'  >
+            <span className='font-weight-bold text-capitalize'>{row.fullname}</span>
+          </div>
           {/* <small className='text-truncate text-muted mb-0'>@{row.username}</small> */}
         </div>
       </div>
@@ -100,64 +62,65 @@ export const columns = [
     minWidth: '172px',
     selector: 'role',
     sortable: true,
-    cell: row => renderRole(row)
+    cell: row => (
+      <strong className='text-truncate text-capitalize align-middle'>
+        {row.roletype}
+      </strong>
+    )
   },
-  // {
-  //   name: 'Is Expert',
-  //   minWidth: '138px',
-  //   selector: 'currentPlan',
-  //   sortable: true,
-  //   cell: row => <span className='text-capitalize'>{row.currentPlan}</span>
-  // },
   {
     name: 'Status',
     minWidth: '138px',
     selector: 'status',
     sortable: true,
     cell: row => (
-      <Badge className='text-capitalize' color={statusObj[row.status]} pill>
-        {row.status}
+      <Badge className='text-capitalize' color={row.is_active ? 'light-success' : 'light-secondary'} pill>
+        {row.is_active ? 'Active' : 'inActive'}
       </Badge>
     )
   },
   {
     name: 'Actions',
     minWidth: '100px',
-    // cell: row => 
-    // <span className='text-capitalize'>
-    //   <Link to={`/wowuser/view/${row.id}`} id={`pw-tooltip-${row.id}`}>
-    //     <Eye size={17} className='mx-1' />
-    //   </Link>
-    //   <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>
-    //     Details
-    //   </UncontrolledTooltip></span>
     cell: row => (
-      <UncontrolledDropdown>
-        <DropdownToggle tag='div' className='btn btn-sm'>
-          <MoreVertical size={14} className='cursor-pointer' />
-        </DropdownToggle>
-        <DropdownMenu right>
-          <DropdownItem
-            tag={Link}
-            to={`/internaluser/edit/${row.id}`}
-            className='w-100'
-            onClick={() => store.dispatch(getUser(row.id))}
+      <>
+        <Badge className='text-capitalize mr-1' color='light-info' id={`pw-tooltip-edit-${row._id}`} pill tag={Link}
+          to={`/internaluser/edit/${row._id}`}
+          onClick={() => store.dispatch(getUser(row._id))}
+        >
+          <Edit size={18} />
+          <UncontrolledTooltip placement='top' target={`pw-tooltip-edit-${row._id}`}>
+            Edit
+          </UncontrolledTooltip>
+        </Badge>
+        <Badge className='text-capitalize mr-1 cursor-pointer' color='light-danger' id={`pw-tooltip-delete-${row._id}`} pill
+          onClick={() => store.dispatch(deleteStaff({ soft_delete: true, staff_id: row._id }))}
+        >
+          <Trash2 size={18} />
+          <UncontrolledTooltip placement='top' target={`pw-tooltip-delete-${row._id}`}>
+            Delete
+          </UncontrolledTooltip>
+        </Badge>
+        {row.is_active ? (
+          <Badge className='text-capitalize cursor-pointer' color='light-secondary' id={`pw-tooltip-deactive-${row._id}`} pill
+            onClick={() => store.dispatch(deactivateStaff({ is_active: false, staff_id: row._id }))}
           >
-            <Archive size={14} className='mr-50' />
-            <span className='align-middle'>Edit</span>
-          </DropdownItem>
-          <DropdownItem className='w-100' onClick={() => store.dispatch(deleteUser(row.id))}>
-            <Trash2 size={14} className='mr-50' />
-            <span className='align-middle'>Delete</span>
-          </DropdownItem>
-          <DropdownItem
-            className='w-100'
+            <Archive size={24} />
+            <UncontrolledTooltip placement='top' target={`pw-tooltip-deactive-${row._id}`}>
+              Deactivate Now
+            </UncontrolledTooltip>
+          </Badge>
+        ) : (
+          <Badge className='text-capitalize cursor-pointer' color='light-secondary' id={`pw-tooltip-deactive-${row._id}`} pill
+            onClick={() => store.dispatch(deactivateStaff({ is_active: true, staff_id: row._id }))}
           >
-            <FileText size={14} className='mr-50' />
-            <span className='align-middle'>Deactive Now</span>
-          </DropdownItem>
-        </DropdownMenu>
-      </UncontrolledDropdown>
+            <Archive size={24} />
+            <UncontrolledTooltip placement='top' target={`pw-tooltip-deactive-${row._id}`}>
+              Activate Now
+            </UncontrolledTooltip>
+          </Badge>)
+        }
+      </>
     )
   }
 ]

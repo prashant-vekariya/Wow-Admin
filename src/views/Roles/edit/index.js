@@ -41,15 +41,9 @@ const RoleEdit = () => {
   }
 
   if (store.redirect) {
-    history.push(store.redirect)
-    toast.success(
-      <div className='toastify-header'>
-        <div className='title-wrapper'>
-          <h6 className='toast-title font-weight-bold text-uppercase'>Role Edited Successfully.!!</h6>
-        </div>
-      </div>,
-      { transition: Slide, hideProgressBar: true, autoClose: 3000 }
-    )
+    setTimeout(() => {
+      history.push(store.redirect)
+    }, 300)
   }
 
   return store.selectedRole !== null && store.selectedRole !== undefined && userData !== null && userData !== undefined ? (

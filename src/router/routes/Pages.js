@@ -62,19 +62,19 @@ const PagesRoutes = [
         component: lazy(() => import('../../views/Page-Info'))
     },
     {
-        path: '/pageinfoedit/:name',
+        path: '/pageinfoedit/:id',
         exact: true,
         component: lazy(() => import('../../views/Page-Info/InfoEdit'))
     },
     {
         path: '/faq',
         exact: true,
-        component: lazy(() => import('../../views/faq'))
+        component: lazy(() => import('../../views/Faq'))
     },
     {
         path: '/faq/:id',
         exact: true,
-        component: lazy(() => import('../../views/faq/FaqEdit'))
+        component: lazy(() => import('../../views/Faq/FaqEdit'))
     },
     {
         path: '/clips',

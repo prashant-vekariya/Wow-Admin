@@ -1,15 +1,16 @@
 import axios from 'axios'
-import { toast, Slide } from 'react-toastify'
+import { sucessTost, warningTost } from '@src/views/Tost'
 import { BASEURL } from '@utils'
 
 const Token = `wow-talent_6586563476534 ${JSON.parse(localStorage.getItem('token'))}`
+
+/* eslint-disable */
 
 // ** Get all Categories
 export const getAllCategory = () => {
   return async dispatch => {
     await axios.get(`${BASEURL}/category/get_category`, {
       headers: {
-        'content-type': 'multipart/form-data',
         authorization: Token
       }
     }).then(response => {
@@ -24,9 +25,15 @@ export const getAllCategory = () => {
 // ** Get One Category
 export const getCategoryDetail = id => {
   return async dispatch => {
-    await dispatch({
-      type: 'GET_CATEGORY_DETAILS',
-      selectedCategory: id
+    await axios.get(`${BASEURL}/category/category_detail?category_id=${id}`, {
+      headers: {
+        authorization: Token
+      }
+    }).then(response => {
+      dispatch({
+        type: 'GET_CATEGORY_DETAILS',
+        selectedCategory: response.data.data
+      })
     })
   }
 }
@@ -36,20 +43,20 @@ export const editCategory = prop => {
   return async dispatch => {
     await axios.post(`${BASEURL}/category/edit_category`, prop, {
       headers: {
+        'Content-Type': 'multipart/form-data',
         authorization: Token
       }
-    }).catch(err => {
-      if (err.response.data.error.msg === "Invalide body credentials") {
-        toast.warning(
-          <div className='toastify-header'>
-            <div className='title-wrapper'>
-              <h6 className='toast-title font-weight-bold text-uppercase'>CATEGORY NAME ALREADY TAKEN</h6>
-            </div>
-          </div>,
-          { transition: Slide, hideProgressBar: true, autoClose: 3000 }
-        )
-      }
+    }).then(() => {
+      dispatch({
+        type: 'ADD/EDIT_CATEGORY',
+        redirect: '/category'
+      })
+      dispatch(getAllCategory())
+      sucessTost('Category Edited Successfully.!!')
     })
+      .catch(err => {
+        warningTost(err.response.data.error.status)
+      })
   }
 }
 
@@ -61,37 +68,35 @@ export const addCategory = prop => {
         headers: {
           authorization: Token
         }
-      })
-      .then(response => {
-        // console.log('1212', response)
+      }).then(() => {
+        dispatch({
+          type: 'ADD/EDIT_CATEGORY',
+          redirect: '/category'
+        })
         dispatch(getAllCategory())
+        sucessTost('Category Added Successfully.!!')
       })
       .catch(err => {
-        toast.warning(
-          <div className='toastify-header'>
-            <div className='title-wrapper'>
-              <h6 className='toast-title font-weight-bold text-uppercase'>{err.response.data.error.msg}</h6>
-            </div>
-          </div>,
-          { transition: Slide, hideProgressBar: true, autoClose: 3000 }
-        )
+        warningTost(err.response.data.error.status)
       })
   }
 }
 
-// ** Delete user
-export const deleteUser = id => {
+// ** Delete Category
+export const deleteCategory = id => {
   return (dispatch, getState) => {
     axios
-      .delete('/apps/users/delete', { id })
-      .then(response => {
-        dispatch({
-          type: 'DELETE_USER'
-        })
+      .get(`${BASEURL}/category/delete_category?category_id=${id}`, {
+        headers: {
+          authorization: Token
+        }
       })
-      .then(() => {
-        dispatch(getData(getState().users.params))
-        dispatch(getAllData())
+      .then(response => {
+        dispatch(getAllCategory())
+        sucessTost('Category Deleted')
+      })
+      .catch((err) => {
+        warningTost(err.response.data.error.status)
       })
   }
 }

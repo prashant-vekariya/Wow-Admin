@@ -1,137 +1,198 @@
-import AvatarGroup from '@components/avatar-group'
-import react from '@src/assets/images/icons/react.svg'
-import vuejs from '@src/assets/images/icons/vuejs.svg'
-import angular from '@src/assets/images/icons/angular.svg'
-import bootstrap from '@src/assets/images/icons/bootstrap.svg'
-import avatar1 from '@src/assets/images/portrait/small/avatar-s-5.jpg'
-import avatar2 from '@src/assets/images/portrait/small/avatar-s-6.jpg'
-import avatar3 from '@src/assets/images/portrait/small/avatar-s-7.jpg'
-import img3 from '@src/assets/images/slider/06.jpg'
-import { MoreVertical, Edit, Trash } from 'react-feather'
-import { Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
+import React, { useState, useEffect } from 'react'
+import ReactPaginate from 'react-paginate'
+import DataTable from 'react-data-table-component'
 
-const avatarGroupData1 = [
-    {
-        title: 'Lilian',
-        img: avatar1,
-        imgHeight: 26,
-        imgWidth: 26
-    },
-    {
-        title: 'Alberto',
-        img: avatar2,
-        imgHeight: 26,
-        imgWidth: 26
-    },
-    {
-        title: 'Bruce',
-        img: avatar3,
-        imgHeight: 26,
-        imgWidth: 26
-    }
-]
+import { columns } from './columns'
 
-const avatarGroupData2 = [
-    {
-        title: 'Diana',
-        img: avatar1,
-        imgHeight: 26,
-        imgWidth: 26
-    },
-    {
-        title: 'Rey',
-        img: avatar2,
-        imgHeight: 26,
-        imgWidth: 26
-    },
-    {
-        title: 'James',
-        img: avatar3,
-        imgHeight: 26,
-        imgWidth: 26
-    }
-]
+// ** Store & Actions
+import { getAllReportedContent, getReportedContentList } from './store/action'
+import { useDispatch, useSelector } from 'react-redux'
 
-const avatarGroupData3 = [
-    {
-        title: 'Lee',
-        img: avatar1,
-        imgHeight: 26,
-        imgWidth: 26
-    },
-    {
-        title: 'Mario',
-        img: avatar2,
-        imgHeight: 26,
-        imgWidth: 26
-    },
-    {
-        title: 'Oswald',
-        img: avatar3,
-        imgHeight: 26,
-        imgWidth: 26
-    }
-]
+import { ChevronDown } from 'react-feather'
+import { Table, Badge, Card, Input, Row, Col, Label, CustomInput } from 'reactstrap'
 
-const avatarGroupData4 = [
-    {
-        title: 'Christie',
-        img: avatar1,
-        imgHeight: 26,
-        imgWidth: 26
-    },
-    {
-        title: 'Barnes',
-        img: avatar2,
-        imgHeight: 26,
-        imgWidth: 26
-    },
-    {
-        title: 'Arthur',
-        img: avatar3,
-        imgHeight: 26,
-        imgWidth: 26
-    }
-]
+// ** Styles
+import '@styles/react/libs/react-select/_react-select.scss'
+import '@styles/react/libs/tables/react-table-component.scss'
+
+
+// ** Table Header
+const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter, searchTerm }) => {
+    return (
+        <div className='invoice-list-table-header w-100 mr-1 ml-50 mt-2 mb-75'>
+            <Row>
+                <Col xl='6' className='d-flex align-items-center p-0'>
+                    <div className='d-flex align-items-center w-100'>
+                        <Label for='rows-per-page'>Show</Label>
+                        <CustomInput
+                            className='form-control mx-50'
+                            type='select'
+                            id='rows-per-page'
+                            value={rowsPerPage}
+                            onChange={handlePerPage}
+                            style={{
+                                width: '5rem',
+                                padding: '0 0.8rem',
+                                backgroundPosition: 'calc(100% - 3px) 11px, calc(100% - 20px) 13px, 100% 0'
+                            }}
+                        >
+                            <option value='10'>10</option>
+                            <option value='25'>25</option>
+                            <option value='50'>50</option>
+                        </CustomInput>
+                        <Label for='rows-per-page'>Entries</Label>
+                    </div>
+                </Col>
+                <Col
+                    xl='6'
+                    className='d-flex align-items-sm-center justify-content-lg-end justify-content-start flex-lg-nowrap flex-wrap flex-sm-row flex-column pr-lg-1 p-0 mt-lg-0 mt-1'
+                >
+                    <div className='d-flex align-items-center mb-sm-0 mb-1 mr-1'>
+                        <Label className='mb-0' for='search-invoice'>
+                            Search:
+                        </Label>
+                        <Input
+                            id='search-invoice'
+                            className='ml-50 w-100'
+                            type='text'
+                            value={searchTerm}
+                            onChange={e => handleFilter(e.target.value)}
+                        />
+                    </div>
+                    {/* <Button.Ripple color='primary' onClick={toggleSidebar}>
+            Add New User
+          </Button.Ripple> */}
+                </Col>
+            </Row>
+        </div>
+    )
+}
 
 const ReportedContent = () => {
-    return (
-        <Table responsive>
-            <thead>
-                <tr>
-                    <th>Sr No.</th>
-                    <th>Message</th>
-                    <th>Reported By</th>
-                    <th>Clip</th>
-                    <th>Posted By</th>
-                    <th>Date Time</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <span className='align-middle font-weight-bold'>1</span>
-                    </td>
-                    <td>Hate Speach</td>
-                    <td>A PHP Error is Encounted</td>
 
-                    <td>
-                        {/* <AvatarGroup data={avatarGroupData1} /> */}
-                        <img className='img-fluid mb-2' src={img3} alt='Card cap' style={{ maxHeight: '200px', maxWidth: '200px' }} />
-                    </td>
-                    <td>Peter Charles</td>
-                    <td>
-                        12/02/2022
-                    </td>
-                    <td>
-                        <Badge pill color='light-danger' className='mr-1 cursor-pointer' onClick={e => e.preventDefault()}>
-                            Delete
-                        </Badge>
-                    </td>
-                </tr>
-            </tbody>
-        </Table>
+    // ** Store Vars
+    const dispatch = useDispatch()
+    const store = useSelector(state => state.reported)
+
+    const [clips, setClips] = useState([])
+    const [searchTerm, setSearchTerm] = useState('')
+    const [currentPage, setCurrentPage] = useState(1)
+    const [rowsPerPage, setRowsPerPage] = useState(10)
+
+    // useEffect(() => {
+    //     dispatch(getAllReportedContent())
+    // }, [])
+
+    // useEffect(() => {
+    //     if (store.allReportedContent) {
+    //         setClips(store.allReportedContent)
+    //     }
+    // }, [store.allReportedContent])
+
+    // ** Get data on mount
+    useEffect(() => {
+        dispatch(
+            getReportedContentList({
+                page: currentPage,
+                limit: rowsPerPage
+            })
+        )
+        dispatch(getAllReportedContent())
+    }, [dispatch])
+
+    // ** Function in get data on page change
+    const handlePagination = page => {
+        dispatch(
+            getReportedContentList({
+                page: page.selected + 1,
+                limit: rowsPerPage
+            })
+        )
+        setCurrentPage(page.selected + 1)
+    }
+
+    // ** Function in get data on rows per page
+    const handlePerPage = e => {
+        const value = parseInt(e.currentTarget.value)
+        dispatch(
+            getReportedContentList({
+                page: currentPage,
+                limit: value
+            })
+        )
+        setRowsPerPage(value)
+    }
+
+    // ** Function in get data on search query change
+    const handleFilter = val => {
+        setSearchTerm(val)
+    }
+
+    // ** Custom Pagination
+    const CustomPagination = () => {
+        const count = Number(Math.ceil(store.total / rowsPerPage))
+
+        return (
+            <ReactPaginate
+                previousLabel={''}
+                nextLabel={''}
+                pageCount={count || 1}
+                activeClassName='active'
+                forcePage={currentPage !== 0 ? currentPage - 1 : 0}
+                onPageChange={page => handlePagination(page)}
+                pageClassName={'page-item'}
+                nextLinkClassName={'page-link'}
+                nextClassName={'page-item next'}
+                previousClassName={'page-item prev'}
+                previousLinkClassName={'page-link'}
+                pageLinkClassName={'page-link'}
+                containerClassName={'pagination react-paginate justify-content-end my-2 pr-1'}
+            />
+        )
+    }
+
+    // ** Table data to render
+    const dataToRender = () => {
+
+        if (searchTerm !== '' && store.allReportedContent !== null) {
+            const queryLowered = searchTerm.toLowerCase()
+            const filteredData = store.allReportedContent.filter(user => (
+                (user.message && user.display_name.toLowerCase().includes(queryLowered)) ||
+                (user.video.user_name && user.video.user_name.toLowerCase().includes(queryLowered)) ||
+                (user.user_name && user.user_name.toLowerCase().includes(queryLowered))
+            ))
+            return filteredData
+        } else if (store.data.length > 0) {
+            return store.data
+        } else if (store.data.length === 0) {
+            return []
+        }
+    }
+
+    return (
+
+        <Card>
+            <DataTable
+                noHeader
+                pagination
+                subHeader
+                responsive
+                paginationServer
+                columns={columns}
+                sortIcon={<ChevronDown />}
+                className='react-dataTable'
+                paginationComponent={CustomPagination}
+                data={dataToRender()}
+                subHeaderComponent={
+                    <CustomHeader
+                        handlePerPage={handlePerPage}
+                        rowsPerPage={rowsPerPage}
+                        searchTerm={searchTerm}
+                        handleFilter={handleFilter}
+                    />
+                }
+            />
+        </Card>
     )
 }
 

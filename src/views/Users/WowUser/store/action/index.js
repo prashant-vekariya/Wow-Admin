@@ -21,10 +21,10 @@ export const getAllWowUserData = () => {
 }
 
 // ** Get data on page or row change
-export const getWowUserList = params => {
+export const getWowUserList = props => {
   return async dispatch => {
     // console.log(params)
-    await axios.get(`${BASEURL}/user/userlist?page=${params.page}&limit=${params.limit}`, {
+    await axios.get(`${BASEURL}/user/userlist?page=${props.page}&limit=${props.limit}`, {
       headers: {
         authorization: Token
       }
@@ -33,21 +33,26 @@ export const getWowUserList = params => {
         type: 'GET_DATA',
         data: response.data.data.data,
         total: response.data.data.total_documents,
-        params
+        props
       })
     })
   }
 }
 
-// ** Get User
+// ** Get User Details
 export const getUser = id => {
   return async dispatch => {
     await axios
-      .get('/api/users/user', { id })
+      .get(`${BASEURL}/user/userdetail?user_id=${id}`, {
+        headers: {
+          authorization: Token
+        }
+      })
       .then(response => {
+        // console.log(response.data.data.user)
         dispatch({
           type: 'GET_USER',
-          selectedUser: response.data.user
+          selectedUser: response.data.data.user
         })
       })
       .catch(err => console.log(err))

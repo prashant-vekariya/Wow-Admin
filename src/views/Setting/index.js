@@ -3,10 +3,19 @@ import * as yup from 'yup'
 import classnames from 'classnames'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+// ** Store & Actions
+import { changePassword } from './store/action'
+import { useDispatch, useSelector } from 'react-redux'
 import { Form, FormGroup, Row, Col, Button, Card, CardBody } from 'reactstrap'
 import InputPasswordToggle from '@components/input-password-toggle'
 
 const Setting = () => {
+
+    // ** Store Vars
+    const dispatch = useDispatch()
+    const store = useSelector(state => state.reported)
+
+    const userdata = JSON.parse(localStorage.getItem('userData'))
 
     const SignupSchema = yup.object().shape({
         'old-password': yup.string().required(),
@@ -21,7 +30,16 @@ const Setting = () => {
         resolver: yupResolver(SignupSchema)
     })
 
-    const onSubmit = () => trigger()
+    const onSubmit = (datas) => {
+        trigger()
+        const data = {
+            oldpassword: datas['old-password'],
+            newpassword: datas['retype-new-password'],
+            staff_id: userdata._id
+        }
+        dispatch(changePassword(data))
+        // console.log(data)
+    }
 
     return (
         <Card>

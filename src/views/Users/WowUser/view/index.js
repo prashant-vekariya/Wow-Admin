@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Avatar from '@components/avatar'
 import coverImg from '@src/assets/images/banner/banner-12.jpg'
 import { Row, Col, Card, CardBody, CardImg, Badge, Alert } from 'reactstrap'
-import profileImg from '@src/assets/images/portrait/small/avatar-s-9.jpg'
+import AvatarBlank from '@src/assets/images/avatars/avatar-blank.png'
 
 // ** User View Components
 // import PlanCard from './Following'
@@ -24,14 +24,46 @@ import '@styles/react/apps/app-users.scss'
 
 const UserView = props => {
   // ** Vars
-  const store = useSelector(state => state.users),
+  const store = useSelector(state => state.wowusers),
     dispatch = useDispatch(),
     { id } = useParams()
 
   // ** Get suer on mount
   useEffect(() => {
-    dispatch(getUser(parseInt(id)))
+    dispatch(getUser(id))
   }, [dispatch])
+
+  const renderUserImg = () => {
+    if (store.selectedUser.profile_pic_url !== null || store.selectedUser.profile_pic_url !== ' ' || store.selectedUser.profile_pic_url !== undefined) {
+      console.log(store.selectedUser.profile_pic_url)
+      return <Avatar img={store.selectedUser.profile_pic_url} alt='' />
+    } else {
+      console.log('dgnd')
+      const stateNum = Math.floor(Math.random() * 6),
+        states = ['light-success', 'light-danger', 'light-warning', 'light-info', 'light-primary', 'light-secondary'],
+        color = states[stateNum]
+      return (
+        <Avatar
+          initials
+          color={color}
+          className='rounded'
+          content={store.selectedUser.display_name}
+          contentStyles={{
+            borderRadius: 0,
+            fontSize: 'calc(36px)',
+            width: '100%',
+            height: '100%'
+          }}
+          style={{
+            height: '90px',
+            width: '90px'
+          }}
+        />
+      )
+    }
+  }
+
+  console.log(store.selectedUser)
 
   return store.selectedUser !== null && store.selectedUser !== undefined ? (
     <div className='app-user-view'>
@@ -42,11 +74,11 @@ const UserView = props => {
             <CardBody>
               <div className='profile-image-wrapper'>
                 <div className='profile-image'>
-                  <Avatar img={store.selectedUser.avatar} alt='' />
+                  <Avatar img={store.selectedUser.profile_pic_url ? store.selectedUser.profile_pic_url : AvatarBlank} alt='' />
                 </div>
               </div>
-              <h3>Curtis Stone</h3>
-              <h6 className='text-muted'>Malaysia</h6>
+              <h3>{store.selectedUser.display_name}</h3>
+              <h6 className='text-muted'>@{store.selectedUser.user_name}</h6>
               <Badge className='profile-badge' color='light-primary'>
                 Pro Level
               </Badge>
@@ -54,15 +86,15 @@ const UserView = props => {
               <div className='d-flex justify-content-between align-items-center'>
                 <div>
                   <h6 className='text-muted font-weight-bolder'>Followers</h6>
-                  <h3 className='mb-0'>10.3k</h3>
+                  <h3 className='mb-0'>{store.selectedUser.follower_count}</h3>
                 </div>
                 <Link to={`/wowuser/view/${id}/following`}>
                   <h6 className='text-muted font-weight-bolder'>Following</h6>
-                  <h3 className='mb-0'>156</h3>
+                  <h3 className='mb-0'>{store.selectedUser.following_count}</h3>
                 </Link>
                 <div>
                   <h6 className='text-muted font-weight-bolder'>Videos</h6>
-                  <h3 className='mb-0'>23</h3>
+                  <h3 className='mb-0'>{store.selectedUser.uploaded_video_count}</h3>
                 </div>
               </div>
             </CardBody>

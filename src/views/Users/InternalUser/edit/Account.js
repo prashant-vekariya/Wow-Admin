@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom'
 
 // ** Custom Components
 import Avatar from '@components/avatar'
+import AvatarBlank from '@src/assets/images/avatars/avatar-blank.png'
 
 // ** Third Party Components
 import { Lock, Edit, Trash2 } from 'react-feather'
 import { Media, Row, Col, Button, Form, Input, Label, FormGroup, Table, CustomInput } from 'reactstrap'
+import moment from 'moment'
 
 const UserAccountTab = ({ selectedUser }) => {
   // ** States
@@ -26,13 +28,13 @@ const UserAccountTab = ({ selectedUser }) => {
 
   // ** Update user image on mount or change
   useEffect(() => {
-    if (selectedUser !== null || (selectedUser !== null && userData !== null && selectedUser.id !== userData.id)) {
+    if (selectedUser !== null || (selectedUser !== null && userData !== null && selectedUser._id !== userData._id)) {
       setUserData(selectedUser)
-      if (selectedUser.avatar.length) {
-        return setImg(selectedUser.avatar)
-      } else {
-        return setImg(null)
-      }
+      // if (selectedUser.avatar.length) {
+      //   return setImg(selectedUser.avatar)
+      // } else {
+      //   return setImg(null)
+      // }
     }
   }, [selectedUser])
 
@@ -47,7 +49,7 @@ const UserAccountTab = ({ selectedUser }) => {
           initials
           color={color}
           className='rounded mr-2 my-25'
-          content={selectedUser.fullName}
+          content={selectedUser.fullname}
           contentStyles={{
             borderRadius: 0,
             fontSize: 'calc(36px)',
@@ -64,7 +66,7 @@ const UserAccountTab = ({ selectedUser }) => {
       return (
         <img
           className='user-avatar rounded mr-2 my-25 cursor-pointer'
-          src={img}
+          src={img ? img : AvatarBlank}
           alt='user profile avatar'
           height='90'
           width='90'
@@ -78,11 +80,17 @@ const UserAccountTab = ({ selectedUser }) => {
   } else {
     return (
       <Row>
-        <Col sm='12'>
+        {/* <Col sm='12'>
           <Media className='mb-2'>
-            {renderUserAvatar()}
+            <img
+              className='user-avatar rounded mr-2 my-25 cursor-pointer'
+              src={img ? img : AvatarBlank}
+              alt=' '
+              height='90'
+              width='90'
+            />
             <Media className='mt-50' body>
-              <h4>{selectedUser.fullName} </h4>
+              <h4>{selectedUser.fullname} </h4>
               <div className='d-flex flex-wrap mt-1 px-0'>
                 <Button.Ripple id='change-img' tag={Label} className='mr-75 mb-0' color='primary'>
                   <span className='d-none d-sm-block'>Change</span>
@@ -100,20 +108,20 @@ const UserAccountTab = ({ selectedUser }) => {
               </div>
             </Media>
           </Media>
-        </Col>
+        </Col> */}
         <Col sm='12'>
           <Form onSubmit={e => e.preventDefault()}>
             <Row>
               <Col md='4' sm='12'>
                 <FormGroup>
-                  <Label for='username'>Username</Label>
-                  <Input type='text' id='username' placeholder='Username' defaultValue={userData.username} />
+                  <Label for='username'>Created At</Label>
+                  <Input type='text' id='username' placeholder='Username' defaultValue={moment(userData.created_At).format('LL')} disabled />
                 </FormGroup>
               </Col>
               <Col md='4' sm='12'>
                 <FormGroup>
                   <Label for='name'>Name</Label>
-                  <Input type='text' id='name' placeholder='Name' defaultValue={userData.fullName} />
+                  <Input type='text' id='name' placeholder='Name' defaultValue={userData.fullname} />
                 </FormGroup>
               </Col>
               <Col md='4' sm='12'>
@@ -125,8 +133,7 @@ const UserAccountTab = ({ selectedUser }) => {
               <Col md='4' sm='12'>
                 <FormGroup>
                   <Label for='status'>Status</Label>
-                  <Input type='select' name='status' id='status' defaultValue={userData.status}>
-                    <option value='pending'>Pending</option>
+                  <Input type='select' name='status' id='status' defaultValue={userData.is_active ? 'active' : 'inactive'}>
                     <option value='active'>Active</option>
                     <option value='inactive'>Inactive</option>
                   </Input>
@@ -135,12 +142,11 @@ const UserAccountTab = ({ selectedUser }) => {
               <Col md='4' sm='12'>
                 <FormGroup>
                   <Label for='role'>Role</Label>
-                  <Input type='select' name='role' id='role' defaultValue={userData.role}>
+                  <Input type='select' name='role' id='role' defaultValue={userData.roletype}>
                     <option value='admin'>Admin</option>
-                    <option value='author'>Author</option>
-                    <option value='editor'>Editor</option>
+                    <option value='staff'>Staff</option>
+                    <option value='owner'>Owner</option>
                     <option value='maintainer'>Maintainer</option>
-                    <option value='subscriber'>Subscriber</option>
                   </Input>
                 </FormGroup>
               </Col>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 // ** Custom Components
 import Avatar from '@components/avatar'
+import AvatarBlank from '@src/assets/images/avatars/avatar-blank.png'
 
 // ** Store & Actions
 import { getUser, deleteUser } from '../store/action'
@@ -12,19 +13,6 @@ import { store } from '@store/storeConfig/store'
 import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledTooltip } from 'reactstrap'
 import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2, Archive, Eye } from 'react-feather'
 
-// ** Renders Client Columns
-const renderClient = row => {
-  const stateNum = Math.floor(Math.random() * 6),
-    states = ['light-success', 'light-danger', 'light-warning', 'light-info', 'light-primary', 'light-secondary'],
-    color = states[stateNum]
-
-  if (row.profile_pic_url) {
-    return <Avatar className='mr-1' img={row.profile_pic_url} width='32' height='32' />
-  } else {
-    return <Avatar color={color || 'primary'} className='mr-1' content={row.display_name || 'John Doe'} initials />
-  }
-}
-
 export const columns = [
   {
     name: 'User',
@@ -33,13 +21,9 @@ export const columns = [
     sortable: true,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
-        {renderClient(row)}
+        <Avatar className='mr-1' img={row.profile_pic_url ? row.profile_pic_url : AvatarBlank} width='32' height='32' />
         <div className='d-flex flex-column'>
-          <div
-            // to={`/apps/user/view/${row.id}`}
-            className='user-name text-truncate mb-0'
-          // onClick={() => store.dispatch(getUser(row.id))}
-          >
+          <div className='user-name text-truncate mb-0' >
             <span className='font-weight-bold'>{row.display_name}</span>
           </div>
           <small className='text-truncate text-muted mb-0'>@{row.user_name}</small>
@@ -76,10 +60,10 @@ export const columns = [
     name: 'Actions',
     minWidth: '100px',
     cell: row => <span className='text-capitalize'>
-      <Link to={`/wowuser/view/${row.id}`} id={`pw-tooltip-${row.id}`}>
+      <Link to={`/wowuser/view/${row.user_id}`} id={`pw-tooltip-${row.user_id}`} onClick={() => store.dispatch(getUser(row.user_id))}>
         <Eye size={17} className='mx-1' />
       </Link>
-      <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>
+      <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.user_id}`}>
         Details
       </UncontrolledTooltip></span>
   }

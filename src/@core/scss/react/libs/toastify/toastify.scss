@@ -1,13 +1,13 @@
-@import '~react-toastify/dist/ReactToastify.css';
-@import '../../../base/bootstrap-extended/include';
-@import '../../../base/components/include';
-@import '../../../base/core/colors/palette-variables';
+@import "~react-toastify/dist/ReactToastify.css";
+@import "../../../base/bootstrap-extended/include";
+@import "../../../base/components/include";
+@import "../../../base/core/colors/palette-variables";
 
 .Toastify__toast {
   background-color: $white;
   border-radius: $toast-border-radius;
   box-shadow: $toast-box-shadow;
-  padding: 1rem;
+  // padding: 1rem;
   .Toastify__toast-body,
   .Toastify__close-button {
     color: $body-color;
@@ -76,7 +76,7 @@
 
   @each $color_name, $color in $colors {
     @each $color_type, $color_value in $color {
-      @if $color_type== 'base' {
+      @if $color_type== "base" {
         &.Toastify__toast--#{$color_name} {
           .toast-title {
             color: $color_value;

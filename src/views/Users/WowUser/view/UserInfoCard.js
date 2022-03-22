@@ -6,7 +6,9 @@ import Avatar from '@components/avatar'
 
 // ** Third Party Components
 import { Card, CardBody, CardText, Button, Row, Col } from 'reactstrap'
-import { DollarSign, TrendingUp, User, Check, Star, Flag, Phone } from 'react-feather'
+import { DollarSign, TrendingUp, User, Check, Star, Flag, Phone, Clock, Globe, Gift, Smile, UserPlus, Eye, AtSign } from 'react-feather'
+import moment from 'moment'
+
 
 const UserInfoCard = ({ selectedUser }) => {
   // ** render user img
@@ -42,78 +44,46 @@ const UserInfoCard = ({ selectedUser }) => {
     <Card>
       <CardBody>
         <Row>
-          <Col xl='6' lg='12' className='d-flex flex-column justify-content-between border-container-lg'>
-            <h5 className='mb-75'>About</h5>
-            <CardText>Tart I love sugar plum I love oat cake. Sweet ⭐️ roll caramels I love jujubes. Topping cake wafer.</CardText>
+          <Col sm='6' className='d-flex flex-column justify-content-between border-container-lg'>
+            <h5 className='mb-75'><Star className='mr-1' size={18} /> About</h5>
+            <CardText className='user-info-title ml-3'>{selectedUser.user_bio}</CardText>
             <div className='mt-2'>
-              <h5 className='mb-75'>Joined:</h5>
-              <CardText>November 15, 2015</CardText>
+              <h5 className='mb-75'><UserPlus className='mr-1' size={18} /> Joined</h5>
+              <CardText className='user-info-title ml-3'>{moment(selectedUser.created_At).format('LL')}</CardText>
             </div>
             <div className='mt-2'>
-              <h5 className='mb-75'>Lives:</h5>
-              <CardText>New York, USA</CardText>
+              <h5 className='mb-75'><AtSign className='mr-1' size={18} /> Email</h5>
+              <CardText className='user-info-title ml-3'>{selectedUser.email_id}</CardText>
             </div>
             <div className='mt-2'>
-              <h5 className='mb-75'>Email:</h5>
-              <CardText>{selectedUser.email}</CardText>
+              <h5 className='mb-75'><Eye className='mr-1' size={18} /> Accpunt type</h5>
+              <CardText className='user-info-title ml-3'>{selectedUser.is_private ? 'Private' : 'Public'}</CardText>
             </div>
             <div className='mt-2'>
-              <h5 className='mb-75'>Website:</h5>
-              <CardText>www.abc.com</CardText>
+              <h5 className='mb-75'> <Smile className='mr-1' size={18} />Gender</h5>
+              <CardText className='user-info-title ml-3'>{selectedUser.gender}</CardText>
             </div>
           </Col>
-          <Col xl='6' lg='12' className='mt-2 mt-xl-0'>
-            <div className='user-info-wrapper'>
-              <div className='d-flex flex-wrap align-items-center mt-1'>
-                <div className='user-info-title'>
-                  <h5 className='mb-75'> <User className='mr-1' size={14} />
-                    Username</h5>
-                  <CardText tag='span' className='user-info-title ml-3'>
-                    {selectedUser !== null ? selectedUser.username : 'eleanor.aguilar'}
-                  </CardText>
-                </div>
-                {/* <CardText className='mb-0'>
-                  {selectedUser !== null ? selectedUser.username : 'eleanor.aguilar'}
-                </CardText> */}
-              </div>
-              <div className='d-flex flex-wrap align-items-center my-3'>
-                <div className='user-info-title'>
-                  <h5 className='mb-75'> <Check className='mr-1' size={14} /> Status </h5>
-                  <CardText tag='span' className='user-info-title  mb-0 ml-3'>
-                    {selectedUser !== null ? selectedUser.status : 'Active'}
-                  </CardText>
-                </div>
-                {/* <CardText className='text-capitalize mb-0'>
-                  {selectedUser !== null ? selectedUser.status : 'Active'}
-                </CardText> */}
-              </div>
-              {/* <div className='d-flex flex-wrap align-items-center my-50'>
-                <div className='user-info-title'>
-                  <h5 className='mb-75'> <Star className='mr-1' size={14} /> Role </h5>
-                  <CardText tag='span' className='user-info-title  mb-0 ml-3'>
-                    {selectedUser !== null ? selectedUser.role : 'Admin'}
-                  </CardText>
-                </div>
-                <CardText className='text-capitalize mb-0'>
-                  {selectedUser !== null ? selectedUser.role : 'Admin'}
-                </CardText>
-              </div> */}
-              <div className='d-flex flex-wrap align-items-center my-3'>
-                <div className='user-info-title'>
-                  <h5 className='mb-75'> <Flag className='mr-1' size={14} />Country </h5>
-                  <CardText tag='span' className='user-info-title  mb-0 ml-3'>
-                    {selectedUser !== null ? selectedUser.country : 'England'}
-                  </CardText>
-                </div>
-              </div>
-              <div className='d-flex flex-wrap align-items-center'>
-                <div className='user-info-title'>
-                  <h5 className='mb-75'> <Phone className='mr-1' size={14} />Contact </h5>
-                  <CardText tag='span' className='user-info-title  mb-0 ml-3'>
-                    {selectedUser !== null ? selectedUser.contact : '(123) 456-7890'}
-                  </CardText>
-                </div>
-              </div>
+          <Col sm='6' className='d-flex flex-column justify-content-between border-container-lg'>
+            <div className='mt-2 mt-sm-0'>
+              <h5 className='mb-75'><Check className='mr-1' size={18} /> Status</h5>
+              <CardText className='user-info-title ml-3'>{selectedUser.is_active ? 'Active' : 'inActive'}</CardText>
+            </div>
+            <div className='mt-2'>
+              <h5 className='mb-75'><Clock className='mr-1' size={18} /> Lat Updated</h5>
+              <CardText className='user-info-title ml-3'>{moment(selectedUser.updated_At).format('LL')}</CardText>
+            </div>
+            <div className='mt-2'>
+              <h5 className='mb-75'><Gift className='mr-1' size={18} /> Date of Birth</h5>
+              <CardText className='user-info-title ml-3'>{moment(selectedUser.user_dob).format('LL')}</CardText>
+            </div>
+            <div className='mt-2'>
+              <h5 className='mb-75'><Flag className='mr-1' size={18} /> Country</h5>
+              <CardText className='user-info-title ml-3'>{selectedUser.country}</CardText>
+            </div>
+            <div className='mt-2'>
+              <h5 className='mb-75'><Phone className='mr-1' size={18} />Contact</h5>
+              <CardText className='user-info-title ml-3'>{selectedUser.mobile_no}</CardText>
             </div>
           </Col>
         </Row>

@@ -3,7 +3,6 @@ const initialState = {
   allData: [],
   data: [],
   total: 1,
-  params: {},
   selectedUser: null
 }
 
@@ -15,8 +14,7 @@ const internalusers = (state = initialState, action) => {
       return {
         ...state,
         data: action.data,
-        total: action.totalPages,
-        params: action.params
+        total: action.totalPages
       }
     case 'GET_USER':
       return { ...state, selectedUser: action.selectedUser }

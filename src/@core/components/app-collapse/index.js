@@ -11,7 +11,7 @@ import { Collapse, Card, CardHeader, CardBody, CardTitle, Badge } from 'reactstr
 
 const AppCollapse = props => {
   // ** Props
-  const { data, type, accordion, active, toggle, titleKey, contentKey, className } = props
+  const { data, type, accordion, active, toggle, titleKey, contentKey, className, deleteq } = props
 
   /**
    ** If accordion is true then return only one active index else return an Array
@@ -54,8 +54,8 @@ const AppCollapse = props => {
   // ** Function to render collapse
   const renderData = () => {
     return listArr.map((item, index) => {
-      const title = titleKey ? item[titleKey] : item.title,
-        content = contentKey ? item[contentKey] : item.content
+      const title = titleKey ? item[titleKey] : item.question,
+        content = contentKey ? item[contentKey] : item.answer
 
       return (
         <Card
@@ -89,10 +89,10 @@ const AppCollapse = props => {
               <br />
               <div>
                 <Badge tag={Link}
-                  to={`/faq/1`} color='light-primary'>
+                  to={`/faq/${item._id}`} color='light-primary'>
                   Edit
                 </Badge> &nbsp;
-                <Badge color='light-danger'>
+                <Badge color='light-danger cursor-pointer' onClick={() => deleteq(item._id)}>
                   Delete
                 </Badge>
               </div>

@@ -3,10 +3,11 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 
 // ** Store & Actions
-import { getAllCategory, getCategoryDetail } from './store/action'
+import { getAllCategory, getCategoryDetail, deleteCategory } from './store/action'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Avatar from '@components/avatar'
+import dummyImg from '@src/assets/images/backgrounds/dummy-image.jpg'
 import { Star } from 'react-feather'
 import { MdEdit, MdDelete } from 'react-icons/md'
 import CategoryHeader from './CategoryHeader'
@@ -14,7 +15,7 @@ import { Row, Col, Card, CardBody, CardImg, Button, Badge } from 'reactstrap'
 
 import '@styles/base/pages/page-knowledge-base.scss'
 
-const KnowledgeBase = () => {
+const Category = () => {
 
   // ** Store Vars
   const dispatch = useDispatch()
@@ -25,14 +26,16 @@ const KnowledgeBase = () => {
 
   useEffect(() => {
     dispatch(getAllCategory())
-    setData(store.allData)
-  }, [dispatch, store.allData.length])
+  }, [store.allData.length])
 
+  useEffect(() => {
+    setData(store.allData)
+  }, [store.allData !== data])
 
   const Content = ({ item }) => (
     <Col className='kb-search-content' key={item.id} md='4' sm='6'>
       <Card>
-        <CardImg src={item.img} alt='category-image' top className="position-relative" />
+        <CardImg src={item.backgroundImage ? item.backgroundImage : dummyImg} alt=' ' top className="position-relative" style={{ height: '270px' }} />
         <Button.Ripple className="position-absolute" color='flat-primary'
           onClick={() => dispatch(getCategoryDetail(item._id))}
           tag={Link}
@@ -40,7 +43,7 @@ const KnowledgeBase = () => {
           <MdEdit size={26} />
         </Button.Ripple>
         <Button.Ripple className="position-absolute" style={{ right: 0 }} color='flat-danger'>
-          <MdDelete className='text-danger' size={26} />
+          <MdDelete className='text-danger' size={26} onClick={() => dispatch(deleteCategory(item._id))} />
         </Button.Ripple>
         <CardBody className='text-center'>
           <h4>
@@ -88,11 +91,11 @@ const KnowledgeBase = () => {
       <CategoryHeader searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       {data !== null ? (
         <div id='knowledge-base-content'>
-          <Row className='kb-search-content-info '>{renderContent()}</Row>
+          <Row className='kb-search-content-info match-height'>{renderContent()}</Row>
         </div>
       ) : null}
     </Fragment>
   )
 }
 
-export default KnowledgeBase
+export default Category

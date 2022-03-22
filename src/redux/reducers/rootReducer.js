@@ -10,6 +10,11 @@ import roles from '@src/views/Roles/store/reducer'
 import category from '@src/views/Category/store/reducer'
 import wowusers from '@src/views/Users/WowUser/store/reducer'
 import internalusers from '@src/views/Users/InternalUser/store/reducer'
+import pageInfo from '@src/views/Page-Info/store/reducer'
+import faq from '@src/views/Faq/store/reducer'
+import clips from '@src/views/Clips/store/reducer'
+import reported from '@src/views/ReportedContent/store/reducer'
+import setting from '@src/views/Setting/store/reducer'
 
 
 const rootReducer = combineReducers({
@@ -20,7 +25,12 @@ const rootReducer = combineReducers({
   roles,
   category,
   wowusers,
-  internalusers
+  internalusers,
+  pageInfo,
+  faq,
+  clips,
+  reported,
+  setting
 })
 
 export default rootReducer

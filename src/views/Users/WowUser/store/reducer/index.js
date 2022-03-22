@@ -4,7 +4,7 @@ const initialState = {
   data: [],
   total: 1,
   params: {},
-  selectedUser: null
+  selectedUser: {}
 }
 
 const wowusers = (state = initialState, action) => {
@@ -16,7 +16,7 @@ const wowusers = (state = initialState, action) => {
         ...state,
         data: action.data,
         total: action.total,
-        params: action.params
+        params: action.props
       }
     case 'GET_USER':
       return { ...state, selectedUser: action.selectedUser }

@@ -1,12 +1,19 @@
 import axios from 'axios'
+import { BASEURL } from '@utils'
+
+const Token = `wow-talent_6586563476534 ${JSON.parse(localStorage.getItem('token'))}`
 
 // ** Get all Data
 export const getAllData = () => {
   return async dispatch => {
-    await axios.get('/api/users/list/all-data').then(response => {
+    await axios.get(`${BASEURL}/staff/stafflist`, {
+      headers: {
+        authorization: Token
+      }
+    }).then(response => {
       dispatch({
         type: 'GET_ALL_DATA',
-        data: response.data
+        data: response.data.data.list
       })
     })
   }
@@ -15,12 +22,15 @@ export const getAllData = () => {
 // ** Get data on page or row change
 export const getData = params => {
   return async dispatch => {
-    await axios.get('/api/users/list/data', params).then(response => {
+    await axios.get(`${BASEURL}/staff/stafflist`, {
+      headers: {
+        authorization: Token
+      }
+    }).then(response => {
       dispatch({
         type: 'GET_DATA',
-        data: response.data.users,
-        totalPages: response.data.total,
-        params
+        data: response.data.data.list,
+        totalPages: response.data.data.list.length
       })
     })
   }
@@ -30,30 +40,36 @@ export const getData = params => {
 export const getUser = id => {
   return async dispatch => {
     await axios
-      .get('/api/users/user', { id })
+      .get(`${BASEURL}/staff/staffdetail?staff_id=${id}`, {
+        headers: {
+          authorization: Token
+        }
+      })
       .then(response => {
+        // console.log(response)
         dispatch({
           type: 'GET_USER',
-          selectedUser: response.data.user
+          selectedUser: response.data.data.user
         })
       })
       .catch(err => console.log(err))
   }
 }
 
-// ** Add new user
-export const addUser = user => {
+// ** Add new staff
+export const addStaff = user => {
   return (dispatch, getState) => {
     axios
-      .post('/apps/users/add-user', user)
-      .then(response => {
-        dispatch({
-          type: 'ADD_USER',
-          user
-        })
+      .post(`${BASEURL}/register`, user, {
+        headers: {
+          authorization: Token
+        }
       })
-      .then(() => {
-        dispatch(getData(getState().users.params))
+      .then(response => {
+        // dispatch({
+        //   type: 'ADD_USER',
+        //   user
+        // })
         dispatch(getAllData())
       })
       .catch(err => console.log(err))
@@ -61,17 +77,33 @@ export const addUser = user => {
 }
 
 // ** Delete user
-export const deleteUser = id => {
+export const deleteStaff = data => {
+  console.log(data)
   return (dispatch, getState) => {
     axios
-      .delete('/apps/users/delete', { id })
-      .then(response => {
-        dispatch({
-          type: 'DELETE_USER'
-        })
+      .post(`${BASEURL}/staff/editstaff`, data, {
+        headers: {
+          authorization: Token
+        }
       })
       .then(() => {
-        dispatch(getData(getState().users.params))
+        dispatch(getAllData())
+      })
+  }
+}
+
+// ** Deactivate User 
+export const deactivateStaff = data => {
+  console.log(data)
+  return dispatch => {
+    axios
+      .post(`${BASEURL}/staff/editstaff`, data, {
+        headers: {
+          authorization: Token
+        }
+      })
+      .then(() => {
+        console.log('----', data)
         dispatch(getAllData())
       })
   }

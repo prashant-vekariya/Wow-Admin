@@ -4,12 +4,13 @@ import { useParams, Link, useHistory } from 'react-router-dom'
 
 
 import Avatar from '@components/avatar'
+import dummyImg from '@src/assets/images/backgrounds/dummy-image.jpg'
 
 import { useForm } from 'react-hook-form'
 
 // ** Store & Actions
 import { useSelector, useDispatch } from 'react-redux'
-import { getAllCategory, getCategoryDetail, editCategory, addCategory } from './store/action'
+import { getCategoryDetail, editCategory, addCategory } from './store/action'
 
 // ** Third Party Components
 import { Star, Edit, Trash2 } from 'react-feather'
@@ -18,6 +19,7 @@ import { Card, CardBody, Row, Col, Media, Button, Form, Input, Label, FormGroup,
 // ** Styles
 import '@styles/react/apps/app-users.scss'
 
+/* eslint-disable */
 const CategoryEdit = () => {
 
     // ** Store Vars
@@ -26,77 +28,81 @@ const CategoryEdit = () => {
 
     const { register, errors, handleSubmit } = useForm()
 
+    const [previewimg, setPreviewImg] = useState(null)
+    const [previewicon, setPreviewIcon] = useState(null)
     const [img, setImg] = useState(null)
     const [icon, setIcon] = useState(null)
-    // const [img, setImg] = useState(null)
-    const [prewicon, setPrewIcon] = useState(null)
-    const [selectedCategory, setSelectedCategory] = useState([])
+    const [selectedCategory, setSelectedCategory] = useState(null)
 
     const params = useParams()
     const history = useHistory()
 
 
     useEffect(() => {
-        dispatch(getAllCategory()).then((result) => {
+        if (params.id !== 'new') {
             dispatch(getCategoryDetail(params.id))
-            if (store.selectedCategory.length > 0) {
+        }
+    }, [dispatch, params.id])
+
+    useEffect(() => {
+        if (params.id !== 'new') {
+            if (store.selectedCategory) {
                 setSelectedCategory(store.selectedCategory)
-                setIcon(store.selectedCategory[0].icon)
+                setPreviewImg(store.selectedCategory.backgroundImage)
+                setImg(store.selectedCategory.backgroundImage)
+                setPreviewIcon(store.selectedCategory.icon)
+                setIcon(store.selectedCategory.icon)
             }
-        })
-    }, [dispatch, store.selectedCategory.length])
+        }
+    }, [store.selectedCategory, params.id])
+
 
     const onChangeImg = e => {
         const reader = new FileReader(),
             files = e.target.files
         reader.onload = function () {
-            setImg(reader.result)
-            // console.log(reader.result)
+            setImg(files[0])
+            setPreviewImg(reader.result)
         }
         reader.readAsDataURL(files[0])
     }
 
     const onChangeIcon = e => {
-        setPrewIcon(e.target.files[0])
         const reader = new FileReader(),
             files = e.target.files
         reader.onload = function () {
-            setIcon(reader.result)
-            console.log(reader.result)
+            setIcon(files[0])
+            setPreviewIcon(reader.result)
         }
         reader.readAsDataURL(files[0])
     }
 
     const onSubmit = data => {
-        // const fd = new FormData()
+        const formData = new FormData()
 
-        // fd.append('category_id', params.id)
-        // fd.append('icon', prewicon, prewicon.name)
-        // fd.append('sno', data.sno)
-        // fd.append('name', data.name)
-        // fd.append('description', data.description)
+        formData.append('category_id', params.id)
+        formData.append('name', data.name)
+        formData.append('description', data.description)
+        formData.append('sno', data.sno)
+        formData.append('icon', icon)
+        formData.append('backgroundImage', img)
 
-        // const config = {
-        //     headers: { 'content-type': 'multipart/form-data' }
-        // }
+        for (var key of formData.entries()) {
+            console.log(key[0] + ', ' + key[1])
+        }
 
         if (params.id === 'new') {
-            dispatch(addCategory({ ...data, icon: prewicon })).then(response => {
-                history.push('/category')
-            })
+            dispatch(addCategory(formData))
         } else {
-            const datas = { category_id: params.id, ...data, icon }
-            // console.log('00000', fd)
-            dispatch(editCategory(datas)).then(() => {
-                dispatch(getAllCategory())
-                setTimeout(() => {
-                    history.push('/category')
-                }, 200)
-            })
+            dispatch(editCategory(formData))
         }
     }
 
-    // console.log(store.selectedCategory)
+    if (store.redirect) {
+        setTimeout(() => {
+            history.push(store.redirect)
+        }, 300)
+    }
 
     return (
         <Row className='app-user-edit'>
@@ -108,9 +114,8 @@ const CategoryEdit = () => {
                                 <Row>
                                     <img
                                         className='user-avatar rounded mr-2 my-25 cursor-pointer'
-                                        src={img}
-                                        // src={require('@src/assets/images/illustration/dance.jpg').default}
-                                        alt='user profile avatar'
+                                        src={previewimg ? previewimg : dummyImg}
+                                        alt='Cover Image'
                                         height='100%'
                                         width='100%'
                                         style={{ maxWidth: '480px', maxHeight: '350px' }}
@@ -124,12 +129,12 @@ const CategoryEdit = () => {
                                         </span>
                                         <input type='file' hidden id='change-img' onChange={onChangeImg} accept='image/*' />
                                     </Button.Ripple>
-                                    <Button.Ripple color='secondary' outline>
+                                    {/* <Button.Ripple color='secondary' outline>
                                         <span className='d-none d-sm-block'>Remove</span>
                                         <span className='d-block d-sm-none'>
                                             <Trash2 size={14} />
                                         </span>
-                                    </Button.Ripple>
+                                    </Button.Ripple> */}
                                 </Row>
                             </Col>
                             <Col lg='6'>
@@ -139,7 +144,7 @@ const CategoryEdit = () => {
                                             <FormGroup>
                                                 <Label for='sr no'>S No.</Label>
                                                 <Input type='number' id='sr no' name='sno'
-                                                    defaultValue={selectedCategory.length > 0 ? selectedCategory[0].sno : ''}
+                                                    defaultValue={selectedCategory !== null ? selectedCategory.sno : ''}
                                                     innerRef={register({ required: true })}
                                                     aria-invalid={errors.srno ? "true" : "false"}
                                                 />
@@ -149,7 +154,7 @@ const CategoryEdit = () => {
                                             <FormGroup>
                                                 <Label for='name'>Category Name</Label>
                                                 <Input type='text' id='name' name='name'
-                                                    defaultValue={selectedCategory.length > 0 ? selectedCategory[0].name : ''}
+                                                    defaultValue={selectedCategory !== null ? selectedCategory.name : ''}
                                                     innerRef={register({ required: true })}
                                                     aria-invalid={errors.name ? "true" : "false"}
                                                 />
@@ -158,8 +163,9 @@ const CategoryEdit = () => {
                                         <Col sm='12'>
                                             <FormGroup>
                                                 <Label for='description'>Description</Label>
-                                                <Input type='text' id='description' name='description' placeholder='description'
-                                                    innerRef={register({ required: true })}
+                                                <Input type='text' id='description' name='description'
+                                                    defaultValue={selectedCategory !== null ? selectedCategory.description : ''}
+                                                    innerRef={register({ required: false })}
                                                     aria-invalid={errors.name ? "true" : "false"}
                                                 />
                                             </FormGroup>
@@ -168,9 +174,9 @@ const CategoryEdit = () => {
                                             <FormGroup>
                                                 <Label for='description'>Icon</Label>
                                                 <br />
-                                                {icon ? (<img
+                                                {previewicon ? (<img
                                                     className='user-avatar rounded mr-2 my-25 cursor-pointer'
-                                                    src={icon}
+                                                    src={previewicon}
                                                     alt='user profile avatar'
                                                     height='100%'
                                                     width='100%'
@@ -179,7 +185,7 @@ const CategoryEdit = () => {
                                                 }
                                                 <Badge className="cursor-pointer" id='change-icon' tag={Label} color='light-primary ml-3'>
                                                     <Edit size={25} />
-                                                    <input type='file' hidden id='change-icon' name='icon' onChange={onChangeIcon} accept='image/*' />
+                                                    <input type='file' hidden id='change-icon' name='icon' onChange={onChangeIcon} />
                                                 </Badge>
                                             </FormGroup>
                                         </Col>

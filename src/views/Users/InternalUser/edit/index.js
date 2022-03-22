@@ -21,25 +21,34 @@ import '@styles/react/apps/app-users.scss'
 const UserEdit = () => {
   // ** States & Vars
   const [activeTab, setActiveTab] = useState('1'),
-    store = useSelector(state => state.users),
+    store = useSelector(state => state.internalusers),
     dispatch = useDispatch(),
     { id } = useParams()
 
   // ** Function to toggle tabs
   const toggle = tab => setActiveTab(tab)
 
-  // ** Function to get user on mount
+  const [data, setData] = useState(null)
+
+  // ** Function to get user on mount 
   useEffect(() => {
-    dispatch(getUser(parseInt(id)))
-    return () => dispatch(getUser(parseInt(0)))
+    dispatch(getUser(id))
+    // return () => dispatch(getUser(parseInt(0)))
   }, [dispatch, id])
 
-  return store.selectedUser !== null && store.selectedUser !== undefined ? (
+
+  useEffect(() => {
+    if (store.selectedUser) {
+      setData(store.selectedUser)
+    }
+  }, [id])
+
+  return data !== null && data !== undefined ? (
     <Row className='app-user-edit'>
       <Col sm='12'>
         <Card>
           <CardBody className='pt-2'>
-            <AccountTab selectedUser={store.selectedUser} />
+            <AccountTab selectedUser={data} />
           </CardBody>
         </Card>
       </Col>

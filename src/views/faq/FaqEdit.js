@@ -1,128 +1,99 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
-import Select from 'react-select'
-import Avatar from '@components/avatar'
-import htmlToDraft from 'html-to-draftjs'
-import { selectThemeColors } from '@utils'
-import { Editor } from 'react-draft-wysiwyg'
-import Breadcrumbs from '@components/breadcrumbs'
-import { EditorState, ContentState } from 'draft-js'
-import {
-    Row,
-    Col,
-    Card,
-    CardBody,
-    CardText,
-    Media,
-    Form,
-    Label,
-    Input,
-    FormGroup,
-    CustomInput,
-    Button
-} from 'reactstrap'
+import { Link, useParams, useHistory, useLocation } from 'react-router-dom'
 
-import '@styles/react/libs/editor/editor.scss'
-import '@styles/base/plugins/forms/form-quill-editor.scss'
-import '@styles/react/libs/react-select/_react-select.scss'
-import '@styles/base/pages/page-blog.scss'
+// ** Store & Actions
+import { getFaqQuestionDetails, createFaqQuestion, editFaqQuestion } from './store/action'
+import { useDispatch, useSelector } from 'react-redux'
+import { Row, Col, Card, CardBody, CardText, Media, Form, Label, Input, FormGroup, CustomInput, Button } from 'reactstrap'
+import { toast, Slide } from 'react-toastify'
+
 
 const FaqEdit = () => {
-    const initialContent = `
-  <p>Cupcake ipsum dolor sit. Amet dessert donut candy chocolate bar cotton dessert candy chocolate. Candy muffin danish. Macaroon brownie jelly beans marzipan cheesecake oat cake. Carrot cake macaroon chocolate cake. Jelly brownie jelly. Marzipan pie sweet roll.</p>
-  <p>Liquorice dragée cake chupa chups pie cotton candy jujubes bear claw sesame snaps. Fruitcake chupa chups chocolate bonbon lemon drops croissant caramels lemon drops. Candy jelly cake marshmallow jelly beans dragée macaroon. Gummies sugar plum fruitcake. Candy canes candy cupcake caramels cotton candy jujubes fruitcake.</p>
-  `
-
-    const contentBlock = htmlToDraft(initialContent)
-    const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks)
-    const editorState = EditorState.createWithContent(contentState)
 
     const [data, setData] = useState(null),
-        [title, setTitle] = useState(''),
-        [slug, setSlug] = useState(''),
-        [status, setStatus] = useState(''),
-        [content, setContent] = useState(editorState),
-        [blogCategories, setBlogCategories] = useState([]),
-        [featuredImg, setFeaturedImg] = useState(null),
-        [imgPath, setImgPath] = useState('banner.jpg')
+        [question, setQuestion] = useState(''),
+        [sno, setSno] = useState(''),
+        [answer, setAnswer] = useState('')
+
+    const dispatch = useDispatch(),
+        store = useSelector(state => state.faq),
+        { id } = useParams(),
+        history = useHistory(),
+        { search } = useLocation()
 
     useEffect(() => {
-        axios.get('/blog/list/data/edit').then(res => {
-            setData(res.data)
-            setTitle(res.data.blogTitle)
-            setSlug(res.data.slug)
-            setBlogCategories(res.data.blogCategories)
-            setFeaturedImg(res.data.featuredImage)
-            setStatus(res.data.status)
-        })
+        if (id !== 'createquestion') {
+            dispatch(getFaqQuestionDetails(id))
+        }
     }, [])
 
-    const categories = [
-        { value: 'fashion', label: 'Fashion' },
-        { value: 'gaming', label: 'Gaming' },
-        { value: 'quote', label: 'Quote' },
-        { value: 'video', label: 'Video' },
-        { value: 'food', label: 'Food' }
-    ]
-
-    const onChange = e => {
-        const reader = new FileReader(),
-            files = e.target.files
-        setImgPath(files[0].name)
-        reader.onload = function () {
-            setFeaturedImg(reader.result)
+    useEffect(() => {
+        if (store.selectedFaqQuestion) {
+            console.log(store.selectedFaqQuestion)
+            setData(store.selectedFaqQuestion)
+            setQuestion(store.selectedFaqQuestion.question)
+            setAnswer(store.selectedFaqQuestion.answer)
+            setSno(store.selectedFaqQuestion.sno)
         }
-        reader.readAsDataURL(files[0])
+    }, [store.selectedFaqQuestion])
+
+    const submit = () => {
+        if (id === 'createquestion') {
+            const data = {
+                category_id: new URLSearchParams(search).get('categoryid'),
+                sno,
+                answer,
+                question
+            }
+            // console.log(data)
+            dispatch(createFaqQuestion(data))
+        } else {
+            const data = {
+                question_id: id,
+                answer,
+                question
+            }
+            dispatch(editFaqQuestion(data))
+        }
+    }
+
+    if (store.redirect) {
+        setTimeout(() => {
+            history.push(store.redirect)
+            toast.success(
+                <div className='toastify-header'>
+                    <div className='title-wrapper'>
+                        <h6 className='toast-title font-weight-bold text-uppercase'>{id === 'createquestion' ? 'Created' : 'Edit'} Successfully.!!</h6>
+                    </div>
+                </div>,
+                { transition: Slide, hideProgressBar: true, autoClose: 3000 }
+            )
+        }, 300)
     }
 
     return (
         <div className='blog-edit-wrapper'>
-            {data !== null ? (
-                <Row>
-                    <Col sm='12'>
-                        <Card>
-                            <CardBody>
-                                {/* <Media>
-                                    <Avatar className='mr-75' img={data.avatar} width='38' height='38' />
-                                    <Media body>
-                                        <h6 className='mb-25'>{data.userFullName}</h6>
-                                        <CardText>{data.createdTime}</CardText>
-                                    </Media>
-                                </Media> */}
-                                <h2>Update FAQ</h2>
-                                <Form className='mt-2' onSubmit={e => e.preventDefault()}>
-                                    <Row>
-                                        <Col md='6'>
-                                            <FormGroup className='mb-2'>
-                                                <Label for='blog-edit-title'>Title</Label>
-                                                <Input id='blog-edit-title' value={title} onChange={e => setTitle(e.target.value)} />
-                                            </FormGroup>
-                                        </Col>
-                                        <Col md='6'>
-                                            <FormGroup className='mb-2'>
-                                                <Label for='blog-edit-category'>Category</Label>
-                                                <Select
-                                                    id='blog-edit-category'
-                                                    isClearable={false}
-                                                    theme={selectThemeColors}
-                                                    // value={blogCategories}
-                                                    // isMulti
-                                                    name='colors'
-                                                    options={categories}
-                                                    className='react-select'
-                                                    classNamePrefix='select'
-                                                    onChange={data => setBlogCategories(data)}
-                                                />
-                                            </FormGroup>
-                                        </Col>
-                                        {/* <Col md='6'>
-                                            <FormGroup className='mb-2'>
-                                                <Label for='blog-edit-slug'>Slug</Label>
-                                                <Input id='blog-edit-slug' value={slug} onChange={e => setSlug(e.target.value)} />
-                                            </FormGroup>
-                                        </Col> */}
-                                        <Col md='12'>
+            {/* {data !== null ? ( */}
+            <Row>
+                <Col sm='12'>
+                    <Card>
+                        <CardBody>
+                            <h2>{id === 'createquestion' ? 'Create' : 'Update'} FAQ Question</h2>
+                            <Form className='mt-2'>
+                                <Row>
+                                    <Col md='12'>
+                                        <FormGroup className='mb-2'>
+                                            <Label>S No.</Label>
+                                            <Input type='number' min="1" value={sno} onChange={e => setSno(e.target.value)} />
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md='12'>
+                                        <FormGroup className='mb-2'>
+                                            <Label for='edit-question'>Question</Label>
+                                            <Input id='edit-question' value={question} onChange={e => setQuestion(e.target.value)} />
+                                        </FormGroup>
+                                    </Col>
+                                    {/* <Col md='12'>
                                             <FormGroup className='mb-2'>
                                                 <Label for='blog-edit-status'>Status</Label>
                                                 <Input
@@ -136,29 +107,29 @@ const FaqEdit = () => {
                                                     <option value='Draft'>Draft</option>
                                                 </Input>
                                             </FormGroup>
-                                        </Col>
-                                        <Col sm='12'>
-                                            <FormGroup className='mb-2'>
-                                                <Label>Answer</Label>
-                                                <Editor editorState={content} onEditorStateChange={data => setContent(data)} />
-                                            </FormGroup>
-                                        </Col>
-                                        <Col className='mt-50'>
-                                            <Button.Ripple color='primary' className='mr-1'>
-                                                Save Changes
-                                            </Button.Ripple>
-                                            <Button.Ripple tag={Link}
-                                                to={`/faq`} color='secondary' outline>
-                                                Cancel
-                                            </Button.Ripple>
-                                        </Col>
-                                    </Row>
-                                </Form>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                </Row>
-            ) : null}
+                                        </Col> */}
+                                    <Col sm='12'>
+                                        <FormGroup className='mb-2'>
+                                            <Label>Answer</Label>
+                                            <Input type='textarea' value={answer} onChange={e => setAnswer(e.target.value)} />
+                                        </FormGroup>
+                                    </Col>
+                                    <Col className='mt-50'>
+                                        <Button.Ripple color='primary' className='mr-1' onClick={() => submit()}>
+                                            {id === 'createquestion' ? 'Create' : 'Save Changes'}
+                                        </Button.Ripple>
+                                        <Button.Ripple tag={Link}
+                                            to={`/faq`} color='secondary' outline>
+                                            Cancel
+                                        </Button.Ripple>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        </CardBody>
+                    </Card>
+                </Col>
+            </Row>
+            {/* ) : null} */}
         </div>
     )
 }
