@@ -1,15 +1,11 @@
 import axios from 'axios'
-import { BASEURL } from '@utils'
-
-const Token = `wow-talent_6586563476534 ${JSON.parse(localStorage.getItem('token'))}`
+import { BASEURL, Token } from '@utils'
 
 // ** Get all FAQ
 export const getAllClips = page => {
   return async dispatch => {
     await axios.get(`${BASEURL}/user/video?page=${page}&limit=15`, {
-      headers: {
-        authorization: Token
-      }
+      headers: { Token }
     }).then(response => {
       // console.log(response.data.data)
       dispatch({

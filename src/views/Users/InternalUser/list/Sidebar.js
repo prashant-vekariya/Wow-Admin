@@ -14,32 +14,26 @@ import { Button, FormGroup, Label, FormText, Form, Input } from 'reactstrap'
 
 // ** Store & Actions
 import { addStaff } from '../store/action'
-// import { useDispatch } from 'react-redux'
-import { store } from '@store/storeConfig/store'
+import { useDispatch, useSelector } from 'react-redux'
 
 import InputPasswordToggle from '@components/input-password-toggle'
 
 
 const SidebarNewUsers = ({ open, toggleSidebar }) => {
   // ** States
-  const [role, setRole] = useState('subscriber')
+  const [role, setRole] = useState(''),
+    store = useSelector(state => state.internalusers),
+    dispatch = useDispatch()
 
-  // // ** Store Vars
-  // const dispatch = useDispatch()
-
-  // ** Vars
   const { register, errors, handleSubmit } = useForm()
 
-  // ** Function to handle form submit
   const onSubmit = values => {
     if (isObjEmpty(errors)) {
       toggleSidebar()
-      store.dispatch(
+      dispatch(
         addStaff({
-          role_id: "622341d4fcb30a3de8bf1308",
-          fullname: values['fullname'],
-          email: values.email,
-          password: values.password
+          role_id: role,
+          ...values
         })
       )
     }
@@ -79,16 +73,13 @@ const SidebarNewUsers = ({ open, toggleSidebar }) => {
             innerRef={register({ required: true })}
             className={classnames({ 'is-invalid': errors['email'] })}
           />
-          <FormText color='muted'>You can use letters, numbers & periods</FormText>
         </FormGroup>
         <FormGroup>
           <Label for='user-role'>User Role</Label>
           <Input type='select' id='user-role' name='user-role' value={role} onChange={e => setRole(e.target.value)}>
-            <option value='subscriber'>Subscriber</option>
-            <option value='editor'>Editor</option>
-            <option value='maintainer'>Maintainer</option>
-            <option value='author'>Author</option>
-            <option value='admin'>Admin</option>
+            {store.roles.map(data => {
+              return <option value={data._id} key={data._id}>{data.name}</option>
+            })}
           </Input>
         </FormGroup>
         <FormGroup>

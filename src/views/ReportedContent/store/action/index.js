@@ -1,16 +1,11 @@
 import axios from 'axios'
-import { BASEURL } from '@utils'
-
-const Token = `wow-talent_6586563476534 ${JSON.parse(localStorage.getItem('token'))}`
-
+import { BASEURL, Token } from '@utils'
 
 // ** Get all 
 export const getAllReportedContent = () => {
   return async dispatch => {
     await axios.get(`${BASEURL}/user/report?limit=2000000000`, {
-      headers: {
-        authorization: Token
-      }
+      headers: { Token }
     }).then(response => {
       // console.log(response.data.data.list)
       dispatch({
@@ -26,9 +21,7 @@ export const getReportedContentList = props => {
   return async dispatch => {
     // console.log(params)
     await axios.get(`${BASEURL}/user/report?page=${props.page}&limit=${props.limit}`, {
-      headers: {
-        authorization: Token
-      }
+      headers: { Token }
     }).then(response => {
       dispatch({
         type: 'GET_REPORTED_CONTENT',

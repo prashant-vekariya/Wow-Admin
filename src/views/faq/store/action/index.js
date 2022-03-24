@@ -1,17 +1,13 @@
 import axios from 'axios'
 import { sucessTost, warningTost } from '@src/views/Tost'
-import { BASEURL } from '@utils'
-
-const Token = `wow-talent_6586563476534 ${JSON.parse(localStorage.getItem('token'))}`
-
+import { BASEURL, Token } from '@utils'
 
 // ** Get all FAQ
+/* eslint-disable */
 export const getAllFaq = () => {
   return async dispatch => {
     await axios.get(`${BASEURL}/page/faq`, {
-      headers: {
-        authorization: Token
-      }
+      headers: { Token }
     }).then(response => {
       dispatch({
         type: 'GET_ALL_FAQ',
@@ -27,9 +23,7 @@ export const createFaqCategory = data => {
   return dispatch => {
     axios
       .post(`${BASEURL}/page/create_faq`, data, {
-        headers: {
-          authorization: Token
-        }
+        headers: { Token }
       })
       .then(() => {
         dispatch(getAllFaq())
@@ -43,9 +37,7 @@ export const createFaqQuestion = data => {
   return dispatch => {
     axios
       .post(`${BASEURL}/page/create_faq_question`, data, {
-        headers: {
-          authorization: Token
-        }
+        headers: { Token }
       })
       .then(res => {
         if (res.status === 200) {
@@ -66,9 +58,7 @@ export const editFaqCategory = data => {
   return dispatch => {
     axios
       .post(`${BASEURL}/page/edit_faq_category`, data, {
-        headers: {
-          authorization: Token
-        }
+        headers: { Token }
       })
       .then(() => {
         dispatch(getAllFaq())
@@ -82,9 +72,7 @@ export const editFaqQuestion = data => {
   return dispatch => {
     axios
       .post(`${BASEURL}/page/edit_faq_question`, data, {
-        headers: {
-          authorization: Token
-        }
+        headers: { Token }
       })
       .then(res => {
         // console.log(res)
@@ -110,9 +98,7 @@ export const deleteFaqCategory = id => {
   return async dispatch => {
     axios
       .post(`${BASEURL}/page/edit_faq_category`, data, {
-        headers: {
-          authorization: Token
-        }
+        headers: { Token }
       }).then(() => {
         dispatch(getAllFaq())
         sucessTost('Deleted Successfully.!!')
@@ -130,9 +116,7 @@ export const deleteFaqQuestion = id => {
   return async dispatch => {
     axios
       .post(`${BASEURL}/page/edit_faq_question`, data, {
-        headers: {
-          authorization: Token
-        }
+        headers: { Token }
       }).then(() => {
         dispatch(getAllFaq())
         sucessTost('Deleted Successfully.!!')
@@ -143,9 +127,7 @@ export const deleteFaqQuestion = id => {
 export const getFaqCategoryDetails = id => {
   return async dispatch => {
     await axios.get(`${BASEURL}/page/faq_category_detail?faq_id=${id}`, {
-      headers: {
-        authorization: Token
-      }
+      headers: { Token }
     }).then(response => {
       dispatch({
         type: 'GET_FAQ_CATEGORY_DETAILS',
@@ -159,11 +141,8 @@ export const getFaqCategoryDetails = id => {
 export const getFaqQuestionDetails = id => {
   return async dispatch => {
     await axios.get(`${BASEURL}/page/faq_question_detail?faq_id=${id}`, {
-      headers: {
-        authorization: Token
-      }
+      headers: { Token }
     }).then(response => {
-      // console.log('===', response)
       dispatch({
         type: 'GET_FAQ_QUESTION_DETAILS',
         selectedFaqQuestion: response.data.data.data

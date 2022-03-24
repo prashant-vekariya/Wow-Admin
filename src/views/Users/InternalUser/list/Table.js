@@ -48,7 +48,7 @@ const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter,
             />
           </div>
           <Button.Ripple color='primary' onClick={toggleSidebar}>
-            Add New User
+            Add New
           </Button.Ripple>
         </Col>
       </Row>
@@ -153,7 +153,7 @@ const UsersList = () => {
 
   useEffect(() => {
     dataToRender()
-  }, [store.allData.length])
+  }, [dispatch, store.allData.length])
 
   return (
     <Fragment>

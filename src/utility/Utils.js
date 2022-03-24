@@ -3,6 +3,8 @@ export const isObjEmpty = obj => Object.keys(obj).length === 0
 
 export const BASEURL = 'http://13.232.155.183:3000/api/admin'
 
+export const Token = `wow-talent_6586563476534 ${JSON.parse(localStorage.getItem('token'))}`
+
 // ** Returns K format from a number
 export const kFormatter = num => (num > 999 ? `${(num / 1000).toFixed(1)}k` : num)
 

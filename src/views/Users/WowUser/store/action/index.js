@@ -1,17 +1,13 @@
 import axios from 'axios'
-import { BASEURL } from '@utils'
-
-const Token = `wow-talent_6586563476534 ${JSON.parse(localStorage.getItem('token'))}`
+import { sucessTost, warningTost } from '@src/views/Tost'
+import { BASEURL, Token } from '@utils'
 
 //** Get all Data
 export const getAllWowUserData = () => {
   return async dispatch => {
     await axios.get(`${BASEURL}/user/userlist?limit=100000000000`, {
-      headers: {
-        authorization: Token
-      }
+      headers: { Token }
     }).then(response => {
-      // console.log(response)
       dispatch({
         type: 'GET_ALL_DATA',
         data: response.data.data.data
@@ -25,9 +21,7 @@ export const getWowUserList = props => {
   return async dispatch => {
     // console.log(params)
     await axios.get(`${BASEURL}/user/userlist?page=${props.page}&limit=${props.limit}`, {
-      headers: {
-        authorization: Token
-      }
+      headers: { Token }
     }).then(response => {
       dispatch({
         type: 'GET_DATA',
@@ -44,9 +38,7 @@ export const getUser = id => {
   return async dispatch => {
     await axios
       .get(`${BASEURL}/user/userdetail?user_id=${id}`, {
-        headers: {
-          authorization: Token
-        }
+        headers: { Token }
       })
       .then(response => {
         // console.log(response.data.data.user)

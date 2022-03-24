@@ -13,6 +13,10 @@ import { store } from '@store/storeConfig/store'
 import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledTooltip } from 'reactstrap'
 import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2, Archive, Eye } from 'react-feather'
 
+const handleOnError = (e) => {
+  e.target.src = AvatarBlank
+}
+
 export const columns = [
   {
     name: 'User',
@@ -21,7 +25,7 @@ export const columns = [
     sortable: true,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
-        <Avatar className='mr-1' img={row.profile_pic_url ? row.profile_pic_url : AvatarBlank} width='32' height='32' />
+        <Avatar className='mr-1' img={row.profile_pic_url ? row.profile_pic_url : AvatarBlank} onError={handleOnError} width='32' height='32' />
         <div className='d-flex flex-column'>
           <div className='user-name text-truncate mb-0' >
             <span className='font-weight-bold'>{row.display_name}</span>

@@ -1,16 +1,12 @@
 import axios from 'axios'
 import { sucessTost, warningTost } from '@src/views/Tost'
-import { BASEURL } from '@utils'
-
-const Token = `wow-talent_6586563476534 ${JSON.parse(localStorage.getItem('token'))}`
+import { BASEURL, Token } from '@utils'
 
 // ** Get all Role
 export const getAllRoleData = () => {
   return async dispatch => {
     await axios.get(`${BASEURL}/role/get_role`, {
-      headers: {
-        authorization: Token
-      }
+      headers: { Token }
     }).then(response => {
       dispatch({
         type: 'GET_ALL_DATA',
@@ -25,9 +21,7 @@ export const addRole = role => {
   return dispatch => {
     axios
       .post(`${BASEURL}/role/create_role`, role, {
-        headers: {
-          authorization: Token
-        }
+        headers: { Token }
       })
       .then(() => {
         dispatch(getAllRoleData())
@@ -41,9 +35,7 @@ export const addRole = role => {
 export const getRoleDetails = id => {
   return async dispatch => {
     await axios.get(`${BASEURL}/role/role_detail?role_id=${id}`, {
-      headers: {
-        authorization: Token
-      }
+      headers: { Token }
     }).then(response => {
       dispatch({
         type: 'GET_ROLE_DETAILS',
@@ -59,9 +51,7 @@ export const editRole = role => {
   return dispatch => {
     axios
       .post(`${BASEURL}/role/edit_permission`, role, {
-        headers: {
-          authorization: Token
-        }
+        headers: { Token }
       })
       .then(() => {
         dispatch({
@@ -77,9 +67,7 @@ export const deleteRole = role => {
   return dispatch => {
     axios
       .post(`${BASEURL}/role/delete_role`, role, {
-        headers: {
-          authorization: Token
-        }
+        headers: { Token }
       })
       .then(() => {
         dispatch(getAllRoleData())
@@ -92,9 +80,7 @@ export const deactivateRole = role => {
   return dispatch => {
     axios
       .post(`${BASEURL}/role/deactivate_role`, role, {
-        headers: {
-          authorization: Token
-        }
+        headers: { Token }
       })
       .then(() => {
         dispatch(getAllRoleData())

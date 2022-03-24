@@ -1,8 +1,6 @@
 import axios from 'axios'
 import { sucessTost, warningTost } from '@src/views/Tost'
-import { BASEURL } from '@utils'
-
-const Token = `wow-talent_6586563476534 ${JSON.parse(localStorage.getItem('token'))}`
+import { BASEURL, Token } from '@utils'
 
 /* eslint-disable */
 
@@ -10,9 +8,7 @@ const Token = `wow-talent_6586563476534 ${JSON.parse(localStorage.getItem('token
 export const getAllCategory = () => {
   return async dispatch => {
     await axios.get(`${BASEURL}/category/get_category`, {
-      headers: {
-        authorization: Token
-      }
+      headers: { Token }
     }).then(response => {
       dispatch({
         type: 'GET_ALL_CATEGORY',
@@ -26,9 +22,7 @@ export const getAllCategory = () => {
 export const getCategoryDetail = id => {
   return async dispatch => {
     await axios.get(`${BASEURL}/category/category_detail?category_id=${id}`, {
-      headers: {
-        authorization: Token
-      }
+      headers: { Token }
     }).then(response => {
       dispatch({
         type: 'GET_CATEGORY_DETAILS',
@@ -44,7 +38,7 @@ export const editCategory = prop => {
     await axios.post(`${BASEURL}/category/edit_category`, prop, {
       headers: {
         'Content-Type': 'multipart/form-data',
-        authorization: Token
+        Token
       }
     }).then(() => {
       dispatch({
@@ -65,9 +59,7 @@ export const addCategory = prop => {
   return async dispatch => {
     axios
       .post(`${BASEURL}/category/create_category`, prop, {
-        headers: {
-          authorization: Token
-        }
+        headers: { Token }
       }).then(() => {
         dispatch({
           type: 'ADD/EDIT_CATEGORY',
@@ -87,9 +79,7 @@ export const deleteCategory = id => {
   return (dispatch, getState) => {
     axios
       .get(`${BASEURL}/category/delete_category?category_id=${id}`, {
-        headers: {
-          authorization: Token
-        }
+        headers: { Token }
       })
       .then(response => {
         dispatch(getAllCategory())

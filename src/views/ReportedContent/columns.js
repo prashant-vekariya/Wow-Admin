@@ -15,6 +15,10 @@ import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2, Archive, Eye } from 'react-feather'
 import moment from 'moment'
 
+const handleOnError = (e) => {
+  e.target.src = AvatarBlank
+}
+
 export const columns = [
   // {
   //   name: 'Sr No.',
@@ -34,7 +38,7 @@ export const columns = [
     name: 'Reported By',
     selector: 'Reported By',
     cell: row => <div className='d-flex justify-content-left align-items-center'>
-      <Avatar className='mr-1' img={row.profile_pic_url ? row.profile_pic_url : AvatarBlank} width='32' height='32' />
+      <Avatar className='mr-1' img={row.profile_pic_url ? row.profile_pic_url : AvatarBlank} onError={handleOnError} width='32' height='32' />
       <div className='d-flex flex-column'>
         <div className='user-name text-truncate mb-0' >
           <span className='font-weight-bold'>{row.display_name}</span>
@@ -54,7 +58,7 @@ export const columns = [
   {
     name: 'Posted By',
     cell: row => <div className='d-flex justify-content-left align-items-center'>
-      <Avatar className='mr-1' img={row.video.profile_pic_url ? row.video.profile_pic_url : AvatarBlank} width='32' height='32' />
+      <Avatar className='mr-1' img={row.video.profile_pic_url ? row.video.profile_pic_url : AvatarBlank} onError={handleOnError} width='32' height='32' />
       <div className='d-flex flex-column'>
         <div className='user-name text-truncate mb-0' >
           <span className='font-weight-bold'>{row.video.display_name}</span>

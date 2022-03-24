@@ -75,4 +75,10 @@ export default [
     icon: <Settings size={20} />,
     navLink: '/setting'
   }
+  // {
+  //   id: 'logout',
+  //   title: 'Logout',
+  //   icon: <Settings size={20} />,
+  //   navLink: '/setting'
+  // }
 ]

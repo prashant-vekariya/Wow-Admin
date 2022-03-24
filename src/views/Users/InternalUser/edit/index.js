@@ -8,7 +8,7 @@ import AccountTab from './Account'
 // import InfoTab from './Information'
 
 // ** Store & Actions
-import { getUser } from '../store/action'
+import { getUser, getAllRole } from '../store/action'
 import { useSelector, useDispatch } from 'react-redux'
 
 // ** Third Party Components
@@ -41,14 +41,14 @@ const UserEdit = () => {
     if (store.selectedUser) {
       setData(store.selectedUser)
     }
-  }, [id])
+  }, [id, JSON.stringify(store.selectedUser) === JSON.stringify(data)])
 
   return data !== null && data !== undefined ? (
     <Row className='app-user-edit'>
       <Col sm='12'>
         <Card>
           <CardBody className='pt-2'>
-            <AccountTab selectedUser={data} />
+            <AccountTab selectedUser={data} roles={store.roles} />
           </CardBody>
         </Card>
       </Col>

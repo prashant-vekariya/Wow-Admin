@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import * as Icon from 'react-feather'
 import { ReactSortable } from 'react-sortablejs'
 import { MdEdit } from 'react-icons/md'
@@ -16,23 +16,32 @@ const Faqs = ({ data }) => {
 
   const [listArr, setListArr] = useState(data)
 
-  const [activeTab, setActiveTab] = useState(listArr[0].category)
-  const [formModal, setFormModal] = useState(false)
-  const [addnew, setAddnew] = useState("")
-
-  const [faqCategoryTitle, setfaqCategoryTitle] = useState('')
-  const [status, setStatus] = useState()
-
-
-  const toggleTab = tab => setActiveTab(tab)
-
   // ** Store Vars
   const dispatch = useDispatch()
   const store = useSelector(state => state.faq)
 
+  const [activeTab, setActiveTab] = useState(listArr[0].category)
+  const [formModal, setFormModal] = useState(false)
+  const [addnew, setAddnew] = useState("")
+
+  const [faqCategoryTitle, setfaqCategoryTitle] = useState(''),
+    [datas, setDatas] = useState(null),
+    [sno, setSno] = useState('')
+
+
+  const toggleTab = tab => setActiveTab(tab)
+
+
   // Object.entries(data).forEach(([key, val]) => {
   //   dataToRender.push(val)
   // })
+  useEffect(() => {
+    if (store.selectedFaqCategory) {
+      setDatas(store.selectedFaqCategory)
+      setSno(store.selectedFaqCategory.sno)
+    }
+  }, [JSON.stringify(store.selectedFaqCategory) === JSON.stringify(datas)])
+
 
   const renderTabs = () => {
     return listArr.map(item => {
@@ -97,13 +106,15 @@ const Faqs = ({ data }) => {
   const editAddFaqCetegory = () => {
     if (addnew) {
       const data = {
-        category: faqCategoryTitle
+        category: faqCategoryTitle,
+        sno
       }
       dispatch(createFaqCategory(data))
     } else {
       const data = {
         category_id: store.selectedFaqCategory._id,
-        category: faqCategoryTitle
+        category: faqCategoryTitle,
+        sno
       }
       dispatch(editFaqCategory(data))
     }
@@ -145,20 +156,12 @@ const Faqs = ({ data }) => {
         <ModalHeader toggle={() => setFormModal(!formModal)}> {addnew ? addnew : 'Update'} FAQ Category</ModalHeader>
         <ModalBody>
           <FormGroup>
+            <FormGroup className='mb-2'>
+              <Label>S No.</Label>
+              <Input type='number' min="1" value={sno} onChange={e => setSno(e.target.value)} />
+            </FormGroup>
             <Label>Title</Label>
             <Input defaultValue={addnew ? "" : activeTab} placeholder='' onChange={e => setfaqCategoryTitle(e.target.value)} required />
-          </FormGroup>
-          <FormGroup className='mb-2'>
-            <Label for='blog-edit-status'>Status</Label>
-            <Input
-              type='select'
-              id='edit-status'
-              defaultValue={status}
-              onChange={e => setStatus(e.target.value)}
-            >
-              <option value='Published'>Active</option>
-              <option value='Inactive'>Inactive</option>
-            </Input>
           </FormGroup>
         </ModalBody>
         <ModalFooter>

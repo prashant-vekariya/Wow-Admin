@@ -1,16 +1,12 @@
 import axios from 'axios'
 import { sucessTost, warningTost } from '@src/views/Tost'
-import { BASEURL } from '@utils'
-
-const Token = `wow-talent_6586563476534 ${JSON.parse(localStorage.getItem('token'))}`
+import { BASEURL, Token } from '@utils'
 
 // ** Get all Data
 export const getAllData = () => {
   return async dispatch => {
     await axios.get(`${BASEURL}/page/get_pageinfo`, {
-      headers: {
-        authorization: Token
-      }
+      headers: { Token }
     }).then(response => {
       dispatch({
         type: 'GET_ALL_DATA',
@@ -25,9 +21,7 @@ export const getInfoDetails = id => {
   return async dispatch => {
     await axios
       .get(`${BASEURL}/page/page_detail?page_id=${id}`, {
-        headers: {
-          authorization: Token
-        }
+        headers: { Token }
       })
       .then(response => {
         dispatch({
@@ -46,7 +40,7 @@ export const editPageInfo = data => {
       .post(`${BASEURL}/page/edit_pageinfo`, data, {
         headers: {
           'content-type': 'application/json',
-          authorization: Token
+          Token
         }
       })
       .then(res => {
@@ -72,7 +66,7 @@ export const addPageInfo = data => {
       .post(`${BASEURL}/page/add_pageinfo`, data, {
         headers: {
           'content-type': 'application/json',
-          authorization: Token
+          Token
         }
       })
       .then(res => {
@@ -98,7 +92,7 @@ export const deleteInfo = data => {
       .post(`${BASEURL}/page/edit_pageinfo`, data, {
         headers: {
           'content-type': 'application/json',
-          authorization: Token
+          Token
         }
       })
       .then(() => {

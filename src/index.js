@@ -20,7 +20,7 @@ import Spinner from './@core/components/spinner/Fallback-spinner'
 import './@core/components/ripple-button'
 
 // ** Fake Database
-import './@fake-db'
+// import './@fake-db'
 
 // ** PrismJS
 import 'prismjs'
@@ -47,14 +47,14 @@ const LazyApp = lazy(() => import('./App'))
 ReactDOM.render(
   <Provider store={store}>
     <Suspense fallback={<Spinner />}>
-      <AbilityContext.Provider value={ability}>
-        <ThemeContext>
-          <IntlProviderWrapper>
-            <LazyApp />
-            <ToastContainer newestOnTop />
-          </IntlProviderWrapper>
-        </ThemeContext>
-      </AbilityContext.Provider>
+      {/* <AbilityContext.Provider value={ability}> */}
+      <ThemeContext>
+        <IntlProviderWrapper>
+          <LazyApp />
+          <ToastContainer newestOnTop />
+        </IntlProviderWrapper>
+      </ThemeContext>
+      {/* </AbilityContext.Provider> */}
     </Suspense>
   </Provider>,
   document.getElementById('root')

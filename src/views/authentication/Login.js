@@ -50,9 +50,7 @@ const Login = props => {
   const dispatch = useDispatch()
   const history = useHistory()
   const [email, setEmail] = useState('pratikranpariya007@gmail.com')
-  const [password, setPassword] = useState('123456')
-  // const [email, setEmail] = useState('admin@demo.com')
-  // const [password, setPassword] = useState('admin')
+  const [password, setPassword] = useState('12345')
 
   const { register, errors, handleSubmit } = useForm()
   const illustration = skin === 'dark' ? 'login-v2-dark.svg' : 'login-v2.svg',
@@ -66,15 +64,8 @@ const Login = props => {
           const data = {
             ...res.data.data
           }
-          // console.log(data)
-          // const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
           dispatch(handleLogin(data))
-          // ability.update(res.data.data.data.roletype)
           history.push(getHomeRouteForLoggedInUser(data.data.roletype))
-          // toast.success(
-          //   <ToastContent name={data.fullName || data.username || 'John Doe'} role={data.role || 'admin'} />,
-          //   { transition: Slide, hideProgressBar: true, autoClose: 2000 }
-          // )
         })
         .catch(err => console.log(err))
     }
@@ -102,24 +93,10 @@ const Login = props => {
               <div className='alert-body font-small-2'>
                 <p>
                   <small className='mr-50'>
-                    <span className='font-weight-bold'>Admin:</span> pratikranpariya007 @gmail.com | 123456
+                    <span className='font-weight-bold'>Admin:</span> pratikranpariya007 @gmail.com | 12345
                   </small>
                 </p>
-                {/* <p>
-                  <small className='mr-50'>
-                    <span className='font-weight-bold'>Client:</span> client@demo.com | client
-                  </small>
-                </p> */}
               </div>
-              {/* <HelpCircle
-                id='login-tip'
-                className='position-absolute'
-                size={18}
-                style={{ top: '10px', right: '10px' }}
-              />
-              <UncontrolledTooltip target='login-tip' placement='left'>
-                This is just for ACL demo purpose.
-              </UncontrolledTooltip> */}
             </Alert>
             <Form className='auth-login-form mt-2' onSubmit={handleSubmit(onSubmit)}>
               <FormGroup>
@@ -151,42 +128,15 @@ const Login = props => {
                   value={password}
                   id='login-password'
                   name='login-password'
-                  // className='input-group-merge'
                   onChange={e => setPassword(e.target.value)}
                   className={classnames({ 'is-invalid': errors['login-password'] })}
                   innerRef={register({ required: true, validate: value => value !== '' })}
                 />
               </FormGroup>
-              {/* <FormGroup>
-                <CustomInput type='checkbox' className='custom-control-Primary' id='remember-me' label='Remember Me' />
-              </FormGroup> */}
               <Button.Ripple type='submit' color='primary' block>
                 Sign in
               </Button.Ripple>
             </Form>
-            {/* <p className='text-center mt-2'>
-              <span className='mr-25'>New on our platform?</span>
-              <Link to='/register'>
-                <span>Create an account</span>
-              </Link>
-            </p>
-            <div className='divider my-2'>
-              <div className='divider-text'>or</div>
-            </div>
-            <div className='auth-footer-btn d-flex justify-content-center'>
-              <Button.Ripple color='facebook'>
-                <Facebook size={14} />
-              </Button.Ripple>
-              <Button.Ripple color='twitter'>
-                <Twitter size={14} />
-              </Button.Ripple>
-              <Button.Ripple color='google'>
-                <Mail size={14} />
-              </Button.Ripple>
-              <Button.Ripple className='mr-0' color='github'>
-                <GitHub size={14} />
-              </Button.Ripple>
-            </div> */}
           </Col>
         </Col>
       </Row>

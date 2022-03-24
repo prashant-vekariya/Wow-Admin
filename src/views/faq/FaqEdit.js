@@ -5,7 +5,6 @@ import { Link, useParams, useHistory, useLocation } from 'react-router-dom'
 import { getFaqQuestionDetails, createFaqQuestion, editFaqQuestion } from './store/action'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Card, CardBody, CardText, Media, Form, Label, Input, FormGroup, CustomInput, Button } from 'reactstrap'
-import { toast, Slide } from 'react-toastify'
 
 
 const FaqEdit = () => {
@@ -45,7 +44,6 @@ const FaqEdit = () => {
                 answer,
                 question
             }
-            // console.log(data)
             dispatch(createFaqQuestion(data))
         } else {
             const data = {
@@ -60,14 +58,6 @@ const FaqEdit = () => {
     if (store.redirect) {
         setTimeout(() => {
             history.push(store.redirect)
-            toast.success(
-                <div className='toastify-header'>
-                    <div className='title-wrapper'>
-                        <h6 className='toast-title font-weight-bold text-uppercase'>{id === 'createquestion' ? 'Created' : 'Edit'} Successfully.!!</h6>
-                    </div>
-                </div>,
-                { transition: Slide, hideProgressBar: true, autoClose: 3000 }
-            )
         }, 300)
     }
 

@@ -26,12 +26,6 @@ const renderClient = row => {
   }
 }
 
-const statusObj = {
-  pending: 'light-warning',
-  active: 'light-success',
-  inactive: 'light-secondary'
-}
-
 export const columns = [
   {
     name: 'Name',
@@ -94,7 +88,7 @@ export const columns = [
           </UncontrolledTooltip>
         </Badge>
         <Badge className='text-capitalize mr-1 cursor-pointer' color='light-danger' id={`pw-tooltip-delete-${row._id}`} pill
-          onClick={() => store.dispatch(deleteStaff({ soft_delete: true, staff_id: row._id }))}
+          onClick={() => store.dispatch(deleteStaff({ soft_delete: 'true', staff_id: row._id }))}
         >
           <Trash2 size={18} />
           <UncontrolledTooltip placement='top' target={`pw-tooltip-delete-${row._id}`}>
@@ -103,7 +97,7 @@ export const columns = [
         </Badge>
         {row.is_active ? (
           <Badge className='text-capitalize cursor-pointer' color='light-secondary' id={`pw-tooltip-deactive-${row._id}`} pill
-            onClick={() => store.dispatch(deactivateStaff({ is_active: false, staff_id: row._id }))}
+            onClick={() => store.dispatch(deactivateStaff({ is_active: 'false', staff_id: row._id }))}
           >
             <Archive size={24} />
             <UncontrolledTooltip placement='top' target={`pw-tooltip-deactive-${row._id}`}>
@@ -112,7 +106,7 @@ export const columns = [
           </Badge>
         ) : (
           <Badge className='text-capitalize cursor-pointer' color='light-secondary' id={`pw-tooltip-deactive-${row._id}`} pill
-            onClick={() => store.dispatch(deactivateStaff({ is_active: true, staff_id: row._id }))}
+            onClick={() => store.dispatch(deactivateStaff({ is_active: 'true', staff_id: row._id }))}
           >
             <Archive size={24} />
             <UncontrolledTooltip placement='top' target={`pw-tooltip-deactive-${row._id}`}>

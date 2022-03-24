@@ -36,21 +36,43 @@ const UserDropdown = () => {
   //** Vars
   const userAvatar = (userData && userData.avatar) || defaultAvatar
 
+  const renderUserAvatar = () => {
+    return (
+      <Avatar
+        initials
+        color='light-info'
+        className='text-capitalize'
+        content={(userData && userData['fullname']) || 'John Doe'}
+        contentStyles={{
+          borderRadius: 0,
+          fontSize: 'calc(20px)',
+          width: '100%',
+          height: '100%'
+        }}
+        style={{
+          height: '40px',
+          width: '40px'
+        }}
+      />
+    )
+  }
+
   return (
     <UncontrolledDropdown tag='li' className='dropdown-user nav-item'>
       <DropdownToggle href='/' tag='a' className='nav-link dropdown-user-link' onClick={e => e.preventDefault()}>
         <div className='user-nav d-sm-flex d-none'>
-          <span className='user-name font-weight-bold'>{(userData && userData['username']) || 'John Doe'}</span>
-          <span className='user-status'>{(userData && userData.role) || 'Admin'}</span>
+          <span className='user-name font-weight-bold text-capitalize'>{(userData && userData['fullname']) || 'John Doe'}</span>
+          <span className='user-status'>{(userData && userData.roletype) || 'Admin'}</span>
         </div>
-        <Avatar img={userAvatar} imgHeight='40' imgWidth='40' status='online' />
+        {/* <Avatar img={userAvatar} imgHeight='40' imgWidth='40' status='online' /> */}
+        {renderUserAvatar()}
       </DropdownToggle>
       <DropdownMenu right>
         <DropdownItem tag={Link} to='#' onClick={e => e.preventDefault()}>
           <User size={14} className='mr-75' />
           <span className='align-middle'>Profile</span>
         </DropdownItem>
-        <DropdownItem tag={Link} to='#' onClick={e => e.preventDefault()}>
+        {/* <DropdownItem tag={Link} to='#' onClick={e => e.preventDefault()}>
           <Mail size={14} className='mr-75' />
           <span className='align-middle'>Inbox</span>
         </DropdownItem>
@@ -61,7 +83,7 @@ const UserDropdown = () => {
         <DropdownItem tag={Link} to='#' onClick={e => e.preventDefault()}>
           <MessageSquare size={14} className='mr-75' />
           <span className='align-middle'>Chats</span>
-        </DropdownItem>
+        </DropdownItem> */}
         <DropdownItem tag={Link} to='/login' onClick={() => dispatch(handleLogout())}>
           <Power size={14} className='mr-75' />
           <span className='align-middle'>Logout</span>
