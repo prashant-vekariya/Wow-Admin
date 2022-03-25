@@ -7,7 +7,7 @@ import { getRoleDetails, editRole } from '../store/action'
 import { useSelector, useDispatch } from 'react-redux'
 
 // ** Third Party Components
-import { toast, Slide } from 'react-toastify'
+import BreadCrumbs from '@components/breadcrumbs'
 import { useForm } from 'react-hook-form'
 import { Lock, Info, Share2 } from 'react-feather'
 import { Card, CardBody, Row, Col, CustomInput, Table, Form, Alert, Button } from 'reactstrap'
@@ -49,6 +49,7 @@ const RoleEdit = () => {
   return store.selectedRole !== null && store.selectedRole !== undefined && userData !== null && userData !== undefined ? (
     <Row className='app-user-edit'>
       <Col sm='12'>
+        <BreadCrumbs breadCrumbTitle='Wow Roles' breadCrumbParent='Role List' breadCrumbActive='Role Edit' />
         <Card>
           <CardBody className='pt-2'>
             <Row>

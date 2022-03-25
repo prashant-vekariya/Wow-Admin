@@ -2,9 +2,9 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link, useHistory } from 'react-router-dom'
 
-
 import Avatar from '@components/avatar'
 import dummyImg from '@src/assets/images/backgrounds/dummy-image.jpg'
+import BreadCrumbs from '@components/breadcrumbs'
 
 import { useForm } from 'react-hook-form'
 
@@ -107,6 +107,7 @@ const CategoryEdit = () => {
     return (
         <Row className='app-user-edit'>
             <Col sm='12'>
+                <BreadCrumbs breadCrumbTitle='Category' breadCrumbParent='Category List' breadCrumbActive={`Category ${params.id === 'new' ? 'Create' : 'Edit'}`} />
                 <Card>
                     <CardBody className='pt-2'>
                         <Row>

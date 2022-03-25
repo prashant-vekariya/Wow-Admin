@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams, useHistory, useLocation } from 'react-router-dom'
+import BreadCrumbs from '@components/breadcrumbs'
 
 // ** Store & Actions
 import { getFaqQuestionDetails, createFaqQuestion, editFaqQuestion } from './store/action'
@@ -48,6 +49,7 @@ const FaqEdit = () => {
         } else {
             const data = {
                 question_id: id,
+                sno,
                 answer,
                 question
             }
@@ -64,6 +66,7 @@ const FaqEdit = () => {
     return (
         <div className='blog-edit-wrapper'>
             {/* {data !== null ? ( */}
+            <BreadCrumbs breadCrumbTitle='FAQ' breadCrumbParent='Faq List' breadCrumbActive={`Faq Question ${id === 'createquestion' ? 'Create' : 'Edit'}`} />
             <Row>
                 <Col sm='12'>
                     <Card>

@@ -3,9 +3,8 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
 // ** User Edit Components
-// import SocialTab from './Social'
 import AccountTab from './Account'
-// import InfoTab from './Information'
+import BreadCrumbs from '@components/breadcrumbs'
 
 // ** Store & Actions
 import { getUser, getAllRole } from '../store/action'
@@ -44,15 +43,18 @@ const UserEdit = () => {
   }, [id, JSON.stringify(store.selectedUser) === JSON.stringify(data)])
 
   return data !== null && data !== undefined ? (
-    <Row className='app-user-edit'>
-      <Col sm='12'>
-        <Card>
-          <CardBody className='pt-2'>
-            <AccountTab selectedUser={data} roles={store.roles} />
-          </CardBody>
-        </Card>
-      </Col>
-    </Row>
+    <>
+      <BreadCrumbs breadCrumbTitle='Staff' breadCrumbParent='Staff List' breadCrumbActive='Staff Edit' />
+      <Row className='app-user-edit'>
+        <Col sm='12'>
+          <Card>
+            <CardBody className='pt-2'>
+              <AccountTab selectedUser={data} roles={store.roles} />
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </>
   ) : (
     <Alert color='danger'>
       <h4 className='alert-heading'>User not found</h4>

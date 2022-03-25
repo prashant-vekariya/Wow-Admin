@@ -88,6 +88,16 @@ export const editFaqQuestion = data => {
       .catch(err => warningTost(err.response.data.error.status))
   }
 }
+// ** Edit FAQ Question Sno.
+export const editFaqQuestionsno = data => {
+  return dispatch => {
+    axios
+      .post(`${BASEURL}/page/edit_faq_question`, data, {
+        headers: { Token }
+      })
+      .catch(err => warningTost(err.response.data.error.status))
+  }
+}
 
 // ** Delete FAQ Category
 export const deleteFaqCategory = id => {

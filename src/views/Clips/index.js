@@ -53,6 +53,7 @@ const VideoClips = () => {
                         <b>No more Clips..!</b>
                     </p>
                 }
+                style={{ overflowX: 'hidden' }}
             >
                 <Row className='match-height'>
                     {clips.map(data => <Clip data={data} key={data._id} />)}

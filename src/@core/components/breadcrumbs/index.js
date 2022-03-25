@@ -25,9 +25,9 @@ const BreadCrumbs = props => {
             {breadCrumbTitle ? <h2 className='content-header-title float-left mb-0'>{breadCrumbTitle}</h2> : ''}
             <div className='breadcrumb-wrapper vs-breadcrumbs d-sm-block d-none col-12'>
               <Breadcrumb>
-                <BreadcrumbItem tag='li'>
+                {/* <BreadcrumbItem tag='li'>
                   <Link to='/'>Home</Link>
-                </BreadcrumbItem>
+                </BreadcrumbItem> */}
                 <BreadcrumbItem tag='li' className='text-primary'>
                   {breadCrumbParent}
                 </BreadcrumbItem>
@@ -53,7 +53,7 @@ const BreadCrumbs = props => {
           </div>
         </div>
       </div>
-      <div className='content-header-right text-md-right col-md-3 col-12 d-md-block d-none'>
+      {/* <div className='content-header-right text-md-right col-md-3 col-12 d-md-block d-none'>
         <div className='form-group breadcrum-right dropdown'>
           <UncontrolledButtonDropdown>
             <DropdownToggle color='primary' size='sm' className='btn-icon btn-round dropdown-toggle'>
@@ -79,7 +79,7 @@ const BreadCrumbs = props => {
             </DropdownMenu>
           </UncontrolledButtonDropdown>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

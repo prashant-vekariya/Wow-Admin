@@ -71,7 +71,7 @@ export const addStaff = user => {
         headers: { Token }
       })
       .then(response => {
-        dispatch(getAllData())
+        dispatch(getData())
         sucessTost('Added Successfully.!!')
 
       })
@@ -99,7 +99,6 @@ export const editStaff = user => {
 
 // ** Delete user
 export const deleteStaff = data => {
-  console.log(data)
   return (dispatch, getState) => {
     axios
       .post(`${BASEURL}/staff/editstaff`, data, {
@@ -107,7 +106,7 @@ export const deleteStaff = data => {
       })
       .then(() => {
         sucessTost('Deleted Successfully.!!')
-        dispatch(getAllData())
+        dispatch(getData())
       })
       .catch(err => warningTost(err.response.data.error.msg))
   }
@@ -115,14 +114,13 @@ export const deleteStaff = data => {
 
 // ** Deactivate User 
 export const deactivateStaff = data => {
-  console.log(data)
   return dispatch => {
     axios
       .post(`${BASEURL}/staff/editstaff`, data, {
         headers: { Token }
       })
       .then(() => {
-        dispatch(getAllData())
+        dispatch(getData())
       })
       .catch(err => warningTost(err.response.data.error.msg))
   }

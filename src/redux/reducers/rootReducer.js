@@ -14,6 +14,7 @@ import pageInfo from '@src/views/Page-Info/store/reducer'
 import faq from '@src/views/Faq/store/reducer'
 import clips from '@src/views/Clips/store/reducer'
 import reported from '@src/views/ReportedContent/store/reducer'
+import notification from '@src/views/PushNotification/store/reducer'
 import setting from '@src/views/Setting/store/reducer'
 
 
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   faq,
   clips,
   reported,
+  notification,
   setting
 })
 

@@ -10,7 +10,7 @@ import htmlToDraft from 'html-to-draftjs'
 import draftToHtml from 'draftjs-to-html'
 import { selectThemeColors } from '@utils'
 import { Editor } from 'react-draft-wysiwyg'
-import { toast, Slide } from 'react-toastify'
+import BreadCrumbs from '@components/breadcrumbs'
 import { EditorState, ContentState, convertToRaw } from 'draft-js'
 import {
     Row,
@@ -87,11 +87,12 @@ const InfoEdit = () => {
 
     return (
         <div className='blog-edit-wrapper'>
+            <BreadCrumbs breadCrumbTitle='Page Info' breadCrumbParent={data ? data.name : ''} breadCrumbActive={data ? `Edit ${data.name}` : 'Create Page Info'} />
             <Row>
                 <Col sm='12'>
                     <Card>
                         <CardBody>
-                            <h2>{data ? `Update${data.name}` : 'Create New'}</h2>
+                            <h2>{data ? `Update ${data.name}` : 'Create New'}</h2>
                             <Form className='mt-2' onSubmit={e => e.preventDefault()}>
                                 <Row>
                                     <Col md='6'>

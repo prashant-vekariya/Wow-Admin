@@ -11,7 +11,7 @@ import { Collapse, Card, CardHeader, CardBody, CardTitle, Badge } from 'reactstr
 
 const AppCollapse = props => {
   // ** Props
-  const { data, type, accordion, active, toggle, titleKey, contentKey, className, deleteq } = props
+  const { data, type, accordion, active, toggle, titleKey, contentKey, className, editq, deleteq } = props
 
   /**
    ** If accordion is true then return only one active index else return an Array
@@ -113,7 +113,22 @@ const AppCollapse = props => {
         'collapse-margin': type === 'margin'
       })}
     >
-      <ReactSortable className='list-group' list={listArr} setList={setListArr}>
+      <ReactSortable className='list-group' list={listArr} setList={setListArr}
+        animation={500}
+        delayOnTouchStart={true}
+        delay={5}
+        onEnd={(e) => {
+          listArr.map((result, i) => {
+            const datas = {
+              question_id: result._id,
+              question: result.question,
+              answer: result.question,
+              sno: i + 1
+            }
+            editq(datas)
+          })
+        }}
+      >
         {renderData()}
       </ReactSortable>
     </div>

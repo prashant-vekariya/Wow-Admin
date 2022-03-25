@@ -68,7 +68,9 @@ const UsersList = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   // ** Function to toggle sidebar
-  const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen)
+  }
 
   // ** Get data on mount
   useEffect(() => {
@@ -153,7 +155,7 @@ const UsersList = () => {
 
   useEffect(() => {
     dataToRender()
-  }, [dispatch, store.allData.length])
+  }, [store.allData.length])
 
   return (
     <Fragment>

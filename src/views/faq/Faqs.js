@@ -6,7 +6,7 @@ import AppCollapse from '@components/app-collapse'
 import illustration from '@src/assets/images/illustration/faq-illustrations.svg'
 import { Nav, NavItem, NavLink, Row, Col, TabContent, TabPane, Label, Input, FormGroup, Button, Modal, ModalHeader, ModalBody, ModalFooter, UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap'
 // ** Store & Actions
-import { getFaqCategoryDetails, createFaqCategory, editFaqCategory, deleteFaqCategory, deleteFaqQuestion } from './store/action'
+import { getFaqCategoryDetails, createFaqCategory, editFaqCategory, editFaqQuestionsno, deleteFaqCategory, deleteFaqQuestion } from './store/action'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
@@ -45,12 +45,10 @@ const Faqs = ({ data }) => {
 
   const renderTabs = () => {
     return listArr.map(item => {
-      // const IconTag = Icon[item.icon]
       return (
         <NavItem key={item.category} tag='li'>
           <NavLink className='d-flex justify-content-between px-0' active={activeTab === item.category} onClick={() => toggleTab(item.category)}>
             <div>
-              {/* <IconTag size={18} className='mr-1' /> */}
               <span className='font-weight-bold pl-1'>{item.category}</span>
             </div>
             <div>
@@ -93,6 +91,7 @@ const Faqs = ({ data }) => {
             type='margin'
             data={item.question}
             deleteq={id => dispatch(deleteFaqQuestion(id))}
+            editq={data => dispatch(editFaqQuestionsno(data))}
             titleKey='question'
             contentKey='answer'
             accordion
@@ -126,7 +125,21 @@ const Faqs = ({ data }) => {
         <Col lg='3' md='4' sm='12'>
           <div className='faq-navigation d-flex justify-content-between flex-column mb-2 mb-md-0'>
             <Nav tag='ul' className='nav-left' pills vertical>
-              <ReactSortable className='list-group' list={listArr} setList={setListArr} >
+              <ReactSortable className='list-group' list={listArr} setList={setListArr}
+                animation={200}
+                delayOnTouchStart={true}
+                delay={2}
+                onEnd={(e) => {
+                  listArr.map((result, i) => {
+                    const datas = {
+                      category_id: result._id,
+                      category: result.category,
+                      sno: i + 1
+                    }
+                    dispatch(editFaqCategory(datas))
+                  })
+                }}
+              >
                 {renderTabs()}
               </ReactSortable>
               <br />

@@ -11,13 +11,11 @@ import Avatar from '@components/avatar'
 import coverImg from '@src/assets/images/banner/banner-12.jpg'
 import { Row, Col, Card, CardBody, CardImg, Badge, Alert } from 'reactstrap'
 import AvatarBlank from '@src/assets/images/avatars/avatar-blank.png'
+import BreadCrumbs from '@components/breadcrumbs'
 
 // ** User View Components
-// import PlanCard from './Following'
 import UserInfoCard from './UserInfoCard'
 import UserTimeline from './UserTimeline'
-// import InvoiceList from '../../../invoice/list'
-import PermissionsTable from './PermissionsTable'
 
 // ** Styles
 import '@styles/react/apps/app-users.scss'
@@ -67,6 +65,7 @@ const UserView = props => {
 
   return store.selectedUser !== null && store.selectedUser !== undefined ? (
     <div className='app-user-view'>
+      <BreadCrumbs breadCrumbTitle='Wow Users' breadCrumbParent='User List' breadCrumbActive='User Details' />
       <Row className='match-height'>
         <Col lg='4' md='4'>
           <Card className='card-profile'>
