@@ -33,7 +33,7 @@ const UserView = props => {
 
   const renderUserImg = () => {
     if (store.selectedUser.profile_pic_url !== null || store.selectedUser.profile_pic_url !== ' ' || store.selectedUser.profile_pic_url !== undefined) {
-      console.log(store.selectedUser.profile_pic_url)
+      // console.log(store.selectedUser.profile_pic_url)
       return <Avatar img={store.selectedUser.profile_pic_url} alt='' />
     } else {
       console.log('dgnd')
@@ -61,7 +61,7 @@ const UserView = props => {
     }
   }
 
-  console.log(store.selectedUser)
+  // console.log(store.selectedUser)
 
   return store.selectedUser !== null && store.selectedUser !== undefined ? (
     <div className='app-user-view'>
@@ -83,10 +83,10 @@ const UserView = props => {
               </Badge>
               <hr className='mb-2' />
               <div className='d-flex justify-content-between align-items-center'>
-                <div>
+                <Link to={`/wowuser/view/${id}/followers`}>
                   <h6 className='text-muted font-weight-bolder'>Followers</h6>
                   <h3 className='mb-0'>{store.selectedUser.follower_count}</h3>
-                </div>
+                </Link>
                 <Link to={`/wowuser/view/${id}/following`}>
                   <h6 className='text-muted font-weight-bolder'>Following</h6>
                   <h3 className='mb-0'>{store.selectedUser.following_count}</h3>

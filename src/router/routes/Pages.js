@@ -51,10 +51,12 @@ const PagesRoutes = [
     {
         path: '/wowuser/view/:id/following',
         exact: true,
-        component: lazy(() => import('../../views/Users/WowUser/view/Following')),
-        meta: {
-            navLink: '/apps/user/view'
-        }
+        component: lazy(() => import('../../views/Users/WowUser/view/FollowingList/index'))
+    },
+    {
+        path: '/wowuser/view/:id/followers',
+        exact: true,
+        component: lazy(() => import('../../views/Users/WowUser/view/FollowersList'))
     },
     {
         path: '/pageinfo',

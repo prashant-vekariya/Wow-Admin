@@ -51,38 +51,56 @@ export const getUser = id => {
   }
 }
 
-// ** Add new user
-export const addUser = user => {
-  return (dispatch, getState) => {
-    axios
-      .post('/apps/users/add-user', user)
-      .then(response => {
-        dispatch({
-          type: 'ADD_USER',
-          user
-        })
+//** Get all Data
+export const getWowUserAllFollowerData = (id) => {
+  return async dispatch => {
+    await axios.get(`${BASEURL}/user/userfollower?user_id=${id}&limit=100000000000`, {
+      headers: { Token }
+    }).then(response => {
+      dispatch({
+        type: 'GET_ALL_FOLLOWER_DATA',
+        data: response.data.data.list
       })
-      .then(() => {
-        dispatch(getData(getState().users.params))
-        dispatch(getAllData())
-      })
-      .catch(err => console.log(err))
+    })
   }
 }
 
-// ** Delete user
-export const deleteUser = id => {
-  return (dispatch, getState) => {
-    axios
-      .delete('/apps/users/delete', { id })
-      .then(response => {
-        dispatch({
-          type: 'DELETE_USER'
-        })
+export const getWowUsersFollowerList = props => {
+  return async dispatch => {
+    await axios.get(`${BASEURL}/user/userfollower?user_id=${props.id}&page=${props.page}&limit=${props.limit}`, {
+      headers: { Token }
+    }).then(response => {
+      dispatch({
+        type: 'GET_FOLLOWER_LIST',
+        data: response.data.data.list,
+        total: response.data.data.totalitems
       })
-      .then(() => {
-        dispatch(getData(getState().users.params))
-        dispatch(getAllData())
+    })
+  }
+}
+export const getWowUserAllFollowingData = (id) => {
+  return async dispatch => {
+    await axios.get(`${BASEURL}/user/userfollowing?user_id=${id}&limit=100000000000`, {
+      headers: { Token }
+    }).then(response => {
+      dispatch({
+        type: 'GET_ALL_FOLLOWING_DATA',
+        data: response.data.data.list
       })
+    })
+  }
+}
+
+export const getWowUsersFollowingList = props => {
+  return async dispatch => {
+    await axios.get(`${BASEURL}/user/userfollowing?user_id=${props.id}&page=${props.page}&limit=${props.limit}`, {
+      headers: { Token }
+    }).then(response => {
+      dispatch({
+        type: 'GET_FOLLOWING_LIST',
+        data: response.data.data.list,
+        total: response.data.data.totalitems
+      })
+    })
   }
 }

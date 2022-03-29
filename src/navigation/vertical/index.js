@@ -1,4 +1,4 @@
-import { Mail, Server, User, Circle, Framer, Layers, AlertOctagon, Video, Bell, Settings } from 'react-feather'
+import { Mail, Server, User, Circle, Framer, Layers, AlertOctagon, Video, Bell, Settings, AlertTriangle, UserPlus } from 'react-feather'
 import { MdReportProblem } from 'react-icons/md'
 
 export default [
@@ -9,10 +9,23 @@ export default [
     navLink: '/dashboard'
   },
   {
-    id: 'role',
-    title: 'Role',
-    icon: <Mail size={20} />,
-    navLink: '/roles'
+    id: 'internal',
+    title: 'Internal',
+    icon: <UserPlus size={20} />,
+    children: [
+      {
+        id: 'role',
+        title: 'Role',
+        icon: <Circle size={12} />,
+        navLink: '/roles'
+      },
+      {
+        id: 'staff',
+        title: 'Staff',
+        icon: <Circle size={12} />,
+        navLink: '/internaluser/list'
+      }
+    ]
   },
   {
     id: 'category',
@@ -21,27 +34,14 @@ export default [
     navLink: '/category'
   },
   {
-    id: 'users',
-    title: 'User',
+    id: 'wowuser',
+    title: 'WOW Users',
     icon: <User size={20} />,
-    children: [
-      {
-        id: 'wowuser',
-        title: 'WOW Users',
-        icon: <Circle size={12} />,
-        navLink: '/wowuser/list'
-      },
-      {
-        id: 'internaluser',
-        title: 'Internal User',
-        icon: <Circle size={12} />,
-        navLink: '/internaluser/list'
-      }
-    ]
+    navLink: '/wowuser/list'
   },
   {
     id: 'pageinfo',
-    title: 'Page Info',
+    title: 'Info Page',
     icon: <AlertOctagon size={20} />,
     navLink: '/pageinfo'
   },
@@ -60,7 +60,7 @@ export default [
   {
     id: 'reportedcontent',
     title: 'Reported Content',
-    icon: <MdReportProblem size={20} />,
+    icon: <AlertTriangle size={20} />,
     navLink: '/reportedcontent'
   },
   {

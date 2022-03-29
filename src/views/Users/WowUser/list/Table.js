@@ -1,9 +1,6 @@
 // ** React Imports
 import { Fragment, useState, useEffect } from 'react'
 
-// ** Invoice List Sidebar
-import Sidebar from './Sidebar'
-
 // ** Columns
 import { columns } from './columns'
 
@@ -24,7 +21,7 @@ import '@styles/react/libs/react-select/_react-select.scss'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
 // ** Table Header
-const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter, searchTerm }) => {
+const CustomHeader = ({ handlePerPage, rowsPerPage, handleFilter, searchTerm }) => {
   return (
     <div className='invoice-list-table-header w-100 mr-1 ml-50 mt-2 mb-75'>
       <Row>
@@ -66,9 +63,6 @@ const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter,
               onChange={e => handleFilter(e.target.value)}
             />
           </div>
-          {/* <Button.Ripple color='primary' onClick={toggleSidebar}>
-            Add New User
-          </Button.Ripple> */}
         </Col>
       </Row>
     </div>
@@ -84,10 +78,6 @@ const UsersList = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-
-  // ** Function to toggle sidebar
-  const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
 
   // ** Get data on mount
   useEffect(() => {
@@ -185,7 +175,6 @@ const UsersList = () => {
           data={dataToRender()}
           subHeaderComponent={
             <CustomHeader
-              toggleSidebar={toggleSidebar}
               handlePerPage={handlePerPage}
               rowsPerPage={rowsPerPage}
               searchTerm={searchTerm}
@@ -194,8 +183,6 @@ const UsersList = () => {
           }
         />
       </Card>
-
-      <Sidebar open={sidebarOpen} toggleSidebar={toggleSidebar} />
     </Fragment>
   )
 }

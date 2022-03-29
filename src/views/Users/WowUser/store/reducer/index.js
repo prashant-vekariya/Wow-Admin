@@ -3,7 +3,12 @@ const initialState = {
   allData: [],
   data: [],
   total: 1,
-  params: {},
+  allfollowerlist: [],
+  followerlist: [],
+  totalfollower: 0,
+  allfollowinglist: [],
+  followinglist: [],
+  totalfollowing: 0,
   selectedUser: {}
 }
 
@@ -15,15 +20,18 @@ const wowusers = (state = initialState, action) => {
       return {
         ...state,
         data: action.data,
-        total: action.total,
-        params: action.props
+        total: action.total
       }
     case 'GET_USER':
       return { ...state, selectedUser: action.selectedUser }
-    case 'ADD_USER':
-      return { ...state }
-    case 'DELETE_USER':
-      return { ...state }
+    case 'GET_ALL_FOLLOWER_DATA':
+      return { ...state, allfollowerlist: action.data }
+    case 'GET_FOLLOWER_LIST':
+      return { ...state, followerlist: action.data, totalfollower: action.total }
+    case 'GET_ALL_FOLLOWING_DATA':
+      return { ...state, allfollowinglist: action.data }
+    case 'GET_FOLLOWING_LIST':
+      return { ...state, followinglist: action.data, totalfollowing: action.total }
     default:
       return { ...state }
   }
