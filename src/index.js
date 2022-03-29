@@ -47,14 +47,14 @@ const LazyApp = lazy(() => import('./App'))
 ReactDOM.render(
   <Provider store={store}>
     <Suspense fallback={<Spinner />}>
-      {/* <AbilityContext.Provider value={ability}> */}
-      <ThemeContext>
-        <IntlProviderWrapper>
-          <LazyApp />
-          <ToastContainer newestOnTop />
-        </IntlProviderWrapper>
-      </ThemeContext>
-      {/* </AbilityContext.Provider> */}
+      <AbilityContext.Provider value={ability}>
+        <ThemeContext>
+          <IntlProviderWrapper>
+            <LazyApp />
+            <ToastContainer newestOnTop />
+          </IntlProviderWrapper>
+        </ThemeContext>
+      </AbilityContext.Provider>
     </Suspense>
   </Provider>,
   document.getElementById('root')

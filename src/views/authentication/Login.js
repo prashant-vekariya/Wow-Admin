@@ -50,7 +50,7 @@ const Login = props => {
   const dispatch = useDispatch()
   const history = useHistory()
   const [email, setEmail] = useState('pratikranpariya007@gmail.com')
-  const [password, setPassword] = useState('12345')
+  const [password, setPassword] = useState('123456')
 
   const { register, errors, handleSubmit } = useForm()
   const illustration = skin === 'dark' ? 'login-v2-dark.svg' : 'login-v2.svg',
@@ -93,7 +93,7 @@ const Login = props => {
               <div className='alert-body font-small-2'>
                 <p>
                   <small className='mr-50'>
-                    <span className='font-weight-bold'>Admin:</span> pratikranpariya007 @gmail.com | 12345
+                    <span className='font-weight-bold'>Admin:</span> pratikranpariya007 @gmail.com | 123456
                   </small>
                 </p>
               </div>
