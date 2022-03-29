@@ -51,6 +51,7 @@ const Login = props => {
             ...res.data.data
           }
           dispatch(handleLogin(data))
+          window.location.reload()
           // console.log('fghjk')
           // history.push(getHomeRouteForLoggedInUser(data.data.roletype))
         })
