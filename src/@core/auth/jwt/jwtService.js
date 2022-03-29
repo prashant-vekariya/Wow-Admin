@@ -15,20 +15,20 @@ export default class JwtService {
     this.jwtConfig = { ...this.jwtConfig, ...jwtOverrideConfig }
 
     // ** Request Interceptor
-    // axios.interceptors.request.use(
-    //   config => {
-    //     // ** Get token from localStorage
-    //     const accessToken = this.getToken()
+    axios.interceptors.request.use(
+      config => {
+        // ** Get token from localStorage
+        const accessToken = this.getToken()
 
-    //     // ** If token is present add it to request's Authorization Header
-    //     if (accessToken) {
-    //       // ** eslint-disable-next-line no-param-reassign
-    //       config.headers.Authorization = `${this.jwtConfig.tokenType} ${accessToken}`
-    //     }
-    //     return config
-    //   },
-    //   error => Promise.reject(error)
-    // )
+        // ** If token is present add it to request's Authorization Header
+        if (accessToken) {
+          // ** eslint-disable-next-line no-param-reassign
+          config.headers.Authorization = `${this.jwtConfig.tokenType} ${accessToken}`
+        }
+        return config
+      },
+      error => Promise.reject(error)
+    )
 
     // ** Add request/response interceptor
     axios.interceptors.response.use(
@@ -93,6 +93,7 @@ export default class JwtService {
   }
 
   login(...args) {
+    console.log('0000')
     return axios.post(this.jwtConfig.loginEndpoint, ...args)
   }
 

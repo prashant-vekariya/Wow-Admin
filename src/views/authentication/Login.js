@@ -30,20 +30,6 @@ import {
 
 import '@styles/base/pages/page-auth.scss'
 
-const ToastContent = ({ name, role }) => (
-  <Fragment>
-    <div className='toastify-header'>
-      <div className='title-wrapper'>
-        <Avatar size='sm' color='success' icon={<Coffee size={12} />} />
-        <h6 className='toast-title font-weight-bold'>Welcome, {name}</h6>
-      </div>
-    </div>
-    <div className='toastify-body'>
-      <span>You have successfully logged in as an {role} user to WOW Talent. Now you can start to explore. Enjoy!</span>
-    </div>
-  </Fragment>
-)
-
 const Login = props => {
   const [skin, setSkin] = useSkin()
   const ability = useContext(AbilityContext)
@@ -65,7 +51,8 @@ const Login = props => {
             ...res.data.data
           }
           dispatch(handleLogin(data))
-          history.push(getHomeRouteForLoggedInUser(data.data.roletype))
+          // console.log('fghjk')
+          // history.push(getHomeRouteForLoggedInUser(data.data.roletype))
         })
         .catch(err => console.log(err))
     }

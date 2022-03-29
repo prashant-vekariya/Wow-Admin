@@ -196,13 +196,6 @@ const Router = () => {
             return isUserLoggedIn() ? <Redirect to={DefaultRoute} /> : <Redirect to='/login' />
           }}
         />
-        <Route
-          exact
-          path='/react-admin'
-          render={() => {
-            return isUserLoggedIn() ? <Redirect to={DefaultRoute} /> : <Redirect to='/login' />
-          }}
-        />
         {/* If user is logged in Redirect user to DefaultRoute else to login */}
         <Route
           exact
