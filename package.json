@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": "14.17.0"
+    "node": "14.17.0",
+    "yarn": "1.22.17"
   },
   "dependencies": {
     "@casl/ability": "5.2.2",
@@ -99,7 +100,6 @@
     "build": "yarn build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "heroku-postbuild": "yarn build",
     "lint": "eslint src/**/*.js src/**/*.jsx",
     "lint:fix": "eslint src/**/*.js --fix"
   },
