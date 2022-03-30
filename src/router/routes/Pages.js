@@ -71,12 +71,12 @@ const PagesRoutes = [
     {
         path: '/faq',
         exact: true,
-        component: lazy(() => import('../../views/Faq'))
+        component: lazy(() => import('../../views/Faqs'))
     },
     {
         path: '/faq/:id',
         exact: true,
-        component: lazy(() => import('../../views/Faq/FaqEdit'))
+        component: lazy(() => import('../../views/Faqs/FaqEdit'))
     },
     {
         path: '/clips',
